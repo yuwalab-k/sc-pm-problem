@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>平成29年度 秋 問3 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">平成29年度 秋 問3</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問3　SSL/TLS を用いたサーバの設定と運用</h2><div class="problem-body"><pre class="text-block">C社は、衣服のデザイン、製造及び販売を行う中堅の衣料品製造会社である。近年は、C社の複数の販売チャネルのうち、EC モールに出店したオンラインショップでの販売量が増えており、C社の社名も比較的知られるようになった。C社では、事業を更に拡大するために、新たに独自のドメイン名を取得し、C社専用の販売サイト（以下、ECサイトという）を立ち上げることにした。
+ECサイトの構築、運用及び管理は、C社のシステム部が担当することになった。
+システム部は開発会社の協力を得て構築を進め、当初の計画どおり運用が開始された。</pre>
+<pre class="text-block">[社外からの通報]運用開始から 3か月が経過した頃，C社の問合せ窓口に、ECサイトで利用されている一部のサーバ証明書に対応する秘密鍵が、サーバ証明書と一緒に、あるWeb サイト（以下、Qサイトという）に掲示されているという通報があった。そこで、システム部のM 部長は、ECサイトの管理を担当するBさんに、セキュリティ専門会社であるE社の支援を得て本件を調査し必要な措置を講じるよう指示した。
+E社のセキュリティコンサルタントであるH氏のアドバイスを受けてBさんが確かめたところ、Qサイトに掲示された秘密鍵は自社のものと一致していた。Bさんは鍵が危たい化したと判断した。
+次は、H氏とBさんの会話である。</pre>
+<pre class="text-block">H氏：サーバ証明書に対応する秘密鍵が公開された影響について、順に説明していきましょう。サーバ証明書は認証局サービス事業者から発行されます。
+サーバ証明書には、サーバの FQDNと公開鍵が記載されます。サーバ証明技術を利用書の作成とその検証には公開鍵暗号方式を利用したします。サーバ証明書は SSL/TLS で利用されます。SSL/TLS は複数の暗号技術を用います。データの送受信時は、暗号化と復号のためにで使用する鍵を利用します。また、データの送信者と受信者がb</pre>
+<pre class="text-block">を行います。現在，を共有するために、公開鍵暗号方式を用いて世の中で発行されているサーバ証明書には複数の種類があり、代表的なものはドメイン認証証明書と[です。サーバ証明書の種類によって、認証局サービス事業者が発行時に行う審査の内容が異なります。
+秘密鍵を知った者は、御社のECサイトと利用者との通信パケットを入手できれば、それを復号して内容をのぞき見できる可能性があります。また、御社のECサイトを複製して係のECサイトを立ち上げ、①DNSキャッシュポイズニング攻撃と組み合わせて、不正を行うかもしれません。</pre>
+<pre class="text-block">H氏は、DNS キャッシュポイズニング攻撃について説明した。</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>Bさん</dt><dd>分かりました。でも、なぜ鍵が他者に知られてしまったのでしょうか。</dd></div><div class="dialogue-line"><dt>H氏</dt><dd>経緯はまだ分かりません。Qサイトには、サーバ証明書のうち、ある古い暗ソフトウェア（以下、Zソフトという）を用いて鍵ペアが生成されたものを対象に秘密鍵の推定を試み、推定に成功したものを掲示している旨の説明がありました。御社は2ソフトを利用していませんか。②鍵ペアの生成に用いる擬似乱数生成器に必要な条件を、Zソフトは、満たさないことが分かっています。</dd></div></dl>
+<pre class="text-block">[鍵の危たい化への初動対応]H氏は、次の二つの措置をとるようにBさんにアドバイスした。
+］停止・当該鍵に関わるサーバ証明書の[ア］申請・当該鍵に関わるサーバ証明書の■_イ</pre>
+<pre class="text-block">H氏は、今後，再び鍵の危たい化が起きた場合に備えて、あらかじめ検討して準備しておくことが望ましい事項について、Bさんに説明した。その事項を図1に示す。</pre>
+<pre class="text-block">・鍵の危たい化に対応するための体制。及びその役割と責任（認証局サービス事業者との連携を含む。）・鍵が危たい化した又はそのおそれがあると判断する基準・鍵が危たい化した又はそのおそれがあると判断した場合の実施事項停止（1） 当該鍵に関わるサーバ証明書のア申請（2） 当該鍵に関わるサーバ証明書のィ原因の調査（3）（4） 影響範囲の調査（5） 原因の除去③当該鍵を使用していたサーバの利用者が、自身の被害の可能性を判断できるようにす（6）るための情報の公表（7） その他の必要な是正処置・システムを復旧させる際の守事項（1） 危たい化した鍵に関わる証明書署名要求（CSR）の再利用禁止の生成と、その利用（2）eあらかじめ検討して準備しておくことが望ましい事項図1[H氏による調査及び問題の指摘]Bさんは、秘密鍵が他者に知られてしまった原因と，SSL/TLSの利用に関してECサイトの設定などに改善すべき問題がないかについて、H氏に調査を依頼した。
+H氏による調査の結果を図2に、暗号スイートの名前の構成を図3に示す。
+1.ECサイトの設定など基本情報・ECサイトのサーバ数：5台・社外からアクセスできる全てのサーバで SSL/TLS を利用利用可能なプロトコルのバージョン：SSL 3.0, TLS 1.0, TLS 1.1, TLS1.2・サーバの鍵ペアは、Zソフトを利用して生成鍵ペアは、特定の機器で生成されていた。当該機器にZソフトがインストールされていた。
+・SSLTLSの暗号スイートに、次のものを設定（1） TLS_RSA_WITH AES_128_CBC.ISHA（2） TLS_RSA_WITH_AES_128_CBC SHA256ISHA256-GCM.IRSA WITH AES_128.（3） TLS.1CBC SHA（4） TLS_RSAWITH_CAMELLIA_128（5） TLS_RSA_WITH_CAMELLIA_128_CBC_SHA256-GCM_SHA256（6） TLS_LRSA WITH_CAMELLIA_128.（省略）・サーバ証明書は、認証局サービス事業者✕社が発行するドメイン認証証明書を採用2.秘密鍵が他者に知られてしまった原因・鍵ペアの生成にZソフトを利用していたので，Qサイトが推定に成功したと推測3.SSL/TLS の利用に関して改善すべき問題問題1 POODLE 攻撃に対して施弱であることPerfect Forward Sectecy（以下、PFS という）に対応していないこと問題2問題3 サーバ証明書にドメイン認証証明書を用いていること図2 H氏による調査の結果（抜粋）</pre>
+<pre class="text-block">（a） 認証及び鍵交換のアルゴリズム（b） データ暗号化のアルゴリズムTLS RSA WII AES 128 CBC SUA（c） MAC又はPRF （Pseudorandom（c）Function）のアルゴリズム図3 暗号スイートの名前の構成（概要）問題1中の POODLE 攻撃の概要を図4に示す。H氏は、④問題1を解決するために各サーバに施すべき措置を提案した。</pre>
+<pre class="text-block">・POODLE 攻撃によって、攻撃者は、暗号化されたデータの一部を解読し，取得できる。
+・中間者攻撃が可能であり、かつ，攻撃対象に大量のデータを送できることなどの一定の条件を満たす場合に、攻撃が成功する。
+・SSL 3.0 プロトコルのパディングチェックの胎弱性を利用して攻撃する。ソフトウェアの開発時に起こり得る実装上のミスによる施弱性を利用するものではない。
+・TLS 1.0 以降のプロトコルについて、同様のパディングチェックの仕組みを突いた攻撃の可能性はあるが、実装上の問題がなければ成功は困難と考えられている。
+図 4 POODLE 攻撃の概要</pre>
+<pre class="text-block">問題 2は、C社がSSL/TLS のハンドシェイクにおいて、⑤PFS の性質をもつ鍵交換方式を利用せず、代わりに、⑥セッション鍵を共有するための秘密情報をクライアントがサーバ証明書に記載された RSAの公開鍵を用いて暗号化して送する方式を用いていたことである。
+問題3は、サーバ証明書の種類についてである。H氏は、DECサイトが新たに立ち上げたサイトであることを考慮すると、ドメイン認証証明書の選択は妥当でないと指摘した。</pre>
+<pre class="text-block">[対策実施と運用見直し］Bさんは、H氏の支援を受け、各問題について解決策を検討した。また、M 部長の承認の下、図1の事項の検討も進めた。C社は、Qサイトに関わる通報を受けた1か月後には、各問題を解決し、今後起こり得る鍵の危たい化に備えた態勢を整えた。</pre>
+<pre class="text-block">設問1[社外からの通報]について，（1）～（3）に答えよ。
+コに入れる適切な字句を解答群の中から（1） 本文中のda選び、記号で答えよ。
+解答群イEV証明書ウエンコード方式ア CA証明書カ共通鍵暗号エ エンティティ認証 オ鍵交換キ公開鍵ヶ相互認証証明書ク自己解凍コ ディジタル署名サハッシュ関数シメッセージ認証スルート証明書（2） 本文中の下線①について、DNS キャッシュポイズニング攻撃は偽の EC サイトと組み合わせた不正の中でどのような役割を果たすか。40字以内で具体的に述べよ。
+（3） 本文中の下線②について、擬似乱数生成器が生成する乱数列に求められる性質として、適切なものを、解答群の中から選び、記号で答えよ。
+解答群アー様分布でない。
+イ規則性がある。
+エ予測不可能である。
+ウ周期が短い。
+設問2 [鍵の危たい化への初動対応]について、（1）～（3）に答えよ。
+■に入れる適切な字句を、それ（1） 本文中及び図 1中のアぞれ5字以内で答えよ。
+（2） 図 1中の下線③について、公表すべき情報として、重要なものを二つ挙げ，それぞれ 20字以内で具体的に述べよ。
+■に入れる適切な字句を、7字以内で答えよ。
+（3） 図1中のe設問3 [H氏による調査及び問題の指摘について、（1）～（4）に答えよ。
+（1） 本文中の下線④について、H氏が提案した措置を、20字以内で述べよ。
+（2） 本文中の下線⑤について、SSL/TLS の利用において、PFS の性質をもつ鍵交換方式を解答群の中から全て選び、記号で答えよ。
+解答群ウ DHEエ DSAイCFBア AESキ PKCSオ ECDHE力 ECDSAク RSA</pre>
+<pre class="text-block">（3） 本文中の下線⑥について、RSAの鍵が危たい化した場合に，当該鍵を用いてハンドシェイクを行った通信に関するリスクは何か。そのリスクの説明として、最も適切なものを解答群の中から選び、記号で答えよ。ここで、攻者は、WebブラウザとWeb サーバの通経路上におり、危たい化前後における通信データを取得していたものとする。
+解答群ア取得された通信データのうち、鍵が危たい化した時点より前の通信データだけを，復されるおそれがある。
+イ取得された通信データのうち、鍵が危たい化した時点で通中だった通データだけを、復示されるおそれがある。
+ウ 取得された通信データのうち、鍵が危たい化した時点より後の通信データだけを、復示されるおそれがある。
+エ 取得された通信データの全てを復示されるおそれがある。
+（4） 本文中の下線⑦について、妥当でないと指摘した理由を、40字以内で述べよ。</pre>
+<pre class="text-block">■“</pre>
+<pre class="text-block">= 20=</pre>
+<pre class="text-block">モ用紙］[メ</pre>
+<pre class="text-block">[メモ用紙］</pre>
+<pre class="text-block">モ用紙]</pre>
+<pre class="text-block">= 23 =</pre>
+<pre class="text-block">6. 退室可能時間に途中で退室する場合には、手を挙げて監督員に合図し，答案用紙が回収されてから静かに退室してください。
+13:10～13:50退室可能時間問題に関する質問にはお答えできません。文意どおり解釈してください。
+7.8. 問題冊子の余白などは、適宜利用して構いません。ただし，問題冊子を切り離して利用することはできません。
+9．試験時間中、机上に置けるものは、次のものに限ります。
+なお、会場での貸出しは行っていません。
+受験票，黒鉛筆及びシャープペンシル（B 又は HB），筆削り，消しゴム，定規時計（時計型ウェアラブル端末は除く。アラームなど時計以外の機能は使用不可），ハンカチ、ポケットティッシュ、目薬これら以外は机上に置けません。使用もできません。
+10．試験終了後，この問題冊子は持ち帰ることができます。
+11.答案用紙は、いかなる場合でも提出してください。回収時に提出しない場合は、採点されません。
+12．試験時間中にトイレへ行きたくなったり、気分が悪くなったりした場合は、手を挙げて監督員に合図してください。
+13．午後Iの試験開始は14:30ですので、14:10までに着席してください。</pre>
+<pre class="text-block">試験問題に記載されている会社名又は製品名は、それぞれ各社又は各組織の商標又は登録商標です。
+なお、試験問題では、IM 及び®を明記していません。</pre>
+<pre class="text-block">©2017独立行政法人情報処理推進機構</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問3　SSL/TLSと証明書管理</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝カ・オ（TLSのメカニズム）
+b,c,d＝イ（証明書検証）</div></div><div class="expl-explanation">TLS1.2/1.3のハンドシェイクと証明書検証の仕組み。CAによる署名検証→有効期限確認→CRL/OCSP失効確認→サブジェクト/SANのホスト名照合のすべてが必要。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">正規のECサイトのURLでアクセスしたときに係のECサイトに誘導する（SSLスワッピング）</div></div><div class="expl-explanation">DNSキャッシュポイズニングとフィッシングの組み合わせ。正規URLを詐称サイトのIPに解決させることで、ユーザが正規URLにアクセスしても攻撃者のサイトに誘導できる。証明書のコモンネーム確認で識別可能。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">ア＝利用　イ＝失効</div></div><div class="expl-explanation">証明書の危殆化対応。秘密鍵が漏えいした場合、その証明書を即座に失効させ（CRLへの掲載・OCSPレスポンス更新）、新しい鍵ペアで証明書を再発行する。Heartbleedのような脆弱性後の対応として実施された。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">SSL3.0を利用しない（POODLE攻撃対策）</div></div><div class="expl-explanation">POODLE（Padding Oracle On Downgraded Legacy Encryption）攻撃への対策。SSL3.0のCBCモード暗号化の脆弱性を悪用した攻撃。TLS_FALLBACK_SCSVの使用またはSSL3.0の完全無効化が対策。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

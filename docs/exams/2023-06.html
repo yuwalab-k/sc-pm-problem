@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>令和5年度 秋 問2 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">令和5年度 秋 問2</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問2　セキュリティ対策の見直し</h2><div class="problem-body"><figure class="text-figure"><div class="text-figure-body"><div class="fig-text">M社は，L社の子会社であり、アパレル業を手掛ける従業員100名の会社である。M社のオフィスビルは、人通りの多い都内の大通りに面している。</div>
+<div class="fig-text">昨年、M社の従業員が、社内ファイルサーバに保存していた秘密情報の商品デザインファイルをUSBメモリに保存し，競合他社に持ち込むという事件が発生した。この事件を契機として、L社からの指導でセキュリティ対策の見直しを進めている。既に次の三つの見直しを行った。</div>
+<div class="fig-text">・USBメモリへのファイル保存を防ぐために、従業員に貸与するノートPC（以下、業務PCという）に情報漏えい対策ソフトを導入し、次のように設定した。</div>
+<div class="fig-l2"><span class="fig-marker">（1）</span><span class="fig-body">USBメモリなどの外部記憶媒体の接続を禁止する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（2）</span><span class="fig-body">ソフトウェアのインストールを除いて、ローカルディスクへのファイルの保存を禁止する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（3）</span><span class="fig-body">会社が許可していない Web メールサービス及びクラウドストレージサービスへの通言を遮断する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（4）</span><span class="fig-body">会社が許可していないソフトウェアのインストールを禁止する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（5）</span><span class="fig-body">電子メール送時のファイルの添付を禁止する。</span></div>
+<div class="fig-text">・業務用のファイルの保存場所を以前から利用していたクラウドストレージサービス（以下、Bサービスという）の1か所にまとめ、設定を見直した。</div>
+<div class="fig-text">・社内ファイルサーバを廃止した。</div></div></figure>
+<pre class="text-block">M社のオフィスビルには、執務室と会議室がある。執務室では従業員用無線LANが利用可能であり、会議室では、従業員用無線LANと来客用無線LANの両方が利用可能である。会議室にはプロジェクターが設置されており、来客が持ち込む PG， タブレット及びスマートフォン（以下，これらを併せて来客持込端末という）又は業務 POを来客用無線LANに接続することで利用可能である。
+M社のネットワーク構成を図1に、その構成要素の概要を表1に、M社のセキュリティルールを表2に示す。</pre>
+<pre class="text-block">BサービスインターネットM社会議室執務室「来客用無線LANWAN-IF11192.168.10.0/24「サーバネットワークIF1FW1192.168.30.0/24\P9来客持込端末P10業務サーバP24P11L2SWプロジェクターP12P20P23P13DHCPサーバ業務PCDNSサーバAP-5AP-1ディレクトリ従業員用無線LANサーバ192.168.20.0/24業務PC業務PC</pre>
+<pre class="text-block">AP：無線LANアクセスポイントFW：ファイアウオールL2SW：レイヤー2スイッチ注記1IF1,WAN-IF1はFWのインタフェースを示す。
+注記2P9～P13及びP20～P24はL2SWのポートを示す。
+注記3L2SWはVLAN機能をもっており、各ポートには接続されている機器のネットワークに対応したVLAN IDが割り当てられている。P9とP24ではタグVLANが有効化されており、そのほかのポートでは無効化されている。有効化されている場合、複数の VLAN ID が割当て可能である。無効化されている場合、一つのVLAN IDだけが割当て可能である。
+図1 M社のネットワーク構成</pre>
+<div class="table-wrap"><p class="table-caption">表1 構成要素の概要（抜粋）</p><pre class="raw-ocr-table">表1 構成要素の概要（抜粋）概要構成要素・通、制はステートフルパケットインスペクション型である。
+FW・NAT 機能を有効にしている。
+・DHCP リレー機能を有効にしている。
+AP-1~5・無線LANの認証方式は WPA2-PSK である。
+・AP-1～4には、従業員用無線LANのSSIDが設定されている。
+・AP-5には、従業員用無線LANのSSIDと来客用無線LANのSSID の両方が設定されている。
+・従業員用無線LAN だけに MAC アドレスフィルタリングが設定されており、事前に情報システム部で登録された業務 PCだけが接続できる。
+・同じ SSIDの無線LANに接続された端末同士は、通可能である。
+Bサービス・HTTPSでアクセスする。
+・HTTP Strict Transport Security（HSTS）を有効にしている。
+・従業員ごとに割り当てられた利用者IDとパスワードでログインし、利用する。
+・M社の従業員に割り当てられた利用者IDでは、a1.b1.c1.d11）からだけ、Bサービスにログイン可能である。
+・ファイル共有機能がある。従業員がM社以外の者と業務用のファイルを共有するには、Bサービス上で、共有したいファイルの指定、外部の共有者のメールアドレスの入力及び上長承認申請を行い，上長が承認する。承認されると、指定されたファイルの外部との共有用URL（以下、外部共有リンクという）が発行され、外部の共有者宛てに電子メールで自動的に送される。外部共有リンクは、本人及び上長には知らされない。外部の共有者は外部共有リンクにアクセスすることによって、Bサービスにログインせずにファイルをダウンロード可能である。外部共有リンクは、発行されるたびに新たに生成される推測困難なランダム文字列を含み、有効期限は1日に設定されている。
+業務 PC・日常業務のほか、B サービスへのアクセス、インターネットの閲覧，電子メールの送受などに利用する。
+・TPM（Trusted Platform Module） 2.0を搭載している。
+DHCP サーバ・業務 PC，来客持込端末にIPアドレスを割り当てる。
+・業務 PC，来客持込端末が利用するDNS キャッシュサーバである。
+DNSサーバk・インターネット上のドメイン名の名前解決を行う。
+ディレクトリ・ディレクトリ機能に加え、ソフトウェア、クライアント証明書などを業務PCにインストールする機能がある。
+サーバ注1） グローバルIPアドレスを示す。</pre></div>
+<div class="table-wrap"><p class="table-caption">表2</p><pre class="raw-ocr-table">表2M社のセキュリティルール（抜粋）項目セキュリティルール業務 PC の持出し・社外への持出しを禁止する。
+・個人所有のPC，タブレット、スマートフォンなどの機器の執務業務 PC以外の持込み室への持込みを禁止する。
+・B サービスのファイル共有機能以外の方法での社外への持出し業務用のファイルの持出しを禁止する。</pre></div>
+<pre class="text-block">FWのVLAN インタフェース設定を表3に、FWのフィルタリング設定を表4に、AP-5の設定を表5に示す。</pre>
+<pre class="text-block">表3FWのVLAN インタフェース設定タグ VLAN）サブネットマスクVLAN名物理インタVLAN ID項番IPアドレスフェース名192.168.10.1VLAN101IF1有効255.255.255.010192.168.20.12255.255.255.0VLAN2020192.168.30.1VLAN303255.255.255.030VLAN1255.255.255.248無効al.b1.c1.d1WAN-IF14注”）物理インタフェースでのタグVLANの設定を示す。有効の場合，複数のVLAN IDが割当て可能である。無効の場合、一つのVLAN IDだけが割当て可能である。</pre>
+<pre class="text-block">表 4FWのフィルタリング設定送信元IPアドレ動作NAT］）サービス宛先 IPアドレス出カイン入力イ項番タフェーンタフスエースス全て192.168.10.0/24IF1許可有効HTTP，WAN-IF11HTTPS192.168.20.0/24IF1HTTP，有効全て許可WAN-IF12HTTPSIF1HTTP，許可192.168.30.0/24全て有効3WAN-IF1HTTPS，DNS192.168.30.0/24192.168.10.0/24IF1DNSIF1許可4無効IF1192.168.30.0/24192.168.20.0/24IF1全て許可無効5192.168.20.0/24192.168.30.0/24許可無効IF1全て6IF17全て無効全て全て拒否全て全て項番が小さいルールから順に、最初に合致したルールが適用される。
+注記注 ” 現在の設定では有効の場合、送信元IPアドレスがa1.b1.c1.d1に変換される。</pre>
+<pre class="text-block">表5 AP-5 の設定（抜粋）設定2項目設定1SSIDm-guestm-employee来客用無線LAN従業員用無線LAN用途2.4GHz2.4GHz周波数有効無効SSID 通知WPA2WPA2暗号化方法WPA2-PSKWPA2-PSK認証方式Kxwekreb85gjbp5gkgajfg事前共有キー（WPA2-PSK）Mkr4bof2bhotjt有効有効タグ VLANVLAN ID2010</pre>
+<pre class="text-block">[Bサービスからのファイルの持出しについてのセキュリティ対策の確認]これまで行った対策の見直しに引き続き、Bサービスからのファイルの持出しのセキュリティ対策について、十分か否かの確認を行うことになった。そこで，情報システム部のYさんが、L社の情報処理安全確保支援士（登録セキスペ）であるS氏の支援を受けながら、確認することになった。2人は、社外の攻撃者による持出しと従業員による持出しのそれぞれについて、セキュリティ対策を確認することにした。</pre>
+<pre class="text-block">【社外の攻撃者によるファイルの持出しについてのセキュリティ対策の確認]次は，社外の攻撃者によるBサービスからのファイルの持出しについての、YさんとS氏の会話である。</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>Yさん</dt><dd>来客用無線LANを利用したことのある来客者が、攻撃者としてM社の近くから来客用無線LANに接続し，Bサービスにアクセスするということが考えられないでしょうか。
+：それは考えられます。しかし，B サービスにログインするにはS氏aが必要です。</dd></div><div class="dialogue-line"><dt>bYさん</dt><dd>来客用無線LANのAPと同じ設定の為のAP（以下、偽APという）、及びBサービスと同じ URLの為のサイト（以下、サイトという）を用意し、DNS のと設定を細工して、を盗む方法はどうでしょうか。
+ba攻撃者が APをM社の近くに用意した場合に、M社の従業員が業務PCを為AP に誤って接続してB サービスにアクセスしようとすると、サイトにア</dd></div></dl>
+<pre class="text-block">クセスすることになり、ログインしてしまうことがあるかもしれません。
+S氏：従業員がHTTPSでサイトにアクセスしようとすると、安全な接続ではないという旨のエラーメッセージとともに、サイトに使用されたサーバ証明書に応じて、図2に示すエラーメッセージの詳細の一つ以上がWebブラウザに表示されます。従業員は正規のサイトでないことに気付けるので、ログインしてしまうことはないと考えられます。</pre>
+<pre class="text-block">d・このサーバ証明書は、失効している。
+・このサーバ証明書は、有効期限が切れている。
+図2 エラーメッセージの詳細（抜粋）</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>Yさん</dt><dd>なるほど、理解しました。しかし、偽APに接続した状態で、従業員がWebブラウザにBサービスの URLを入力する際に，誤って “http://”と入力してBサービスにアクセスしようとした場合、エラーメッセージが表示されないのではないでしょうか。</dd></div><div class="dialogue-line"><dt>S氏</dt><dd>大丈夫です。HSTS を有効にしてあるので、その場合でも、①先ほどと同じエラーメッセージが表示されます。</dd></div></dl>
+<pre class="text-block">[従業員によるファイルの持出しについてのセキュリティ対策の確認］次は、従業員によるBサービスからのファイルの持出しについての，S氏とYさんとの会話である。</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>S氏</dt><dd>ファイル共有機能では、上長はちゃんと宛先のメールアドレスとファイルを確認してから承認を行っていますか。</dd></div><div class="dialogue-line"><dt>Yさん</dt><dd>確認できていない上長もいるようです。</dd></div><div class="dialogue-line"><dt>S氏</dt><dd>そうすると、従業員は、②ファイル共有機能を悪用すれば、M社外からBサービスにあるファイルをダウンロード可能ですね。</dd></div><div class="dialogue-line"><dt>Yさん</dt><dd>確かにそうです。</dd></div><div class="dialogue-line"><dt>S氏</dt><dd>ところで、会議室には個人所有PCは持ち込めるのでしょうか。</dd></div></dl>
+<dl class="dialogue"><div class="dialogue-line"><dt>Yさん</dt><dd>会議室への持込みは禁止していないので、持ち込めます。</dd></div><div class="dialogue-line"><dt>S氏</dt><dd>そうだとすると、次の方法1と方法2のいずれかの方法を使って、Bサービスからファイルの持出しが可能ですね。</dd></div></dl>
+<dl class="dialogue"><div class="dialogue-line"><dt>方法1</dt><dd>個人所有PCの無線LANインタフェースのを業務PC の無線LAN イ」に変更した上で、個人所有 PC を従業員用無線ンタフェースのLANに接続し、Bサービスからファイルをダウンロードし、個人所有 PCごと持ち出す。</dd></div><div class="dialogue-line"><dt>方法 2</dt><dd>個人所有PCを来客用無線LANに接続し、Bサービスからファイルをダウンロードし、個人所有PCごと持ち出す。</dd></div></dl>
+<pre class="text-block">[方法1と方法 2についての対策の検討]方法 1への対策については、従業員用無線LANの認証方式としてEAP-TLSを選択し、③認証サーバを用意することにした。
+次は、必要となるクライアント証明書についてのS氏とYさんの会話である。</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>S氏</dt><dd>クライアント証明書とそれに対応するは、どのようにしますか。</dd></div><div class="dialogue-line"><dt>Yさん</dt><dd>クライアント証明書は、CA サーバを新設して発行することにし、従業員が自身の業務PCにインストールするのではなく、ディレクトリサーバの機能しておくために業務 PCで業務 PCに格納します。
+のTPMに格納し、保護します。</dd></div><div class="dialogue-line"><dt>S氏</dt><dd>④その格納方法であれば問題ないと思います。</dd></div></dl>
+<pre class="text-block">方法2への対策については、次の二つの案を検討した。
+・GFWのNAT の設定を変更する。
+・無線LANサービスであるDサービスを利用する。</pre>
+<pre class="text-block">検討の結果、Dサービスを次のとおり利用することにした。
+・会議室に、Dサービスから貸与された無線LAN ルータ（以下、Dルータという）を設置する。</pre>
+<pre class="text-block">・Dルータでは、DHCP サーバ機能及び DNSキャッシュサーバ機能を有効にする。
+・来客持込端末は、M社のネットワークを経由せずに，D ルータに搭載されているSIMを用いてDサービスを利用し、インターネットに接続する。</pre>
+<pre class="text-block">サーバへの通信今まで必要だった、来客持込端末から DHCP サーバとは、不要になる。さらに、表5について不要になった設定を削除するとともに、⑥表3及び表4についても、不要になった設定を全て削除する。また，プロジェクターについては、来客用無線LANを利用せず、HDMIケーブルで接続する方法に変更する。</pre>
+<pre class="text-block">YさんとS氏は、ほかにも必要な対策を検討し，これらの対策と併せて実施した。</pre>
+<pre class="text-block">設問 1[社外の攻撃者によるファイルの持出しについてのセキュリティ対策の確認］について答えよ。
+■に入れる適切な字句を答えよ。
+（1） 本文中のba■に入れる適切な字句を、それぞれ40字（2） 図2中のdC以内で答えよ。
+（3） 本文中の下線①について、エラーメッセージが表示される直前までの Webブラウザの動きを、60字以内で答えよ。
+設問2[従業員によるファイルの持出しについてのセキュリティ対策の確認]について答えよ。
+（1） 本文中の下線②について、M社外からファイルをダウンロード可能にするためのファイル共有機能の悪用方法を、40字以内で具体的に答えよ。
+（2） 本文中のに入れる適切な字句を答えよ。
+e設問3 [方法1と方法2についての対策の検討]について答えよ。
+（1） 本文中の下線③について、認証サーバが EAPで使う UDP 上のプロトコルを答えよ。
+（2） 本文中のfに入れる適切な字句を答えよ。
+（3） 本文中のに入れる適切な字句を、20字以内で答えよ。
+（4） 本文中の下線④について、その理由を、40字以内で答えよ。
+（5） 本文中の下線⑤について、変更内容を、70字以内で答えよ。</pre>
+<pre class="text-block">（6） 本文中のhに入れる適切な字句を答えよ。
+（7） 本文中の下線⑥について、表3及び表 4の削除すべき項番を、それぞれ全て答えよ。</pre>
+<pre class="text-block">15</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問2　無線LANセキュリティと証明書検証</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（順不同）利用者ID・パスワード</div></div><div class="expl-explanation">EAP-PEAPやEAP-TLSなどのWPA-Enterprise認証における認証情報。フリーWiFiや偽APに接続した場合、認証情報が盗まれる可能性がある。証明書検証によるサーバ認証が重要。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">C：このサーバ証明書は信頼された認証局から発行されたサーバ証明書ではない
+d：このサーバ証明書に記載されているサーバ名は接続先のサーバ名と異なる</div></div><div class="expl-explanation">TLS証明書の検証エラーの種類。自己署名証明書・不正なCA発行証明書は「信頼されない認証局」エラー。証明書のCN/SANと接続先ホスト名の不一致は「ホスト名検証失敗」エラー。いずれも接続を中断すべき。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">HTTPのアクセスをHTTPSのアクセスに置き換えてアクセスする。その後、サイトからサーバ証明書を受け取る</div></div><div class="expl-explanation">HSTS（HTTP Strict Transport Security）を利用したHTTPSへの強制切替。HSTSが設定されていない場合、SSLストリップ攻撃でHTTPにダウングレードされる恐れがある。ブラウザはHSTSヘッダを受信したドメインへは自動でHTTPS接続する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">外部共有者のメールアドレスに自身の私用メールアドレスを指定する</div></div><div class="expl-explanation">内部不正によるデータ持ち出し。コラボレーションツールの外部共有機能を悪用し、業務データを私用メールアドレスに共有することで社外に持ち出す。DLP（Data Loss Prevention）ソリューションによる監視が有効。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">e＝MACアドレス（フィルタリング用識別子）</div></div><div class="expl-explanation">無線LANのMACアドレスフィルタリング。登録されたMACアドレスのみ接続を許可するが、MACアドレスは簡単にスプーフィング（偽装）できるため単独の対策としては不十分。WPA3などの強力な認証と組み合わせる。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>平成29年度 春 問2 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">平成29年度 春 問2</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問2　Webサイトのセキュリティ対策</h2><div class="problem-body"><pre class="text-block">E社は、従業員数 200名の情報サービス事業者である。E社は、3年前からWebサイトα（以下、サイトaという）を利用して、次のような機能をもつ会員制の飲食店情報提供サービスを行っている。
+・飲食店情報の検索・飲食店情報に関する掲示板での投稿・新規登録情報の、会員への電子メール（以下、メールという）による通知</pre>
+<pre class="text-block">サイトαに対する脆弱性修正プログラムの適用や、コンテンツ作成などの日々の作業は、情報提供サービス担当チームが行っている。チームはリーダのQさんと5名のメンバで構成されている。サイトaで稼働しているWeb アプリケーションソフトウェアは、情報提供サービス担当チームがベンダに開発と保守を委託している。
+サイトαの画面遷移図を図1に、画面遷移の仕様を表1に示す。</pre>
+<pre class="text-block">（あログインマイページ検索ページページ掲示板掲示板掲示板投稿確認投稿完了メールアドレメールアドレメールアドレ→会員メニュス変更確認ス変更完了ス変更（い）パスワードパスワード変更変更完了パスワードプロフィールプロフィール（う）。
+、プロフィール再設定→確認登録完了入力・変更（お）（え）退会完了退会確認退会処理→注記1ログインページ以外からのマイページへの画面遷移，エラー時の画面遷移、画面を戻るための遷移，ログアウトの画面遷移は省略している。
+注記2全画面とも同一ドメイン（www.e-sha.co.jp）で提供されている。
+図1 サイトαの画面遷移図（抜粋）</pre>
+<pre class="text-block">表1 サイトαの画面遷移の仕様（抜粋）画面PCでの操作例， URL操作の結果遷移及びPOST データ操作例：利用者ID（例：user0302）（あ）・user_id と、passwd のハッシュ値がサイトαにとパスワード（例：aBcD1234）を入登録されたものと同じ場合、新しいセッションID （JSESSIONID）とセッションオブジェクト力し、ログインボタンを押す。
+URL：https://www.e-sha.co.jp/oginが取得され、マイページが表示される。
+POST データ ： action_id=login&amp;user_JSESSIONID は Cookie に格納される。それ以外の場合、セッション IDとセッションオブジid=user0302 &amp;passwd=aBcD1234エクトは取得されず、ログインページに戻る。
+・ログイン記録（利用者ID と時刻）が取得される。
+（い）操作例：現在のパスワード（例：aBc・次を全て満たす場合はパスワードがnew _passwdl の値に変更され、次画面が表示さD1234）と新しいパスワード（例：aBcD5678）を入力し、変更ボタンをれる。
+押す。新しいパスワードは確認のた・old_passwd のハッシュ値が、サイトαに登録された現在のセッションをもつ利用者のパスめに、2回入力する。
+ワードのハッシュ値と同じである。
+URL：https://www.e-sha.co.jp/member/-old _passwd と new _passwdlの値が異なる。
+changepasswd・ new_passwd1 と new_passwd2の値が同じPOST データ：action_id=submit &amp;oldで、かつ、定められた複雑さを満たす。
+_passwd=aBcD1234 &amp;new_passwdl=a・それ以外の場合はパスワードが変更されず、エBcD5678&amp;new _passwd2=aBcD5678ラー画面が表示される。
+（う）操作例：名前（例：Bob）とコメント・nickname と comment に入力された値がセッションオブジェクトに格納され、次画面が表示さ（例：よろしく）を入力し、確認ボタンを押す。
+れる。profile_tokenが生成されてセッションオブジェクトに格納され，profile_token（例： CAURL:https://www.e-sha.co.jp/member/CC321A638BBC11DE9352EB8D5E56A3）がプprofilePOST データ：action_id=confirm &amp;nicロフィール確認画面のhidden に格納される。
+・プロフィール入力・変更画面では一部のkname =Bob&amp;comment=%E3%82%8HTML の要素の入力が許可されている。（許可8%E3%82%8D%E3%81%97%E3%8198F "）されている要素：b,font, i, s, sub, sup，・コメントに URLを記載するとリンクとして表示される。
+操作例：退会理由（例：特になし）・taikai_message に入力された値がセッションオ（え）ブジェクトに格納され、次画面が表示される。
+を入力し、退会確認ボタンを押す。
+URL：https://www.e-sha.co.jp/member/token（例： B582DF03524FBB9DBCCEOtaikaiBA0610F2EA1）が生成されてセッションオプtaikaiジェクトに格納され、退会確認画面の hiddenPOST データ：action_id=confirm &amp;taiに格納される。3kai_message=%E7%89%B9%E3%81%AB%E3%81%AA%E3%81%97 2）</pre>
+<pre class="text-block">表1 サイトαの画面遷移の仕様（抜粋）（続き）画面PCでの操作例， URL操作の結果遷移及びPOST データ（お）・taikai_ tokenの値がセッションオブジェクト内操作例：退会ボタンを押す。
+の値と同じ場合、退会処理が行われ、次画面がURL:https://www.e-sha.co.jp/member/表示される。違う場合、退会処理が行われず、taikaiエラー画面が表示される。
+POST データ：action id=submit&amp;etaik・退会処理時にセッション ID とセッションオプai token = B582DF 03524F BB9DBCCEジェクトが無効にされ、ログアウトされる。
+0BA0610F2EA1注”） “よろしく”をURLエンコードした値注2） “特になし”をURLエンコードした値注3） taikai token の値が0になることはない。</pre>
+<pre class="text-block">[利用者からの問合せ]ある日、サイト aの利用者L氏から、“今朝9時にログインし、サイトaを利用していたら、10時に急にログアウトさせられ、その後ログインできなくなった。パスワードを再設定しようとしたが、エラーが表示され、再設定できない。”という内容のメールがE社宛てに届き、他にも同様の問合せが数件来た。
+情報提供サービス担当チームの X さんがサイトαの会員情報データベースにアクセスし、L氏の情報を確認したところ、退会処理が完了していた。Xさんは、誰かが嫌がらせ目的でL 氏のアカウントで不正ログインし、退会処理を行った可能性を疑った。①x さんは、L氏に詳細な利用状況を確認し、その確認内容とログイン記録を照合した結果から、L氏のアカウントは少なくとも今日は不正ログインされていないとの結論に至った。
+Xさんが、ログインできなくなる前にどのような操作をしたかを氏に聞いたところ、サイトa内の掲示板に投稿していた人のプロフィール画面を見て、そこに記載されていたリンクをクリックしたとのことであった。リンク先は、別サイトのURLであり、かつ、Xさんが確認した時点ではリンク先は既に削除されていた。
+Xさんは、今回の事象が起きたのはサイトaに弱性があるからかもしれないと考え、セキュリティ専門業者」社にWeb アプリケーションソフトウェアの脆弱性検査（以下，WebAP 検査という）を依頼することにした。WebAP 検査の結果，脂弱性が二つ（以下、弱性 1，施弱性2という）検出された。</pre>
+<pre class="text-block">[施弱性 1について］脆弱性 1はの施弱性であった。施弱性1を確認した手順を表2に示aす。</pre>
+<pre class="text-block">表2脆弱性1を確認した手順表示された項番手順画面遷移（お）を試みる際のPOST データ画面画面遷移（え）を行った後、画面1退会完了action_id=submit &amp;taikai_token=B582DFO遷移（お）を試みる3524FBB9DBCCEOBA0610F2EA1 '）2画面遷移（え）を行った後、画面action_id=submit &amp;taikai_token=0エラー画面遷移（お）を試みる画面遷移（え）を行った後、画面退会完了action_id=submit3遷移（お）を試みるエラー画面action_id=submit &amp;taikai_token=0画面遷移（え）を経ずに、ログイ4ン後すぐに画面遷移（お）に相当するアクセスを試みる画面遷移（え）を経ずに、ログイエラー画面5action_id=submitン後すぐに画面遷移（お）に相当するアクセスを試みる注”）画面遷移（え）で生成された taikai_tokenの値とする。</pre>
+<pre class="text-block">次は、Xさんが」社の情報処理安全確保支援士K氏から、弱性 1についての報告を受けた時の会話である。</pre>
+<pre class="text-block">」の施弱性への対策を含めていたので、脆弱Xさん：開発委託時の要件に性1の対策はできていると思っていました。
+K氏：対策を試みたけれど、プログラムの実装に不備があったようです。プロフイール確認画面についても弱性が確認されています。
+Xさん：そうですか。退会処理が行われてしまった利用者がクリックしたリンク先はどのようなものだったのでしょうか。
+K氏：例えば、図2のような HTML です。この HTML は、表2中の項番bのような動作をWebブラウザにさせます。
+Xさん：変更操作がある画面のうち、パスワード変更画面は、そもそもの脂弱性への対策をしていませんが、問題ありませんか。
+K氏：パスワード変更画面では表1にあるように、を入力させる仕様C</pre>
+<pre class="text-block">= 11ー</pre>
+<pre class="text-block">は攻撃者がd情報であることを前提としてよです。
+Cいので、問題ありません。画面遷移（お）のような実装の不備もないようでした。</pre>
+<pre class="text-block">1 &lt;html＞2 &lt;head&gt;3 ＜meta http-equiv="Content-Type” content="text/html; charset=utf-8”&gt;4く/head&gt;5 ＜body&gt;6 &lt;iframe src="ifrm1. html” width=”！” height=”” name="ifrm1”&gt;&lt;/iframe&gt;7 &lt;iframe src="ifrm2.html” width=”1” height=”！” name="ifrm2”&gt;&lt;/iframe&gt;8 ＜form target=”ifrm1” method="POST” action="https://www.e-sha.co.jp/member/taikai”&gt;1”&gt;9 Kinput type="text” name="action_id” value=”10 &lt;input type="texe” name"taikai_message" valueaDk's11 &lt;input type="'submit”＞12 く/form&gt;13 ＜form target=”ifrm2” method=”POST”action="https://www.e-sha.co.jp/member/taikai”＞”＞14 &lt;input type="text” name=" action_id” value=”f15 ＜input type="submit”＞16 ＜/form＞17 ＜script&gt;setTimeout （' document, forms[0］.submit（）”，0）：&lt;/script&gt;18 ＜script&gt;setTimeout （' document, forms[1］. submit（）”，1000）；く/script＞19 く/body&gt;20 ＜/html＞図2 退会処理が行われてしまう HTML</pre>
+<pre class="text-block">[施弱性2について］脆弱性 2は“クロスサイトスクリプティング”であった。脆弱性 2を確認したのはプロフィール入力・変更画面であった。次はK氏とXさんとの会話である。</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>K氏</dt><dd>プロフィール入力・変更画面は、利用者が入力できる HTMLの要素が制限されています。しかし、例えば“＜ロン”タグ中に、②特定の属性を指定することによってスクリプトの実行が可能です。スクリプト実行の結果，Cookie の属性の設定によっては、Cookie の情報が盗まれます。これを用い_が行われ、勝手にプロフィールを閲覧されたり、変更されて、しgoたりするおそれがあります。</dd></div><div class="dialogue-line"><dt>Xさん</dt><dd>そういうことですか。では、利用者が入力できるHTMLの要素の制限は変</dd></div></dl>
+<pre class="text-block">えずに、という仕様に変更したいと思います。
+K氏：それで問題ありません。</pre>
+<pre class="text-block">Xさんは、二つの脂弱性について、対策をベンダに依頼した。対策後、」社にWebAP 検査を依頼し、問題がないことを確認した。Xさんは、リリース前の WebAP検査の義務化をQさんに提案し、採用された。</pre>
+<pre class="text-block">設問1 本文中の下線①について、L氏のアカウントが不正ログインされていないとの結論に至るには、L氏に確認した内容から分かる何の値と、ログイン記録から分かる何の値を抽出して、一致していることが確認できればよいか。それぞれ 25字以内で述べよ。
+設問2[脂弱性1について）について、（1）～（4）に答えよ。
+（1） 本文中のに入れる弱性の名称を、カタカナ 20字以内で答えよ。
+（2） 本文中のに入れる表2中の項番を1～5から選び、数字で答えbよ。
+■に入れる適切な字句を、それぞれ10字（3） 本文中の以内で答えよ。
+■に入れる適切な文字列を、それぞれ10（4） 図2中の字以内で答えよ。
+設問3[施弱性 2について]について、（1）～（3）に答えよ。
+（1） 本文中の下線②に該当する属性を解答群の中から全て選び、記号で答えよ。
+解答群ウ hiddenイア accesskeyエ idclassオlangキ onmouseoverク titleonclick（2） 本文中のに入れる攻撃の名称を 15字以内で答えよ。
+gに入れる仕様を25字以内で具体的に述べよ。
+（3） 本文中のh</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問2　CSRFとWebアプリのセキュリティ評価</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">L氏が今日ログインしたと言っている回数
+L氏の利用者IDを用いた今日のログイン記録</div></div><div class="expl-explanation">CSRFの調査方法。ログイン記録と利用者の申告を照合することで、利用者が意図しない時刻のアクセスや操作を特定できる。CSRFはユーザの認証済みセッションを悪用するため、ログに正規ユーザのIDで記録される。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">クロスサイトリクエストフォージェリ（CSRF）</div></div><div class="expl-explanation">CSRF（Cross-Site Request Forgery）。攻撃者が被害者のブラウザから意図しないリクエストを送信させる攻撃。被害者が認証済みのサービスに対して有害な操作（送金・設定変更等）を行わせる。CSRFトークンで防御する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">c＝現在のパスワード（攻撃者が）知り得ない</div></div><div class="expl-explanation">パスワード変更フォームへのCSRF対策。変更フォームに「現在のパスワード」の入力を必須にすることで、攻撃者が現在のパスワードを知らない限りCSRF経由のパスワード変更ができなくなる。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

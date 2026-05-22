@@ -63,17 +63,23 @@ def _gate_html(session_key: str) -> str:
 
 def load_all_exams() -> list[dict]:
     exams = []
-    for p in sorted(DATA_DIR.glob("*.json")):
+    for p in sorted(DATA_DIR.glob("*/*.json")):
+        if p.name.startswith("."):
+            continue
         with open(p, encoding="utf-8") as f:
             exams.append(json.load(f))
-    exams.sort(key=lambda e: (e["year"], e.get("split") or 0, e["period"]))
+    exams.sort(key=lambda e: e["id"])
     return exams
+
+
+def get_year(exam: dict) -> int:
+    return int(exam["id"].split("-")[0])
 
 
 def group_by_year(exams: list[dict]) -> dict:
     groups: dict[int, list] = {}
     for exam in exams:
-        year = exam["year"]
+        year = get_year(exam)
         groups.setdefault(year, []).append(exam)
     return dict(sorted(groups.items(), reverse=True))
 
@@ -87,10 +93,12 @@ def build_index(exams: list[dict]) -> str:
 
     rows = []
     for year, year_exams in groups.items():
+        rows.append(f'<li class="year-group"><span class="year-label">{year}年</span><ul class="year-items">')
         for exam in year_exams:
-            label = exam["label"]
+            label = exam["era_label"]
             href = exam_href(exam)
             rows.append(f'<li><a href="{href}">{label}</a></li>')
+        rows.append('</ul></li>')
 
     items_html = "\n".join(rows)
     gate = _gate_html("sc_pm_unlocked")
@@ -107,6 +115,7 @@ def build_index(exams: list[dict]) -> str:
 {body_open}
 <header class="site-header">
   <h1>情報処理安全確保支援士 午後問題</h1>
+  <a href="random.html" class="random-link">ランダム出題</a>
 </header>
 <main class="index-main">
   <ul class="exam-list">
@@ -130,7 +139,6 @@ def render_inline(s: str) -> str:
 
 
 def _figure_lines_to_html(text: str) -> str:
-    import re
     parts = []
     for raw in text.split('\n'):
         s = raw.strip()
@@ -187,16 +195,26 @@ def render_dialogue(b: dict) -> str:
 
 
 def render_table(b: dict) -> str:
-    caption = b.get("caption", "")
+    raw_ocr = b.get("_raw_ocr", "")
+    caption = b.get("title", "") or b.get("caption", "")
     col_groups = b.get("col_groups", [])
     headers = b.get("headers", [])
     rows = b.get("rows", [])
+
+    # If table has no structured headers/rows but has _raw_ocr, show as pre block
+    if raw_ocr and not headers and (not rows or all(len(r) <= 1 for r in rows)):
+        import re as _re
+        # Extract short title: 表N + optional bracketed suffix, up to ~25 chars
+        tm = _re.match(r'^(表\d+(?:の\d+)?(?:\s+[^\n（]{0,20})?(?:（[^）]{0,15}）)?)', raw_ocr)
+        short_title = tm.group(1).strip() if tm else caption
+        cap_html = f'<p class="table-caption">{esc(short_title)}</p>' if short_title else ""
+        pre_html = f'<pre class="raw-ocr-table">{esc(raw_ocr)}</pre>'
+        return f'<div class="table-wrap">{cap_html}{pre_html}</div>'
 
     cap_html = f'<caption>{esc(caption)}</caption>' if caption else ""
 
     thead = ""
     if col_groups:
-        # First row: col_groups (span=1 gets rowspan=2, span>1 gets colspan=N)
         row1 = ""
         for g in col_groups:
             label = esc(g.get("label", ""))
@@ -205,7 +223,6 @@ def render_table(b: dict) -> str:
                 row1 += f'<th rowspan="2">{label}</th>'
             else:
                 row1 += f'<th colspan="{span}">{label}</th>'
-        # Second row: sub-headers
         row2 = "".join(f'<th>{esc(h)}</th>' for h in headers)
         thead = f'<thead><tr>{row1}</tr><tr>{row2}</tr></thead>'
     elif headers:
@@ -221,22 +238,13 @@ def render_table(b: dict) -> str:
     return f'<div class="table-wrap"><table class="exam-table">{cap_html}{thead}{tbody}</table></div>'
 
 
-_PROBLEM_HEADING_RE = re.compile(r'^(問\d+)\s+(.+?)(?:に関する次の記述を読んで.*)?$')
-
-
 def blocks_to_html(blocks: list[dict]) -> str:
     parts = []
     for b in blocks:
-        if b["type"] == "text":
-            content = b["content"]
-            m = _PROBLEM_HEADING_RE.match(content.split('\n')[0])
-            if m and 'に関する次の記述を読んで' in content:
-                prob = esc(m.group(1))
-                title = esc(m.group(2).rstrip('　 '))
-                parts.append(f'<h2 class="page-problem-title">{prob}　{title}</h2>')
-            else:
-                parts.append(f'<pre class="text-block">{render_inline(content)}</pre>')
-        elif b["type"] == "code":
+        t = b.get("type", "")
+        if t == "text":
+            parts.append(f'<pre class="text-block">{render_inline(b["content"])}</pre>')
+        elif t == "code":
             caption = esc(b.get("caption", ""))
             lang = esc(b.get("language", ""))
             content = esc(b.get("content", ""))
@@ -248,11 +256,11 @@ def blocks_to_html(blocks: list[dict]) -> str:
                 f'<pre><code>{content}</code></pre>'
                 f'</figure>'
             )
-        elif b["type"] == "figure":
+        elif t == "figure":
             parts.append(render_figure(b))
-        elif b["type"] == "dialogue":
+        elif t == "dialogue":
             parts.append(render_dialogue(b))
-        elif b["type"] == "table":
+        elif t == "table":
             parts.append(render_table(b))
         else:
             src = b.get("src") or ""
@@ -272,63 +280,23 @@ def blocks_to_html(blocks: list[dict]) -> str:
     return "\n".join(parts)
 
 
-def render_problems(problems: list[dict]) -> str:
-    content_pages = [p for p in problems if p.get("is_content", True)]
-    if not content_pages:
-        return ""
-
-    has_metadata = any(p.get("problem") for p in content_pages)
-    if not has_metadata:
-        # fallback: render pages sequentially without section grouping
-        raw = []
-        for p in content_pages:
-            page_num = p.get("page", "")
-            blocks = p.get("blocks") or p.get("items", [])
-            content_html = blocks_to_html(blocks)
-            raw.append(
-                f'<div class="pdf-page" data-page="{page_num}">'
-                f'<span class="page-num">p.{page_num}</span>'
-                f'{content_html}'
-                f'</div>'
-            )
-        return "\n".join(raw)
-
-    parts = ['<div class="expl-container">']
-    current_problem = None
-    section_open = False
-
-    for p in content_pages:
-        prob = p.get("problem")
-        title = p.get("title", "")
-        blocks = p.get("blocks") or p.get("items", [])
-        content_html = blocks_to_html(blocks)
-        page_html = f'<div class="problem-content">{content_html}</div>'
-
-        if prob and prob != current_problem:
-            if section_open:
-                parts.append('</section>')
-            heading = f"{esc(prob)}　{esc(title)}" if title else esc(prob)
-            parts.append(
-                f'<section class="expl-problem">'
-                f'<h2 class="expl-problem-title">{heading}</h2>'
-            )
-            current_problem = prob
-            section_open = True
-
-        parts.append(page_html)
-
-    if section_open:
-        parts.append('</section>')
-    parts.append('</div>')
+def render_problem_section(problems: list[dict]) -> str:
+    parts = []
+    for prob in problems:
+        title = prob.get("title", "")
+        heading = f'{esc(prob.get("problem",""))}　{esc(title)}' if title else esc(prob.get("problem", ""))
+        blocks = prob.get("items", [])
+        parts.append(
+            f'<section class="problem-section">'
+            f'<h2 class="problem-title">{heading}</h2>'
+            f'<div class="problem-body">{blocks_to_html(blocks)}</div>'
+            f'</section>'
+        )
     return "\n".join(parts)
 
 
-def render_explanations(exam: dict) -> str:
-    explanations = exam.get("explanations", [])
-    if not explanations:
-        return render_problems(exam.get("answer_pages", []))
-
-    parts = ['<div class="expl-container">']
+def render_explanation_section(explanations: list[dict]) -> str:
+    parts = []
     for prob in explanations:
         problem = esc(prob.get("problem", ""))
         title = esc(prob.get("title", ""))
@@ -347,19 +315,29 @@ def render_explanations(exam: dict) -> str:
                 f'</div>'
             )
         parts.append('</div></section>')
-    parts.append('</div>')
     return "\n".join(parts)
 
 
-def build_exam_page(exam: dict) -> str:
-    label = exam["label"]
+def build_exam_page(exam: dict, is_random_embed: bool = False) -> str:
+    """Build a single exam page. If is_random_embed, return only the inner HTML."""
+    era_label = exam.get("era_label", exam["id"])
     exam_id = exam["id"]
-    qs_html = render_problems(exam.get("problems", exam.get("pages", [])))
-    ans_html = render_explanations(exam)
-    pdf_links = (
-        f'<a href="../pdf/{exam_id}_qs.pdf" class="pdf-link" target="_blank">問題PDF</a>'
-        f'<a href="../pdf/{exam_id}_ans.pdf" class="pdf-link" target="_blank">解答PDF</a>'
-    )
+    qs_html = render_problem_section(exam.get("problems", []))
+    ans_html = render_explanation_section(exam.get("explanations", []))
+
+    if is_random_embed:
+        return f"""<div class="problem-wrap">
+  <h2 class="problem-era-label">{esc(era_label)}</h2>
+  <div class="problem-content">
+{qs_html}
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+{ans_html}
+  </div>
+</div>"""
 
     gate = _gate_html("sc_pm_unlocked")
     body_open = gate if gate else "<body>"
@@ -369,42 +347,115 @@ def build_exam_page(exam: dict) -> str:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive">
-<title>{label} | SC 午後問題</title>
+<title>{esc(era_label)} | SC 午後問題</title>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 {body_open}
 <header class="site-header">
   <a href="../index.html" class="back-link">← 一覧</a>
-  <h1>{label}</h1>
-  <div class="pdf-links">{pdf_links}</div>
+  <h1 class="site-header-title">{esc(era_label)}</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
 </header>
 <main class="exam-main">
-  <div class="tab-bar">
-    <button class="tab-btn" data-target="tab-question">問題</button>
-    <button class="tab-btn active" data-target="tab-answer">解答例</button>
-  </div>
-
-  <div id="tab-question" class="tab-content">
-    <div class="pages-container">
+  <div class="problem-content">
 {qs_html}
-    </div>
   </div>
-
-  <div id="tab-answer" class="tab-content active">
-    <div class="pages-container">
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
 {ans_html}
-    </div>
   </div>
 </main>
 <script>
-document.querySelectorAll('.tab-btn').forEach(btn => {{
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {{
   btn.addEventListener('click', () => {{
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById(btn.dataset.target).classList.add('active');
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
   }});
 }});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>
+"""
+
+
+def build_random_page(exams: list[dict]) -> str:
+    gate = _gate_html("sc_pm_unlocked")
+    body_open = gate if gate else "<body>"
+
+    cards = []
+    for exam in exams:
+        inner = build_exam_page(exam, is_random_embed=True)
+        exam_id = exam["id"]
+        href = f"exams/{exam_id}.html"
+        cards.append(
+            f'<div class="random-card" data-id="{exam_id}" hidden>'
+            f'{inner}'
+            f'<p class="problem-link-wrap"><a href="{href}" class="problem-link">この問題のページを開く</a></p>'
+            f'</div>'
+        )
+
+    cards_html = "\n".join(cards)
+    return f"""<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>ランダム出題 | SC 午後問題</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+{body_open}
+<header class="site-header">
+  <a href="index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">ランダム出題</h1>
+  <button id="next-random-btn" class="random-link btn-random-next">別の問題</button>
+</header>
+<main class="exam-main" id="random-main">
+  <div id="random-cards">
+{cards_html}
+  </div>
+</main>
+<script>
+(function () {{
+  const cards = Array.from(document.querySelectorAll('.random-card'));
+  let currentIdx = -1;
+
+  function showRandom() {{
+    let idx;
+    do {{ idx = Math.floor(Math.random() * cards.length); }} while (cards.length > 1 && idx === currentIdx);
+    if (currentIdx >= 0) cards[currentIdx].hidden = true;
+    cards[idx].hidden = false;
+    currentIdx = idx;
+    // reset answer toggle
+    const btn = cards[idx].querySelector('.toggle-answer-btn');
+    const content = cards[idx].querySelector('.answer-content');
+    if (btn && content) {{
+      btn.setAttribute('aria-expanded', 'false');
+      btn.textContent = '解答を表示する';
+      content.hidden = true;
+    }}
+    window.scrollTo({{ top: 0, behavior: 'smooth' }});
+  }}
+
+  document.querySelectorAll('.toggle-answer-btn').forEach(btn => {{
+    btn.addEventListener('click', () => {{
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+      btn.setAttribute('aria-expanded', String(!expanded));
+      btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+      content.hidden = expanded;
+    }});
+  }});
+
+  document.getElementById('next-random-btn').addEventListener('click', showRandom);
+  showRandom();
+}})();
 </script>
 <footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
 </body>
@@ -435,292 +486,172 @@ body {
   line-height: 1.8;
 }
 
+/* ── Header ── */
 .site-header {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   padding: 12px 24px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
-.site-header h1 {
-  font-size: 1.1rem;
+.site-header-title {
+  font-size: 1rem;
   font-weight: 600;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .back-link {
   color: var(--accent);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   white-space: nowrap;
 }
 .back-link:hover { text-decoration: underline; }
 
-.pdf-links { margin-left: auto; display: flex; gap: 8px; }
-
-.pdf-link {
+.random-link {
+  margin-left: auto;
   color: var(--accent);
   text-decoration: none;
   font-size: 0.82rem;
   border: 1px solid var(--accent);
   border-radius: var(--radius);
-  padding: 3px 10px;
+  padding: 4px 12px;
   white-space: nowrap;
-}
-.pdf-link:hover { background: var(--accent); color: #fff; }
-
-/* Index */
-.index-main { max-width: 700px; margin: 40px auto; padding: 0 24px; }
-
-.exam-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.exam-list li a {
-  display: block;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  color: var(--text);
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-.exam-list li a:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(13,110,253,0.1);
-}
-
-/* Exam page */
-.exam-main { padding: 24px; }
-
-.tab-bar {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 16px;
-  border-bottom: 2px solid var(--border);
-  padding-bottom: 0;
-}
-
-.tab-btn {
   background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  padding: 8px 20px;
   cursor: pointer;
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  transition: color 0.15s, border-color 0.15s;
+  font-family: inherit;
 }
-.tab-btn:hover { color: var(--text); }
-.tab-btn.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-  font-weight: 600;
-}
+.random-link:hover { background: var(--accent); color: #fff; }
 
-.tab-content { display: none; }
-.tab-content.active { display: block; }
+.btn-random-next { font-weight: 600; }
 
-.pages-container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-width: 900px;
-}
+/* ── Index ── */
+.index-main { max-width: 760px; margin: 32px auto; padding: 0 24px; }
 
-.pdf-page {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 24px;
-  position: relative;
-}
+.exam-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
 
-
-.text-block {
-  font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
-  font-size: 0.88rem;
-  line-height: 1.75;
-  white-space: pre-wrap;
-  word-break: break-all;
-  margin: 0;
-}
-
-.text-block { margin-top: 30px; }
-
-.image-block {
-  margin: 30px 0 0;
-  border: 2px dashed var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.image-block.has-image { border-style: solid; border-color: var(--border); }
-
-.image-placeholder-inner {
-  background: #f0f4ff;
-  color: var(--text-muted);
-  text-align: center;
-  padding: 28px 16px;
-  font-size: 0.9rem;
-  letter-spacing: 0.02em;
-}
-
-.inserted-image {
+.year-group { }
+.year-label {
   display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-.image-caption {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
-  padding: 4px 12px 8px;
-  margin: 0;
-}
-
-.placeholder-caption { font-style: italic; }
-
-.table-wrap {
-  margin: 30px 0 0;
-  width: 100%;
-}
-
-.exam-table {
-  border-collapse: collapse;
-  font-size: 0.88rem;
-  line-height: 1.6;
-  table-layout: auto;
-}
-
-.exam-table caption {
-  text-align: left;
-  font-weight: 600;
   margin-bottom: 6px;
-  font-size: 0.9rem;
-  caption-side: top;
 }
 
-.exam-table th,
-.exam-table td {
-  border: 1px solid var(--border);
-  padding: 6px 10px;
-  vertical-align: top;
-  white-space: pre-wrap;
-}
-
-.exam-table th {
-  background: #f0f4ff;
-  font-weight: 600;
-  text-align: center;
-}
-
-.exam-table td:first-child { text-align: center; white-space: nowrap; }
-
-/* underline span */
-.u { text-decoration: underline; }
-
-/* figure (bordered text box) */
-.text-figure {
-  margin: 12px 0;
-  border: 1px solid var(--text);
-  border-radius: var(--radius);
-}
-
-.text-figure-body {
-  padding: 16px 20px;
-  font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
-  font-size: 0.88rem;
-  line-height: 1.8;
-}
-
-.fig-l1, .fig-l2, .fig-l3, .fig-text {
-  display: flex;
-  gap: 0.4em;
-  margin-top: 6px;
-}
-.fig-l1 { margin-top: 12px; }
-.fig-l2 { padding-left: 1.5em; }
-.fig-l3 { padding-left: 3em; }
-.fig-spacer { height: 6px; }
-.fig-marker { white-space: nowrap; font-weight: 600; flex-shrink: 0; }
-.fig-body { flex: 1; }
-
-.fig-code {
-  margin: 4px 0 4px 2em;
-  padding: 6px 12px;
-  background: #f5f5f5;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  white-space: pre-wrap;
-  word-break: break-all;
-}
-
-.text-figure figcaption {
-  border-top: 1px solid var(--border);
-  padding: 6px 20px;
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  text-align: center;
-}
-
-/* dialogue */
-.dialogue {
-  margin: 30px 0 0;
+.year-items {
+  list-style: none;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.dialogue-line {
-  display: grid;
-  grid-template-columns: 6em 1fr;
-  gap: 0 12px;
-  font-size: 0.88rem;
-  line-height: 1.7;
+.year-items li a {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.year-items li a:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(13,110,253,0.1);
 }
 
-.dialogue dt {
-  font-weight: 600;
+/* ── Exam page ── */
+.exam-main { padding: 24px; max-width: 960px; margin: 0 auto; }
+
+.problem-era-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+}
+
+/* Problem section */
+.problem-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.problem-title {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  background: #f0f4ff;
+  border-bottom: 1px solid var(--border);
+}
+
+.problem-body {
+  padding: 4px 20px 20px;
+}
+
+.problem-body > *:first-child { margin-top: 16px; }
+
+/* Answer toggle */
+.answer-toggle-bar {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0 16px;
+}
+
+.toggle-answer-btn {
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  border-radius: 999px;
   color: var(--accent);
-  text-align: right;
-  white-space: nowrap;
-  padding-top: 1px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 10px 32px;
+  transition: background 0.15s, color 0.15s;
+}
+.toggle-answer-btn:hover,
+.toggle-answer-btn[aria-expanded="true"] {
+  background: var(--accent);
+  color: #fff;
 }
 
-.dialogue dd {
-  border-left: 2px solid var(--border);
-  padding-left: 10px;
-  white-space: pre-wrap;
+/* Answer content */
+.answer-content {
+  border-top: 2px solid var(--accent);
+  margin-top: 8px;
+  padding-top: 16px;
 }
 
-/* explanations tab */
-.expl-container { display: flex; flex-direction: column; gap: 24px; max-width: 900px; padding-top: 8px; }
-
+/* Explanation */
 .expl-problem {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
+  margin-bottom: 16px;
 }
 
 .expl-problem-title {
   font-size: 1rem;
   font-weight: 700;
-  padding: 12px 20px;
-  background: #f0f4ff;
+  padding: 10px 20px;
+  background: #fff8e1;
   border-bottom: 1px solid var(--border);
 }
 
@@ -780,13 +711,132 @@ body {
   border-left: 3px solid var(--border);
 }
 
-.problem-content {
-  padding: 14px 20px;
+/* Text blocks */
+.text-block {
+  font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: 16px 0 0;
 }
 
-.problem-content > *:first-child { margin-top: 0; }
+/* Image */
+.image-block {
+  margin: 16px 0 0;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.image-block.has-image { border-style: solid; }
+.image-placeholder-inner {
+  background: #f0f4ff;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 28px 16px;
+  font-size: 0.9rem;
+}
+.inserted-image { display: block; max-width: 100%; height: auto; }
+.image-caption { font-size: 0.8rem; color: var(--text-muted); padding: 4px 12px 8px; }
+.placeholder-caption { font-style: italic; }
 
-/* code block */
+/* Table */
+.table-wrap { margin: 16px 0 0; width: 100%; overflow-x: auto; }
+.exam-table {
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.exam-table caption {
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  caption-side: top;
+}
+.exam-table th,
+.exam-table td {
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  vertical-align: top;
+  white-space: pre-wrap;
+}
+.exam-table th {
+  background: #f0f4ff;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Raw OCR table fallback */
+.table-caption {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0 0 4px;
+}
+.raw-ocr-table {
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-size: 0.85rem;
+  background: #f8f9fa;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 12px;
+  line-height: 1.7;
+  font-family: inherit;
+}
+
+/* underline span */
+.u { text-decoration: underline; }
+
+/* Figure */
+.text-figure {
+  margin: 16px 0 0;
+  border: 1px solid var(--text);
+  border-radius: var(--radius);
+}
+.text-figure-body {
+  padding: 16px 20px;
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+.fig-l1, .fig-l2, .fig-l3, .fig-text { display: flex; gap: 0.4em; margin-top: 6px; }
+.fig-l1 { margin-top: 12px; }
+.fig-l2 { padding-left: 1.5em; }
+.fig-l3 { padding-left: 3em; }
+.fig-spacer { height: 6px; }
+.fig-marker { white-space: nowrap; font-weight: 600; flex-shrink: 0; }
+.fig-body { flex: 1; }
+.fig-code {
+  margin: 4px 0 4px 2em;
+  padding: 6px 12px;
+  background: #f5f5f5;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+}
+.text-figure figcaption {
+  border-top: 1px solid var(--border);
+  padding: 6px 20px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Dialogue */
+.dialogue { margin: 16px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.dialogue-line {
+  display: grid;
+  grid-template-columns: 6em 1fr;
+  gap: 0 12px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+.dialogue dt { font-weight: 600; color: var(--accent); text-align: right; white-space: nowrap; }
+.dialogue dd { border-left: 2px solid var(--border); padding-left: 10px; white-space: pre-wrap; }
+
+/* Code */
 .code-block {
   margin: 16px 0;
   border-radius: var(--radius);
@@ -799,26 +849,10 @@ body {
   justify-content: space-between;
   background: #1e293b;
   padding: 6px 14px;
-  gap: 8px;
 }
-.code-caption {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  font-family: "Hiragino Sans", sans-serif;
-}
-.code-lang {
-  font-size: 0.72rem;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  flex-shrink: 0;
-}
-.code-block pre {
-  margin: 0;
-  padding: 16px;
-  background: #0f172a;
-  overflow-x: auto;
-}
+.code-caption { font-size: 0.8rem; color: #94a3b8; }
+.code-lang { font-size: 0.72rem; color: #64748b; text-transform: uppercase; }
+.code-block pre { margin: 0; padding: 16px; background: #0f172a; overflow-x: auto; }
 .code-block code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 0.82rem;
@@ -827,7 +861,17 @@ body {
   white-space: pre;
 }
 
-/* site footer */
+/* Problem link (random page) */
+.problem-link-wrap { text-align: right; margin-top: 16px; }
+.problem-link {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+.problem-link:hover { color: var(--accent); border-color: var(--accent); }
+
+/* Footer */
 .site-footer {
   text-align: center;
   font-size: 0.78rem;
@@ -837,17 +881,17 @@ body {
   border-top: 1px solid var(--border);
 }
 
-/* password gate */
+/* Password gate */
 .locked header, .locked main { display: none; }
 #gate { max-width: 360px; margin: 24vh auto 0; padding: 0 16px; }
 #gate h1 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
-#gate input, #gate button { width: 100%; font: inherit; padding: 10px 12px; margin-top: 10px; border: 1px solid var(--border); border-radius: var(--radius); box-sizing: border-box; }
+#gate input, #gate button { width: 100%; font: inherit; padding: 10px 12px; margin-top: 10px; border: 1px solid var(--border); border-radius: var(--radius); }
 #gate button { cursor: pointer; background: var(--text); color: #fff; font-weight: 600; }
 #gate .error { color: #c2410c; min-height: 1.5em; font-size: 0.88rem; margin-top: 6px; }
 
 @media (max-width: 600px) {
   .exam-main { padding: 16px; }
-  .pdf-page { padding: 16px; }
+  .site-header { padding: 10px 16px; }
 }
 """
 
@@ -869,13 +913,18 @@ def main():
     index_path.write_text(index_html, encoding="utf-8")
     print(f"  Written: {index_path.relative_to(ROOT)}")
 
+    random_html = build_random_page(exams)
+    random_path = DOCS_DIR / "random.html"
+    random_path.write_text(random_html, encoding="utf-8")
+    print(f"  Written: {random_path.relative_to(ROOT)}")
+
     for exam in exams:
         html = build_exam_page(exam)
         out = DOCS_DIR / "exams" / f"{exam['id']}.html"
         out.write_text(html, encoding="utf-8")
         print(f"  Written: {out.relative_to(ROOT)}")
 
-    print(f"\nDone. Open docs/index.html in a browser.")
+    print(f"\nDone. {len(exams)} exam pages + index + random.")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>令和2年度 特別 問2 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">令和2年度 特別 問2</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問2　電子メールのセキュリティ対策</h2><div class="problem-body"><pre class="text-block">R社は、従業員数100名のシステム開発会社である。
+R社では、電子メール（以下、メールという）を利用している。メールアドレスのドメイン名には、r-sha.co.jp（以下、R社ドメイン名という）を使用している。R社では、委託先との設計ドキュメントファイルの交換に当たって、F社のファイル交換サービス（以下、Fサービスという）の利用を推進している。ただし、委託先が社内ルールで外部のファイル交換サービスの利用を禁止している場合は、設計ドキュメントファイルをパスワード付き ZIP ファイルにし、メールに添付して、メーリングリスト（以下、MLという）のメールアドレス宛てに送信している。ZIPファイルのパスワードは、平文のメールでML のメールアドレス宛てに送信している。
+MLには、G社のML サービス（以下、Gサービスという）を利用している。MIのメールアドレスのドメイン名は、G社が取得したものである。MLのメールアドレスのローカル部は、プロジェクト名と委託先の会社名を組み合わせている。例えば、B プロジェクトでのs社との交換では、MLのメールアドレスのローカル部は、b-project_s-shaにする。
+G サービスでは、メールをMLのメールアドレス宛てに送信すると、登録されたメンバ（以下、登録メンバという）のメールアドレス宛てに同報される。MLの登録メンバのメールアドレスの管理は、プロジェクトごとに R 社のそれぞれのプロジェクト管理者が行う。各プロジェクト管理者は、自身が管理するプロジェクトの MLの登録メンバでもある。</pre>
+<pre class="text-block">[R社の情報システム]R 社の情報システムは、情報システム部が運用している。R社の情報システムのネットワーク構成を図1に示す。</pre>
+<pre class="text-block">FサービスGサービスインターネットISPのDNSサービス「PC-LANR社FW「内部システムLANL2SW「DMIZディレクトリ業務外部メールサーバサーバサーバL2SWL2SWファイルプロキシ内部メールサーバサーバサーバL2SW：レイヤ2スイッチFW：ファイアウォール注記 1PC-LANに接続されているPCの記載は省略している。
+注記2DM2 内の各サーバには、グローバルIPアドレスを割り当てている。
+注記3 内部システム LAN 及びPC-LANには、ブライベートIPアドレスを割り当てている。
+図1 R社の情報システムのネットワーク構成（抜粋）</pre>
+<pre class="text-block">内部システム LANのサーバの機能概要を表1に示す。</pre>
+<pre class="text-block">表1 内部システム LANのサーバの機能概要（抜粋）機能名サーバ名機能概要メール転送内部メール・外部メールサーバとの間で、SMTPを用いてメールを転送する。
+機能サーバメールボッ・宛先メールアドレスのドメイン名がR社ドメイン名であるメークス機能ルをメールボックスに格納する。
+・POP3を用いて、PC からメールボックス内のメールにアクセスできるようにする。
+メール受・SMTP を用いて、PCからメールを受得する。
+機能・X.500 モデルをサポートするディレクトリを管理し，当該ディレディレクトディレクトリ機能リサーバクトリへのアクセスを提供する。
+・ディレクトリへのアクセスは、標準で TCP ポートの 389番を使を用いる。
+用するa・内部システム LANのサーバでの認証に用いる。
+・R社内のサーバ及びPCのホスト名を管理する。
+DNS機能</pre>
+<pre class="text-block">内部システム LANのサーバではサーバ証明書を利用している。それらのサーバ証明書は、ネットワークに接続していない証明書発行専用機器上のR社認証局（以下、R社CAという）で発行している。R社CAは情報システム部が運用している。
+DMZのサーバの機能概要を表2に示す。</pre>
+<div class="table-wrap"><p class="table-caption">表2</p><pre class="raw-ocr-table">表2DMZ のサーバの機能概要（抜粋）機能名機能概要サーバ名・インターネットとの間で、SMTP を用いてメールを転送する。
+メール転送外部メール機能・内部メールサーバとの間で，SMTP を用いてメールを転送する。
+サーバ・SMTP over TLS にも対応している。
+・内部システム LAN 及びPC-LAN からインターネット上のWeb サプロキシ機プロキシサ能ーバへのアクセスだけを中継する。
+ーバ</pre></div>
+<pre class="text-block">DNS キャッシュサーバ及びR 社ドメイン名の権威 DNSISP のDNS サービスを、サーバとして利用している。
+R社では、従業員ごとに1台のPCを貸与している。各PCには、R社CAのルート証明書を頼できる発行元として登録している。
+PCのWeb ブラウザでは、HTTPS でアクセスする Web サーバのサーバ証明書が失を利用して確認でき効していないことを、RFC 6960で規定されているるようにしている。</pre>
+<pre class="text-block">[要望への対応]営業部と開発部から、委託先とのメール利用についての要望が情報システム部のD部長に提出された。D部長はその要望を基に、表3の要件をまとめた。</pre>
+<div class="table-wrap"><p class="table-caption">表3 委託先とのメール利用についての要件要件目</p><pre class="raw-ocr-table">表3 委託先とのメール利用についての要件要件目的項番送言者から受信者まで暗号化された状態で、メールを送受する。
+メールの暗号化1委託先とのやり取りのメールがなりすまされたものでないかどうかを送言者の検証2確認できるように、送信者を検証する。</pre></div>
+<pre class="text-block">D部長は、部下のE主任と甘さんに表3についての対応策の検討を指示した。
+Hさんは、メールの通信を暗号化することによって、表3の二つの要件に対応できるのではないかとE主任に話した。
+それに対して、E主任は次の指摘をした。
+・①メールの通信を暗号化しただけでは、表3の項番1を満たせない。
+を用意するようななりすましは、送信元の・攻撃者が委託先を装ったの真正性を確認して検出できる。一方、送言者メールアドレスとして</pre>
+<pre class="text-block">委託先のメールアドレスを使うようななりすましは検出できないので、表3の項番2を満たせない。</pre>
+<pre class="text-block">そこで，E 主任とHさんが他の対応策を調査したところ、SIMIME を利用すれば表3の要件を実現できることが分かった。E 主任とHさんは、SMMIME の利用を想定した次の方式を考えた。
+（あ）R社 CAで、SIMIME で利用する鍵ペアを生成し、SAMIME に利用可能なクライアント証明書（以下，SMMIME 証明書という）を発行する。
+（い）S/MIME 証明書の失効情報を提供する機能をもつサーバ（以下、失効情報サーバという）を導入し、SMIME 証明書の失効情報を登録する。
+（う）SMIME 証明書が失効していないことをメールクライアントから確認する。
+（え）後でも参照する必要があるメールは、②復号できなくなる場合に備えて、復号してファイルサーバに保存する。</pre>
+<pre class="text-block">[S/MIME 利用に向けた課題と解決策］E 主任とHさんは、S/MIMEの利用に向けて、解決すべき課題を次のとおりリストアップした。
+（ア）R社 CAのようなブライベート認証局のルート証明書をPCに登録することが、委託先によっては禁止されており、その場合、R社の従業員が送信したメールのすることができない。
+をde（イ）委託先に事前に SMIME 証明書を渡す必要があり、その方法を決める必要がある。
+（ウ）ML宛てのメールを暗号化できない。</pre>
+<pre class="text-block">E 主任とHさんは、（ア）～（ウ）それぞれの解決策を検討した。
+（ア）については、認証局サービス事業者が発行する SAMIME 証明書であれば、委託先でのR社 CAのルート証明書をPCに登録しなくてもよいことが分かった。加えて、失効情報サーバの導入も不要であることが分かった。そこで、認証局サービス事業者が発行する SIMIME 証明書を利用することにした。
+（イ）については、SIMIME 証明書を外部記憶媒体に保存して手渡す方法と、メー</pre>
+<pre class="text-block">を付与しルで送信する方法を調査した。調査の結果，S/MIME を用いてたメールを送すれば、受信者はS/MIME 証明書も受け取れるし、送有者が他者になりすましていないことも確認できることが分かり、便利でもあるので、メールで送する方法にすることにした。
+（ウ）については、表3の項番 1を完全に満たすわけではないが、次の案を考えた。
+（1）R 社のプロジェクト管理者は、あらかじめ、G サービスにのメーfルアドレスのSMMIME 証明書を登録する。
+のメールアドレスの（2） R 社のプロジェクト管理者は、あらかじめ、「gSIMIME 証明書の発行手続をG社に依頼する。
+のメールアドレスのS/MIME 証明書を使って暗号（3） メール送信者は、g化したメールを送言する。
+（4） Gサービスは、メールを復号する。
+のメールアドレスのそれぞれのS/MIME 証明書を使（5） Gサービスは、い，受着後にそれぞれが復号できるようにしてメールを暗号化する。
+（6）Gサービスは、暗号化したメールを送信する。</pre>
+<pre class="text-block">E 主任が G 社に確認したところ、この案には対応できないと回答があった。そこで、委託先との間で暗号化したメールを送する場合は、MLを利用せずに委託先担当者のSAMIME 証明書で暗号化し，当該担当者のメールアドレスに送することにした。</pre>
+<pre class="text-block">E 主任とHさんは、SMMIMEの利用について、D部長に報告した。D部長は、SIMIME の利用を営業部長と開発部長に説明し、了承を得た。営業部経由で委託先にSIMIME の利用を打診したところ、SAMIME の利用の内諾が得られた。その後、必要な準備を行い，SMMIME を試行した。その結果，問題ないことが確認でき、SAMIMEの利用が始まった。</pre>
+<pre class="text-block">【R社の情報システム]について、（1），（2）に答えよ。
+設問1（1） 表1中のに入れる適切なプロトコル名を、英字5字以内で答えよ。
+（2） 本文中のに入れる適切なプロトコル名を、英字5字以内で答えよ。
+設問2[要望への対応】について、（1）～（3）に答えよ。
+（1） 本文中の下線①の理由を、35字以内で述べよ。
+c（2） 本文中のに入れる適切な字句を、10字以内で答えよ。
+（3） 本文中の下線②について、復号できなくなるのはどのような場合か。25字以内で述べよ。
+］に入れる適切な字句を、d~g設問3 本文中のは、それぞれfg」は、それぞれ10字以内で、5字以内で答えよ。</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問2　S/MIMEによるメール暗号化とデジタル署名</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝LDAP（証明書取得プロトコル）</div></div><div class="expl-explanation">S/MIMEで送信相手の公開鍵証明書を取得するためのプロトコル。LDAPディレクトリに公開鍵証明書を登録し、メールクライアントがLDAPで取得して暗号化送信する仕組み。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">b＝OCSP（証明書失効確認）</div></div><div class="expl-explanation">Online Certificate Status Protocol（OCSP）。リアルタイムで証明書の失効状態を確認するプロトコル。CRL（Certificate Revocation List）ダウンロードよりも最新の失効情報を取得できる。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">メールサーバ上では、メールが暗号化されていないから</div></div><div class="expl-explanation">S/MIMEはエンドツーエンドの暗号化であり、メールサーバ上では受信者の公開鍵で暗号化されたまま保存される。一方、サーバ側で復号して保存するシステムでは盗聴リスクが残る。メールサーバ上での暗号文保管の重要性。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">d＝デジタル署名
+復号に必要な秘密鍵を意図せず削除した場合</div></div><div class="expl-explanation">S/MIMEの秘密鍵管理リスク。暗号化メールの復号には受信者の秘密鍵が必要。秘密鍵を失うと過去の暗号化メールをすべて復号できなくなる。エスクロー（鍵のバックアップ）の仕組みが必要。</div></div>
+<div class="expl-item"><div class="expl-label">設問3</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">e＝検証
+f＝MLの登録メンバ</div></div><div class="expl-explanation">MLサーバでのS/MIME処理。MLサーバが署名を検証し、登録メンバー以外からの投稿を拒否する。MLサーバで再署名する場合は元の署名が失われるため、MLへの投稿者認証方法を設計する必要がある。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

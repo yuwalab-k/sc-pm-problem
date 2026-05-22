@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>令和2年度 特別 問1 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">令和2年度 特別 問1</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問1　スマートフォンを用いた決済</h2><div class="problem-body"><pre class="text-block">N社は、従業員数10,000名の飲食業者で、全国に500店舗を展開している。
+N社では、会員番号をバーコードとして表示するスマートフォン用ポイントアプリケーションプログラム（以下、ポイントアプリという）を使って、ポイントサービスを提供している。店員がバーコードをバーコードリーダで読み取ることによってポイントが付与される仕組みである。
+利用者の利便性向上のために、スマートフォンで決済を行う、N社独自のシステム（以下、Nシステムという）を開発することになった。</pre>
+<pre class="text-block">[N システムの概要】Nシステムは、図1に示す構成であり、店舗で店員が利用するタブレット端末用店舗アプリケーションプログラム（以下、店舗アプリという）、利用者が利用するスマートフォン用決済アプリケーションプログラム（以下，決済アプリという）、及び決済，ログ取得、アラート通知などの機能をもつ Web サーバNを用いて決済を実現する。</pre>
+<pre class="text-block">WebサーバNインターネット店舗決済無線LANタブレット端末ルータログ取得店舗アプリスマートフォンアラート通知決済アプリ注記店舗アプリ及び決済アプリは，HTTPSでWeb サーバNと通言する。
+図1 Nシステムの構成（概要）</pre>
+<pre class="text-block">決済アプリの機能の概要を表1に、Web サーバNの機能の概要を表2に、会員登録処理を表3に、決済処理を表4に示す。</pre>
+<pre class="text-block">表1 決済アプリの機能の概要（抜粋）機能概要会員登録利用者を会員登録する。ログインIDとして、メールアドレスを登録する。会員登録すると、決済アプリ用の会員番号が自動で発番される。また、パスワードなど他の情報の登録も行う。
+ログインログインIDとパスワードを入力して、ログインする。
+ポイントアプリの仕組みを利用し、16桁の会員番号をバーコードとして表示する。
+決済決済が完了すると、決済完了の画面が表示される。</pre>
+<div class="table-wrap"><p class="table-caption">表2 WebサーバNの機能の概要（抜粋）</p><pre class="raw-ocr-table">表2 WebサーバNの機能の概要（抜粋）機能概要決済決済アプリ及び店舗アプリとのメッセージのやり取り、並びに決済を行う。
+ログ取得次の各種ログを取得する。
+・会員登録・ログイン・決済アプリ及び店舗アプリの起動・決済アプリ及び店舗アプリでの決済次のイベントが検知された場合は、Nシステムの管理者にアラートを通知する。
+アラート（1 同一IPアドレスから、同一のログインID でのログイン失敗が短時間に連続す通知る。
+（i） 同一IPアドレスから、存在しないログインID でのログイン試行が短時間に連続する。</pre></div>
+<div class="table-wrap"><p class="table-caption">表3 会員登録処理（抜粋）</p><pre class="raw-ocr-table">表3 会員登録処理（抜粋）記号処理利用者は、決済アプリにメールアドレスを入力する。
+1【入力されたメールアドレスが会員登録されていない場合】2-aWeb サーバ N は、入力されたメールアドレスに詳細登録ページの URLを電子メールで送信する。また、決済アプリは、“電子メールを送しました。”と表示する。
+I【入力されたメールアドレスが会員登録されている場合】2-b決済アプリは、“既に使用されているメールアドレスです。”とエラー表示する。</pre></div>
+<div class="table-wrap"><p class="table-caption">表4 決済処理（抜粋）</p><pre class="raw-ocr-table">表4 決済処理（抜粋）処理記号利用者は，事前に決済アプリにログインしておく。
+1店員は、店舗アプリに金額を入力するとともに、利用者に金額を伝える。
+2利用者は、決済アプリにバーコードを表示する。
+3店員は、店舗アプリで、決済アプリに表示されたバーコードを読み取る。
+4バーコードが示す会員番号に対して決済する。
+5決済が完了すると、店舗アプリ及び決済アプリに決済完了が通知される。
+6</pre></div>
+<pre class="text-block">各店舗では、決済時に利用者のスマートフォンが確実に通できるように、Nシステム導入に合わせて、各店舗に導入済みの無線LAN ルータをインターネットに接続し、利用者に無線LAN サービスを提供する予定である。無線LANルータは全て同一の機種である。各店舗で管理者を決めて、管理者が手動で初期設定をしている。表5に無線LAN ルータの管理者機能の設定項目を示す。</pre>
+<pre class="text-block">表5 無線LANルータの管理者機能の設定項目（抜粋）設定内容設定項目名記号各設定を変更するための管理者機能のパスワード管理者機能のパスワードあ無線LANルータが参照する DNS サーバのIPアドレスDNS プロキシいIPアドレス範囲，リース期間DHCP サーバうインターネットとの間で送受されるパケットを通過させパケットフィルタリングえるか、破棄するかのフィルタリングルール</pre>
+<pre class="text-block">N システムの開発チームに所属するXさんが検討した N システムの仕様並びに店舗アプリ及び決済アプリの設計を、セキュリティの観点から情報処理安全確保支援土（登録セキスペ）のYさんがレビューした。レビューでのYさんの指摘を表6に示す。</pre>
+<pre class="text-block">表6 Yさんの指摘指摘の内容項番他者になりすまして決済できる。今までポイントアプリでは被害が発生していなかっ1たが、ポイントアプリの仕組みを利用した決済アプリでは金銭を直接扱うので、リスクがより高い。
+店舗の無線 LAN ルータには既知の能調性が存在する。その結果、インターネット側の2インタフェースからはアクセスできない仕様のはずが、管理者機能のログイン画面にアクセスできてしまう。
+管理者機能のパスワードが工場出荷時のパスワードから変更されていない可能性があ3る。変更されていないと、店舗の無線LAN ルータに接続している利用者の端末から管理者機能にアクセスできる。
+決済アプリ及び店舗アプリでのサーバ証明書の検証に不備がある。
+4決済アプリの会員登録機能は、攻撃者が悪用すると、当該機能の挙動からスクリーニ5ングりができてしまう。
+攻撃者が、攻撃者の手にあるパスワードリストから無効なものを取り除くこと注"）</pre>
+<pre class="text-block">Xさんは、指摘について対策を検討した。</pre>
+<pre class="text-block">[項番 1への対策］Xさんは、表6中の項番1への対策として、メッセージ認証を用いることにした。
+具体的には、決済機能利用時に決済アプリに表示する情報として、会員番号、WebサーバNで生成した乱数、時刻、及びそれら三つの情報を基に生成される HMAC（Hash-based Message Authentication Code）値を含めることにした。バーコードで扱える桁数を超えてしまうので、代わりにQRコードを表示することにした。HMAC値を含むQRコードを用いた決済フローを図2に示す。QRコード生成及びQRコード検証の手順を図3に示す。</pre>
+<pre class="text-block">決済アプリ店舗アプリWebサーバNQRコード生成リクエスト乱数生成、QRコード生成QRコードQRコードQRコード読み込み決済リクエスト（QRコード，金額）QRコード検証，決済決済結果通知＜ 決済結果通知不注記決済アプリでは、事前にログインしておく必要がある。
+図2HMAC 値を含むQRコードを用いた決済フロー</pre>
+<pre class="text-block">QRコード生成1. WebサーバNがもつ秘密鍵Kを用いて、会員番号、乱数、時刻を基にしたHMAC値aを計算する。
+2．会員番号、乱数、時刻及びHMAC値αから成るQRコードを生成する。
+QRコード検証1.秘密鍵K を用いて、QRコード中の会員番号、乱数及び時刻を基にしたHMAC 値Bを計算する。
+2.3.現在時刻がQRコード中の時刻から5分以内であること、及び同じ QRコードが過去に使われていないことを確認する。
+図3 QRコード生成及びQRコード検証の手順</pre>
+<pre class="text-block">[項番 2～4への対策］表6中の項番2～4の指摘を解決せずに無線LAN サービスを提供し、①攻撃者が無線LAN ルータの設定を変更すると、攻撃者が用意したサーバに利用者が接続しても気付かないおそれがある。
+Xさんは、項番2については、インターネットから管理者機能のログイン画面にアクセスされないようにするために、無線LAN ルータのファームウェアを施弱性が対策された最新のバージョンにアップデートしてもらうことにした。項番3については、管理者機能のパスワードを工場出荷時のパスワードから変更するように運用ルールを変更し、まだ変更していない場合は変更してもらうことにした。項番4については、サーバ証明書が図4に示す条件を満たしているかどうかを検証するように決済アプリ及び店舗アプリを改修した。</pre>
+<pre class="text-block">のdNSName があれば、アクセス先のWeb サーバNのC・サーバ証明書にbのdNSName がなければ、アクセス先のWebサーバNと合致し、サーバ証明書にbと合致することが subject ののdC・有効期間内のサーバ証明書であること図 4 サーバ証明書の検証条件（抜粋）</pre>
+<pre class="text-block">[項番 5への対策]攻撃者が、②事前にスクリーニングを実行したパスワードリストを用いて、パスワードリスト攻撃を行うと、Web サーバNのアラート通知機能では検知されないおそれがある。そこで、Xさんは、③表3の会員登録処理を修正することにし、さらに、パスワードリスト攻撃への追加対策として 2段階認証を施し、アラート通知機能も見直すことにした。</pre>
+<pre class="text-block">N社は、Nシステムの試行を幾つかの店舗で実施し、問題がないことを確認した。
+その後、Nシステムを全店舗に展開した。</pre>
+<pre class="text-block">設問1（項番1への対策]について、（1），（2）に答えよ。
+（1） どのような手段でなりすまして決済ができるのか。想定される手段を30字以内で具体的に述べよ。また、その攻撃が成功してしまう決済アプリにおける問題を 25字以内で、具体的に述べよ。
+（2） 図3中のに入れる適切な字句を、30字以内で述べよ。
+設問2[番2～4への対策]について、（1），（2）に答えよ。
+（1） 本文中の下線①について、攻撃者はどの設定項目の内容をどのように変更するか。変更する設定項目を表5の中から選び、記号で答えよ。また、変更後の設定内容を 25字以内で述べよ。
+コに入れる適切な字句を、（2） 図4中のについては解答群の中から選び記号で、については 5c字以内で、それぞれ答えよ。
+解答群イ commonNameア authority Key Identifierウissuerエ serialNumberオ subjectAltName力 subjectPublicKeyInfo【項番5への対策】について、（1），（2）に答えよ。
+設問3（1） 本文中の下線②について、N システムのどのような挙動を利用してスクリーニングを実行したと考えられるか。利用したと考えられる挙動を40字以内で具体的に述べよ。
+（2） 本文中の下線③について、表3中の修正すべき処理を記号で答えよ。また、どのように修正すべきか。修正後の処理を、25字以内で述べよ。</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問1　モバイル決済アプリのなりすまし対策とHMAC</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">手段：他者のバーコードを会員番号から推測して表示する・他者の会員番号を窃取してバーコードを生成し決済する
+問題：バーコードの内容が会員番号であること・バーコードが永続的に利用できること</div></div><div class="expl-explanation">バーコード決済のなりすまし脆弱性。連番や推測可能な会員番号をバーコードに使うと他者の番号を推測できる。また有効期限のない静的バーコードは一度盗撮されると永続的に悪用される。動的コード（一定時間で変わる）や HMAC値の埋め込みが対策。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">HMAC値αとHMAC値βの一致を検証する</div></div><div class="expl-explanation">HMAC（Hash-based Message Authentication Code）によるバーコードの完全性・真正性検証。共通鍵とハッシュ関数を組み合わせてMAC値を生成し、サーバ側で検証することでバーコードの改ざん・偽造を検知できる。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">変更する設定項目：い（DNSサーバ設定）
+変更後の設定内容：攻撃者のDNSサーバのIPアドレス</div></div><div class="expl-explanation">DHCP Starvation + Rogue DHCP攻撃。正規のDHCPサーバのアドレスプールを枯渇させ、偽のDHCPサーバから悪意あるDNSサーバのIPを配布することでDNSハイジャックを実行する。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

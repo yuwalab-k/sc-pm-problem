@@ -1,0 +1,218 @@
+{
+  "id": "2024-04",
+  "era_label": "令和6年度 春 問4",
+  "problems": [
+    {
+      "problem": "問4",
+      "title": "Webアプリケーションプログラム",
+      "items": [
+        {
+          "type": "text",
+          "content": "A社は、加工食品の製造・販売を行う従業員500名の会社である。問屋や直販店からの注文の受付に、商品の注文と在庫を管理するシステム（以下，業務システムという）を利用している。業務システムは、A社内に設置したサーバ上に構築されている。\nこのたび、販売拡大を目指して、インターネットを使ったギフト販売を行うことになり、個人顧客から注文を受けるための Webシステム（以下、Web 受注システムという）を構築することになった。\nA社はITベンダーのB社との間で開発の委託契約を締結し、両社は Web受注システムの開発に着手した。"
+        },
+        {
+          "type": "text",
+          "content": "[Web 受注システムの要件]Web 受注システムの要件を表1に示す。"
+        },
+        {
+          "type": "text",
+          "content": "表1Web 受注システムの要件要件内容要件名No.個人顧客が利用できる機能：商品検索、在庫照会、注文、決済，注文変機能1更，注文キャンセル、注文照会，配送照会、ユーザー登録、ユーザー情報変更，パスワード変更、退会である。これら機能全てをアプリケーション（以下、AP という）サーバに実装する。\nその他の機能：（省略）Web ブラウザからインターネット経由でアクセスして利用する。\nアクセス方式2個人顧客想定ユーザー3登録ユーザーの数が100,000までを想定4想定ユーザー数氏名、住所、電話番号、メールアドレス、パスワード、銀行口座情報，重要情報”に該当5決済情報するデータ項目商品数1,0006想定トランザク注文：1,000件／日7注文変更・注文キャンセル：各30件／日ション数注文照会・配送照会：各 2,000件／日24時間365日。ただし、メンテナンス時間は除く。\n稼働時間8メンテナンス時9毎週月曜日 0:00～5:00。ただし、緊急の脆弱性修正プログラム適用な間ど、他の日時に臨時でメンテナンスを実施する場合もある。\n99.9%。ただし、メンテナンス時間は除く。\n10稼働率目標11A社とB社が協働で開発する。\n開発体制Java/RDBMS開発言語／DBMS12"
+        },
+        {
+          "type": "text",
+          "content": "表1Web 受注システムの要件（続き）要件名要件内容No.システム基盤AP サーバ、バッチサーバ、ログサーバは、laas 上に構築する。Web 受注13システムのデータベース（以下、データベースをDBという）は、クラウドサービスのマネージドDBを利用する。\n本番環境は，本番AP サーバ、本番バッチサーバ，本番ログサーバ、本番DB で構成する。\n開発環境は、開発 AP サーバ、開発バッチサーバ、開発ログサーバ、開発DBで構成する。重要情報は保管されない。\nサーバOSAP サーバ、バッチサーバ、ログサーバのOSはLinuxを使用する。\n14AP ログ 2）15AP サーバのブログラム及びバッチサーバのプログラムはAPログをログサーバに転送し、ログサーバは AP ログをテキストファイル形式で保存する。\nAP サーバの標準16AP サーバの標準出力と標準エラー出力は、リダイレクトしてAP サーバの/var/log/serverlog ディレクトリ配下のテキストファイルに出力する。\n出力と標準エラ一出力なお、/var/log/serverlog ディレクトリのオーナーは webappuser であり、パーミッションは7743）とする。その配下のテキストファイルのオーナーは webappuser であり、パーミッションは6643）とする。\nシステム運用17システム運用はB社に委託し、システム運用担当者はB社の要員とする。\n重要情報の取扱いは重要情報取扱運用者だけとし、重要情報取扱運用者はA社での役職が管理職以上の要員とする。\n各サーバ及び各 DB の管理はシステム管理責任者が行い、システム管理責任者はA社の情報システム部の管理職とする。\n（1） 個人顧客システムのユー18ザーと役割Web 受注システムのAP サーバで注文、決済などを行う。\n（2） システム運用担当者本番AP サーバ及び本番バッチサーバの稼働を監視する。バッチ処理が異常終了したときは、手動で再実行する。これら以外のサーバについては、統合監視システムの画面から死活監視だけを行う。重要情報にアクセスしてはならない。\n（3） 重要情報取扱運用者本番環境に保管されている重要情報を参照し、個人顧客からの問合せに対応する。\n（4） システム開発者開発環境においてプログラムの開発・保守を行う。障害発生時は、本番ログサーバにアクセスして障害原因を調査する。重要情報にアクセスしてはならない。\n（5） システム管理責任者各サーバの OS，ミドルウェアの弱性修正プログラムの適用などのメンテナンス作業を行う。各サーバの OSアカウントを管理する。各DBのアカウント管理を行う。\nパスワードの保19パスワードは、CRYPTREC 暗号リスト（令和5年3月30日版）の電子政府存推奨暗号リストに記載されているハッシュ関数でハッシュ化してDB に保存する。\n注1）A社では、扱う情報を“重要情報”と\"その他の情報”に分類している。\n注2）システム稼働時に出力され、システム障害の際に、システム開発者が障害原因調査のために確認するファイルである。\n注 3）chmodコマンドの絶対モードでLinuxのパーミッションを設定する。"
+        },
+        {
+          "type": "text",
+          "content": "[Web受注システムの設計]A社とB社はWeb受注システムを設計した。\nWeb受注システムのサーバで定義されるOSアカウントの一覧を表2に、所属グループとその権限を表3に示す。"
+        },
+        {
+          "type": "text",
+          "content": "表2 0Sアカウントの一覧OS アカウントが定義ユーザーID説明所属グループNo.されるサーバrootシステム管理責任者が利用する。\n（省略）root1システム運用担当者が利用する。\n（省略）operationoperator2重要情報取扱運用者が利用する。\npersonal（省略）3personalシステム開発者が利用する。\n（省略）4developerdevelopデータ連携機能 ”）の各プログラム本番バッチサーバoperation5.batchappuserの実行に利用される。\n本番 AP サーバpersonalAP サーバのブログラムの実行に利webappuser6用される。\nroot, operation, personal, develop という所属グループは各サーバに定義されている。\n注記業務システムと Web 受注システムがデータ連携を行うための機能である。\n注1）"
+        },
+        {
+          "type": "table",
+          "caption": "表3 所属グループとその権限権限所属グループNo.特権ユーザーである。全てのアクセス権がある。",
+          "headers": [],
+          "rows": [
+            [
+              "root12一般ユーザー権限である。本番 AP サーバと本番バッチサーバへのアクセoperat ionス権がある。"
+            ],
+            [
+              "一般ユーザー権限である。本番環境へのアクセス権がある。"
+            ],
+            [
+              "personal3一般ユーザー権限である。開発環境と本番ログサーバへのアクセス権があdevelop4る。"
+            ],
+            [
+              "Web 受注システムでは、OSアカウントの権限を所属グループ単位で管理する。"
+            ],
+            [
+              "注記"
+            ]
+          ],
+          "_raw_ocr": "表3 所属グループとその権限権限所属グループNo.特権ユーザーである。全てのアクセス権がある。\nroot12一般ユーザー権限である。本番 AP サーバと本番バッチサーバへのアクセoperat ionス権がある。\n一般ユーザー権限である。本番環境へのアクセス権がある。\npersonal3一般ユーザー権限である。開発環境と本番ログサーバへのアクセス権があdevelop4る。\nWeb 受注システムでは、OSアカウントの権限を所属グループ単位で管理する。\n注記",
+          "title": "表3 所属グループとその権限権限所属グループNo.特権ユーザーである。全てのアクセス権がある。"
+        },
+        {
+          "type": "text",
+          "content": "業務システムとWeb 受注システムは、CSV形式のデータ連携用ファイル（以下，CSVファイルという）でデータ連携を行う。1時間ごとに業務システムのバッチサーバとWeb 受注システムのバッチサーバにおいて CSVファイルを作成し、HTTPSで他方のバッチサーバに送し，他方のバッチサーバでは受言したCSVファイルを保存する。保存したCSVファイルを使用して Web 受注システム又は業務システムのDBに対して更新処理を実行する。更新処理後のCSVファイルは、障害発生に備えて1週間保存する。\nデータ連携機能のプログラム一覧を表4に示す。"
+        },
+        {
+          "type": "text",
+          "content": "表4 データ連携機能のプログラム一覧概要プログラム名実行するサーバNo.Web 受注システムバッチ処理管理1Web 受注システムの各バッチ処理のブログラムの1のバッチサーバ起動，監視などを行う。\n業務システムのバ2業務システムの各バッチ処理のプログラムの起バッチ処理管理 2ッチサーバ動、監視などを行う。\nWeb受注システムWeb 受注システムのDB 内の注文テーブルから注文注文データ CSV 出3カバッチ処理のバッチサーバデータを取得し、CSVファイルに出力する。\n注文データ CSV 取業務システムのバ保存された CSVファイルを読み込んで、業務シス4ッチサーバテムのDBを更新する。\n込みバッチ処理業務システムのDB 内の在庫テーブルから在庫デー業務システムのバ在庫データ CSV 出5ッチサーバカバッチ処理タを取得し，CSVファイルに出力する。\n保存された CSVファイルを読み込んで、Web受注在庫データ CSV 取Web 受注システム6システムのDBを更新する。\n込みバッチ処理のバッチサーバCSV ファイルを業務システムのバッチサーバにデータ送信1バッWeb 受注システム7チ処理のバッチサーバHTTPSで送する。\n業務システムのバCSV ファイルを Web受注システムのバッチサーバデータ送信2バッ8チ処理にHTTPSで送する。\nッチサーバデータ受信1バッWeb 受注システム受した CSV ファイルをWeb 受注システムのバッ9チサーバの指定されたディレクトリに保存する。\nのバッチサーバチ処理業務システムのバデータ受信 2バッ受信した CSVファイルを業務システムのバッチサ10チ処理ッチサーバーバの指定されたディレクトリに保存する。"
+        },
+        {
+          "type": "table",
+          "caption": "表4のうち、No.3のプログラムの内容を図1に示す。",
+          "headers": [],
+          "rows": [
+            [
+              "のうち、No.3のプログラムの内容を図1に示す。"
+            ]
+          ],
+          "_raw_ocr": "表4のうち、No.3のプログラムの内容を図1に示す。",
+          "title": "表4"
+        },
+        {
+          "type": "text",
+          "content": "・注文テーブルの連携済フラグ1が0である注文データを、CSVファイルとして平文で/var/dataデイレクトリに出力する。なお、/var/dataディレクトリのオーナーは batchappuserで、パーミッションは770 2とする。CSVファイルのオーナーは batchappuserで、パーミッションは6602）とする。\n・注文テーブルの内容は、次のとおりである。\n注文 ID 3，注文番号、注文ユーザーID，注文日時、決済金額，銀行コード、銀行支店コード、預金種別，銀行口座番号、銀行口座氏名、注文ステータス、お届け先郵便番号、お届け先住所、お届け先電話番号、お届け先氏名、送り主郵便番号、送り主住所、送り主電話番号、送り主氏名，連携済フラグ注”） \"O”はCSVファイル出力前であることを、“1”はCSVファイル出力後であることを示す。\n注2）chmod コマンドの絶対モードでLinuxのパーミッションを設定する。\n注3）主キーである。\n図1 No.3のプログラムの内容（抜粋）"
+        },
+        {
+          "type": "text",
+          "content": "Web 受注システムの開発が進み、結合テスト前に、A社は、設計書とソースコードのセキュリティレビューを、セキュリティ専門会社の[社に委託した。C社の情報処理安全確保支援士（登録セキスペ）のE氏は、セキュリティレビューを実施した。"
+        },
+        {
+          "type": "figure",
+          "caption": "",
+          "content": "[データ連携機能のセキュリティレビュー］E氏は、表2～4及び図1の内容では表1の要件を満たしておらず、CSV ファイルを開覧できてしまうという問題を発見した。また、CSVファイルには重要情報が記録されるので、本番バッチサーバにアクセスできる者が不正に関するリスクを軽減するための保険的対策も併せて実施することを提案した。具体的には、次のように提案した。\n（1） 問題に対しては、表2の batchappuser について、所属グループをに変更する。\n（2）保険的対策としては、表4のNo.3のプログラムに暗号化を行う処理を追加し、のプログラムに復号を行う処理を追加する。\n表4のNo.c"
+        },
+        {
+          "type": "text",
+          "content": "A社は、E氏の提案どおり修正することにした。"
+        },
+        {
+          "type": "text",
+          "content": "[ユーザー登録機能のセキュリティレビュー］ユーザー登録機能は、UserData クラスによって実現している。UserData クラスのプログラム仕様を図2に、UserData クラスのソースコードを図3に示す。"
+        },
+        {
+          "type": "text",
+          "content": "・addUser メソッドは、データをユーザーマスターテーブルに挿入する。\n・各インスタンス変数は、ユーザーマスターテーブルの各レコードに対応し、画面から入力された値を String 型で保持する。\n・ユーザーマスターテーブルの列名は，次のとおりである。\nユーザーOID ”），ユーザーID、パスワード？，氏名、郵便番号，住所、電話番号、メールアドレス，作成日時、更新日時注 ”）主キーである。オブジェクトIDであり、データを一意に識別する文字列が格納される。\n注？）パスワードのハッシュ値が格納される。\n図2 UserData クラスのプログラム仕様（抜粋）"
+        },
+        {
+          "type": "text",
+          "content": "//package 宣言，import宣言など（省略）1: public UserData（HttpServ letRequest request）｛this. userId = request, getParameter（\"userId\"）；2：3：this. password = request.getParameter（”password\"）；（省略） 1/入力値チェックなどtry ｛4：5：MessageDigest mdObj = MessageDigest.getInstance（”SHA-1”）；6：byteL］ hashByte = mdObj.digest （this. password. getBytes（））；this.password = String. format （\"%x”， new BigInteger （1, hashByte））；7：8：｝ catch（NoSuchAlgorithmException e） ｛log.debug（\"error：”+e） ；9：10:J（省略）11：｝1/引数 connはDB コネクションオブジェクトを示す。\n12: public void addUser （Connection conn） ｛13：PreparedStatement psObj；String sql = \" INSERT INTO USER_MASTER”+14：\" （USER OID， USER ID， PASSWORD， USER _NAME， ZIP _CODE”+15：（省略）；16：try ｛17：psObj = conn.prepareStatement （sql）；18：psObj. setString （1, this.useroid）；19：psObj. setString（2, this.userId） ；20：psObj. setString （3, this.password）；（省略）//次の2行はデバッグログの出力System.out.println（”SOL： ” + sql）；21：System.out. print In（\"InsertData：”+ this.toString（））；22：//次の2行はログサーバへの AP ログの出力Log.debug （\"sqL：”+ sql）；24：log. debug（\"InsertData：” + this. tostring（））；25：psObj.execute（）；26：conn.commit（）；27：Jcatch （SOLException e） 1（省略）//例外処理28：｝（省略）29： ｝（省略）注記 l0g.debug（）は、引数の文字列をログサーバに送するメソッドである。\n図3 UserData クラスのソースコード（抜粋）"
+        },
+        {
+          "type": "text",
+          "content": "= 35ー"
+        },
+        {
+          "type": "text",
+          "content": "E氏は、図3のソースコードについて、次のように指摘した。\n・パスワードからハッシュ値を得るためのハッシュ関数が、表1の要件を満たしていない。\n行目で・今後、メンテナンスなどで実行環境を変更した場合に、が発生すると、25,26行目では、パスワードが平文でユーザーマスターテーブルに保存されてしまう。\n・①システム運用担当者とシステム開発者が、要件でアクセスが禁止されている情報にアクセスできてします。\n・利用する AP サーバの実装では、変数 psOb」の指すメモリ領域においてメモリリークが発生する可能性がある。"
+        },
+        {
+          "type": "text",
+          "content": "E氏の指摘を受け、システム開発者は、UserData クラスのソースコードを修正した。\n修正後の UserData クラスのソースコードを図4に示す。"
+        },
+        {
+          "type": "text",
+          "content": "（省略）／/package 宣言，import宣言など1: public UserData （HttpServletRequest request） ｛request. getParameter （\"userld\"）；2：this. userld =this. password = request.getParameter （\"password”）；3：（省略）1/入力値チェックなどtry ｛4：\"）；MessageDigest mdObj = MessageDigest. getInstance（”5：fbyte[］ hashByte = mdObj.digest （this. password. getBytes（））；6：this. password = String. format （”%x”1, new Biginteger （1, hashByte））；7：｝ catch （NoSuchAlgorithmException e） ｛8：log.debug （\"error：” +e）；9：1/回復不能な例外発生10：911：｝（省略）12：｝1/引数 conn はDB コネクションオブジェクトを示す。\n13: public void addUser （Connection conn） ｛PreparedStatement psObj＝ null；14：String sql = ”INSERT INTO USER MASTER\" +15：\"（USER OID, USER_ID, PASSWORD, USER NAME, ZIP CODE” +16：（省略）；図4 修正後の UserData クラスのソースコード（抜粋）"
+        },
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "speaker": "try 117",
+              "text": "18：psObj = conn.prepareStatement （sql）；psObj. setString （1, this.useroid）；19：20：psObj. setString （2, this.userld）；21：psObj.setString （3, this.password） ；（省略）22：UserData userMaskDatadbj = this, maskUserData（this）；1/次の2行はログサーバへの AP ログの出力log.debug（\"SQL：”+ sql）；23：log.debug （”InsertData： ”24：+ userMaskDataObj. toStringO））；25：psObj.execute（）；26：conn.commit（）；] catch （SQLException e） ｛27：（省略） //例外処理28：｝｛h29：if （psObj ！= null）｛30：try f31：psObj. close（）；32：｝ catch （SOLException e） ｛（省略）//例外処理33：｝34：｝35：｝（省略）36： ｝37: private UserData maskUserData （UserData inUserData） ｛（省略）//UserData 内の重要情報を含む変数の値を*に置換する。"
+            },
+            {
+              "speaker": "38",
+              "text": "return userMaskDataObj；39:3（省略）図4 修正後の UserData クラスのソースコード（抜粋）（続き）"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "図4のソースコードについて、E氏は、セキュリティレビューを再度実施した。\nE氏は、図4のソースコードでは、レインボーテーブル攻撃を受けたときに攻撃が成立してしまうので、図2の仕様及び②図4のソースコードの6,7行目を修正すべきであると指摘した。"
+        },
+        {
+          "type": "text",
+          "content": "A 社は、E氏の指摘の対応を完了した。その後、テストを実施し、Web 受注システムをリリースした。"
+        },
+        {
+          "type": "text",
+          "content": "不備により設問2（3）「システム運用担当者」の「アクセスできてしまう情報」及び「出力される場所」は成立しない。（令和6年7月19日追記）"
+        },
+        {
+          "type": "text",
+          "content": "設問1[データ連携機能のセキュリティレビュー］について答えよ。\nに入れる適切な字句を、解答群の中から選び、記号a（1） 本文中ので答えよ。\n解答群アシステム運用担当者イシステム運用担当者とシステム開発者ウ システム開発者エ システム開発者と重要情報取扱運用者オ重要情報取扱運用者に入れる適切な所属グループを、表3中から選び答え（2） 本文中のよ。\nに入れる適切なプログラムを、表 4中から選び、No.（3） 本文中の列の番号で答えよ。\n[ユーザー登録機能のセキュリティレビュー]について答えよ。\n設問2dに入れる適切な行番号を、図3中から選び、答えよ。\n（1） 本文中のに入れる適切な字句を答えよ。\n（2） 本文中のe（3） 本文中の下線①について、システム運用担当者とシステム開発者が、アクセスが禁止されているのにアクセスできてしまう情報は何か。図2中のユーザーマスターテーブルの列名で、それぞれ全て答えよ。また、その情報が出力される場所を、解答群の中から選び、それぞれ記号で答えよ。\n解答群ア 開発ログサーバの AP ログを保存したテキストファイル1本番 AP サーバの/sbin ディレクトリ配下のバイナリファイルウ 本番 AP サーバの/var/dataディレクトリ配下のCSVファイルエ 本番 AP サーバの/var/log/serverlogディレクトリ配下のテキストファイルオ本番ログサーバの AP ログを保存したテキストファイル（4） 図4中のに入れる適切な字句を答えよ。\n（5） 図4中のに入れる適切な処理を、ソースコード又は具体的な処理内容のいずれかで答えよ。"
+        },
+        {
+          "type": "text",
+          "content": "（6） 図 4中のに入れる適切なソースコードを答えよ。\n（7） 本文中の下線②について、図4の6,7行目をどのように修正すればよいか。\n修正後の適切なソースコードを解答群の中から選び、記号で答えよ。ここで、変数 saltには、addUser メソッドの呼出しごとに異なる32バイトの固定長文字列が入っているものとし、ユーザーマスターテーブルの定義に変更はないものとする。\n解答群bytel］ hashByte = mdObj.digest （（salt + this. password）.getBytes（））；this. password = salt + String. format （\"%x”，new BigInteger （1, hashByte））；bytel］ hashByte = mdObj.digest （（salt + this. password）.getBytes（））；イthis.password = String.format （\"%x”， new BigInteger （1,hashByte））；byte[］ hashByte = mdObj.digest （this. password.getBytes （））；ウbytel］ saltByte = mdobj.digest （salt.getBytes（））；this. password = String. format （\"%x”， new BigInteger （1, hashByte））+ Strin9. format（\"%x”， new BigInteger （1， saltByte））；byte[］ hashByte = mdobj.digest （this. password.getBytes （））；this. password = salt + String. format（”%x”，new BigInteger （1, hashByte））；byteL］ hashByte = mdObj.digest （this.password. getBytes（））；オthis.password = String. format （”%x”，new BigInteger （1, hashByte））；byte[］ saltHashByte = mdObj.digest （（salt + this.password）.getBytes（））；this.password = String.format （”%x”， new BigInteger （1, saltHashByte））；"
+        },
+        {
+          "type": "text",
+          "content": "6． 退室可能時間中に退室する場合は、手を挙げて監督員に合図し、答案用紙が回収されてから静かに退室してください。\n退室可能時間13:10～14:507．問題に関する質問にはお答えできません。文意どおり解釈してください。\n8． 問題冊子の余白などは、適宜利用して構いません。ただし，問題冊子を切り離して利用することはできません。\n9．試験時間中，机上に置けるものは、次のものに限ります。\nなお、会場での貸出しは行っていません。\n受験票，黒鉛筆及びシャープペンシル（B又はHB），筆削り、消しゴム、定規，時計（時計型ウェアラブル端末は除く。アラームなど時計以外の機能は使用不可）、ハンカチ、ポケットティッシュ、目薬これら以外は机上に置けません。使用もできません。\n10.試験終了後，この問題冊子は持ち帰ることができます。\n11. 答案用紙は、いかなる場合でも提出してください。回収時に提出しない場合は、採点されません。\n12．試験時間中にトイレへ行きたくなったり、気分が悪くなったりした場合は、手を挙げて監督員に合図してください。"
+        },
+        {
+          "type": "text",
+          "content": "試験問題に記載されている会社名又は製品名は、それぞれ各社又は各組織の商標又は登録商標です。\nなお、試験問題では、「及び®を明記していません。"
+        },
+        {
+          "type": "text",
+          "content": "©2024 独立行政法人情報処理推進機構"
+        }
+      ]
+    }
+  ],
+  "explanations": [
+    {
+      "problem": "問4",
+      "title": "JavaとRDBMSのセキュアプログラミング",
+      "items": [
+        {
+          "label": "設問1(1)",
+          "answer": "（脆弱性の種類）＝ア（XSS等）",
+          "explanation": "Javaのテンプレートエンジンやサーブレットで出力値をエスケープせずにHTMLに埋め込む場合のXSS脆弱性。H:タグでなくT:textやESAPI.encoder().encodeForHTML()等で適切にエスケープする必要がある。"
+        },
+        {
+          "label": "設問1(2)",
+          "answer": "a＝personal（テーブル名またはカラム名）　b＝4",
+          "explanation": "SQLインジェクション脆弱性の分析。PreparedStatement未使用の場合、ユーザ入力がSQL文に直接組み込まれ、任意のSQL実行が可能になる。'1' OR '1'='1'等のペイロードが有効。"
+        },
+        {
+          "label": "設問2(1)",
+          "answer": "d＝（エラー情報等が外部に漏えいする箇所）",
+          "explanation": "スタックトレースやシステムエラーメッセージを外部に表示することで、攻撃者にシステム構成情報が漏えいする。例外処理でスタックトレースを隠蔽し、一般的なエラーメッセージのみを表示する。"
+        },
+        {
+          "label": "設問2(2)",
+          "answer": "e＝例外（Exception）処理の不備によりシステム情報が出力される",
+          "explanation": "try-catch-finallyブロックの実装不備。catchで例外を握りつぶしたり、スタックトレースをそのまま出力する実装が問題。ログに詳細を記録し、ユーザには汎用エラーメッセージのみ表示する。"
+        },
+        {
+          "label": "設問2(4)",
+          "answer": "SHA-256・SHA-384・SHA-512",
+          "explanation": "パスワードのハッシュ化には一般的なSHAファミリーでなく、bcrypt・scrypt・Argon2・PBKDF2等の意図的に低速なパスワードハッシュ関数を使用すべき。SHA-256単体ではブルートフォースに弱い。"
+        },
+        {
+          "label": "設問2(5)",
+          "answer": "throw new RuntimeException(e)またはランタイムエラーを例外としてthrowする",
+          "explanation": "チェック例外を非チェック例外でラップしてthrowするパターン。Javaの例外処理において、下位レイヤの例外を適切に上位に伝達するための実装。例外の握りつぶしは隠れたバグの温床となる。"
+        },
+        {
+          "label": "設問2(6)",
+          "answer": "h＝finally",
+          "explanation": "try-catch-finallyのfinally節はtry/catch内でreturnやexceptionが発生した場合でも必ず実行される。DBコネクション・ファイルハンドルのクローズ処理はfinally節またはtry-with-resources文で記述する。"
+        },
+        {
+          "label": "設問2(7)",
+          "answer": "ア（トランザクション管理の不備）",
+          "explanation": "RDBMS操作でのトランザクション管理の重要性。例外発生時にロールバックしないと中途半端な状態でデータが更新されるデータ不整合が発生する。Spring @Transactionalやexplicit rollback実装が必要。"
+        }
+      ]
+    }
+  ]
+}

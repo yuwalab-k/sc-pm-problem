@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>平成29年度 秋 問2 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">平成29年度 秋 問2</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問2　Webアプリケーション開発におけるセキュリティ対策</h2><div class="problem-body"><pre class="text-block">A社は、Webマーケティングを支援する従業員数40名の企業である。A社では、現在、Webマーケティング分析システム（以下，Wシステムという）をWebアプリケーションとして独自に開発し、クラウドサービス事業者 S 社のクラウドサービス上で顧客にサービスとして提供している。W システムでは、A社独自の分析アルゴリズムを用いて、顧客のWebサイトを分析する。顧客の評価は高く、販売も好調である。</pre>
+<pre class="text-block">[Wシステムの概要］Wシステムの開発は、役員T氏とシステム担当のK氏が行っている。T氏がアルゴリズムなどの基本的な仕様を決め、K氏が、Java， サーブレットや開発フレームワークなどを用いて開発している。また、ブラウザ側での機能性向上のためにJavaScript も用いている。開発はK氏が管理するPC（以下、開発用PC という）上で行い、完成したブログラムをシステム管理者のF 氏が本番システムにデプロイし，運用している。
+Wシステムの画面構成は、次のようになっている。
+・総ページ数は 8である。
+・“ログインページ”で利用者を認証し、認証が成功すると、“ダッシュボードページ”へ遷移する。
+・“ダッシュボードページ”からは、“分析キーワード入力ページ”などへ遷移できる。
+Wシステムのシンプルなページの構成は、顧客にも好評である。</pre>
+<pre class="text-block">ぜい[Wシステムの実装に関する脆弱性]A 社では、W システムのセキュリティ検査を、あらかじめ定められた手順に従いK氏がブラウザを用いて手動で実施している。しかし、昨今の他社のセキュリティインシデント増加を受け、念のために、先月実施した社内のセキュリティ検査とは別に、今月になり初めて、外部の専門家にセキュリティ検査を依頼することにした。</pre>
+<pre class="text-block">そこで、セキュリティ専門会社L社の情報処理安全確保支援士であるN氏が、Wシステムのセキュリティ検査を担当することになった。
+まず、N 氏が脆弱性検査ツールを使って本番システムを検査したところ、図1のJava コードで書かれたサーブレット SearchServlet に、SQL インジェクション弱性及びクロスサイトスクリプティング（以下、XSS という）胎弱性があることが判明した。図2は、図1のSearchServlet を呼び出すHTMLコードである。
+続いてN氏が本番システムのソースコードを確認し、次の指摘をした。
+行目からア・SQL インジェクション施弱性への対処としては、図1の行目までを①適切なコードに置き換える必要がある。
+・XSS 脆弱性への対処としては、XSS 弱性を招く可能性の否定できない箇所について、HTML形式での出力時に処置するよう改修することとする。
+今回指摘された弱性は、検査すべき項目の中に含まれており、K氏によるブラウザを用いた手動のセキュリティ検査によって発見され，開発用PC 上のコードでは先月に修正されていた。しかし、K氏からファイルを受け取ったF氏が、本番システムに修正版をデプロイし忘れたので，本番システムに胎弱性が残存したままとなっていた。</pre>
+<pre class="text-block">import宣言など//package，（省略）1:public class SearchServlet extends HttpServlet ｛（省略）//変数やメソッドの定義など2：protected void doPost （HttpServletRequest request, HttpServletResponse response） throws ServletException, IOException ｛Connection conn = null；String cname = request. getParameter （"cname”）；response. setContentType （"text/html; charset=UTF-8”）；PrintWriter out = response.getWriter（）；try ｛8：（省略）//データベースにアクセスするためにconnを初期化などString sql = "SELECT ＊ FROM company list WHERE cname = 111 + cname + "1"；9：stmt = conn. createStatement O）；Statement10：ResultSet rs = stmt. executeQuery （sql）；11：if （cname ！= null &amp;&amp; rs！= null） ｛12：out.println（”＜htmly”）；13：out.print ln（”&lt;head＞”）；14：out.println（”"&lt;title&gt;分析結果く/title＞”）；15：（省略）//その他，JavaScriptの読込みなどout. print In（”&lt;/heady”）；16：out.print In（”&lt;body）”）；17：図1 分析結果を表示するページを出力する Java コード（抜粋）</pre>
+<pre class="text-block">out. println（"”&lt;table border=1y”）：18：out. println（”＜tr＞＜th＞キーワードく/th＞くさh＞アクセスく/th＞くさか＞売上げく／さか＞く／tr＞”）；19：while （rs.next（））｛20：out.println（”&lt;tr&gt;tdy” + rs.getString（1））；21：out.println（””く/td&gt;&lt;tdy” + rs.getString（2））；22：out.printLn（”く/tdy&lt;tdy" + rs.getString（3））；23：out. println（”く/tdy/try”）；24：25：｝26：out. print ln（”&lt;/tabley”）；（省略）//その他out.println（”＜/bodyy”）；27：out.println（”&lt;/html＞”）；28：29：｝｝ catch （SQLException e） ｛30：（省略）//例外処理1 finally ｛31：（省略）//データベースへのアクセスを終了する処理など｝32：（省略）//その他、エラー処理など33：34：（省略）//その他のメソッドの定義など35:3図1 分析結果を表示するページを出力する Java コード（抜粋）（続き）1：＜form action="SearchServlet” method="post”＞2： 分析キーワードを入力してください：＜input type=”text” name="cname” /&gt;3： ＜input type="submit”value=”検索”/&gt;4：＜/form＞図2 SearchServletを呼び出すHTML コード（抜粋）</pre>
+<pre class="text-block">[Wシステムの設計に関する施弱性]以前のWシステムは、ログイン状態で30分間操作しないと、サーバ側で自動的にログアウトする仕様であった。自動的にログアウトした場合、ログアウト直前のページを閲覧するには、再度ログインをして、ダッシュボードページから所望のページを選択する必要があるので、不便だとの指摘が顧客からあった。これを改善するため、自動的にログアウトした場合に、ログアウト直前のページの閲覧を試みると，一旦はログインページに移するが、認証が成功すると、閲覧を試みたページへリダイレクトする機能（以下、リダイレクタ機能という）を導入した。例えば、WシステムのURLである https://w-system.a-sha.jp/ で動作するWeb アプリケーションにおいて、Wシステムにログインしていない状態で，https://w-system.a-sha.jp/cashboard.jsp という URLにアクセスすると、図3のように生成されたURLへリダイレクトされる。</pre>
+<pre class="text-block">https://w-system.a-sha.jp/LoginSerylet?redirect_url=https://w-system.a-sha.jp/dashboard.jsp図3 リダイレクタ機能によって生成されたURL認証用サーブレット LoginServlet で認証が成功すると，https://w-system.a-sha.jp/dashboard.jsp へリダイレクトされる。
+リダイレクタ機能を含めて W システムの設計に関して検査を実施したところ、N氏から幾つかの指摘があった。主な指摘は次の3点であった。
+指摘1：W システムの認証後のリダイレクタ機能は、オープンリダイレクタの問題を招く。修正する必要がある。
+指摘2：Wシステムからの Cookie 発行の際、TLS 通信時だけ Cookie をブラウザか属性を設定する必要がある。
+ら送信する属性を設定すb指摘3：JavaScript からCookieを操作できないようにするる方がよい。
+K氏は、指摘1に対しては、Wシステムの特性を考慮して、②ホワイトリスト方式によるリダイレクタ機能を採用することにした。指摘2と指摘3については、N氏の指摘どおりに改修することにした。</pre>
+<pre class="text-block">[脆弱性対策の強化]胎弱性が残存した原因も踏まえ、脂弱性対策の強化として、次のとおり提案と指摘をN氏は行った。
+・変更管理プロセスを改善すべきである。
+・③施弱性検査手順を改善すべきである。
+・K氏によるブラウザを用いた検査には問題がある。Wシステムに XSS 脂弱性があったとして、適当な検査用文字列を入力しても、④一部のブラウザでは XSS 攻撃の試みを完遂できないことがある。
+・S 社のクラウド型 WAF サービス（以下、S サービスという）を導入することを推奨する。Sサービスでは、Webシステムに胎弱性が発見された際、短時間で適切なシグネチャが WAF に追加される。したがって、Sサービスを利用していれば、WAF を利用せずにWシステムを改修するケースと比較して、⑤Webアプリケーシヨンサーバへのリスクの低減を期待できる。</pre>
+<pre class="text-block">A社では、N氏のこれらの提案と指摘を検討し、適切に対処することにした。</pre>
+<pre class="text-block">設問1[Wシステムの実装に関する弱性]について，（1）～（3）に答えよ。
+イ に入れる、適切な行番号を答えよ。まア（1） 本文中のた、本文中の下線①について、必要な全てのコードを解答群の中から選び、適切な順序に並べ替えて解答欄の左から順に記号で答えよ。
+解答群ア PreparedStatement pstmt = conn.prepareStatement （sql）；pstmt. setString （1, cname） ；イウ ResultSet rs = pstmt, executeQuery（）；エ ResultSet rs = pstmt.executeQuery （sql）；オ String sql = ”SELECT ＊ FROM company list WHERE chame = 19）+ cname＋ ””：カ String sql = "SELECT ＊ FROM company list WHERE cname=？"；（2） 図1には、XSS 弱性を招く可能性を否定できないコードがある。N氏の指摘に従い，改修すべき行番号を全て答えよ。
+（3） XSS 弱性に対する修正を、N 氏の指摘に従い、解答群の中から選び、記号で答えよ。
+解答群ア CSRF 対策トークンを使う。
+イReferer ヘッダの値の URL のドメイン名が W システムのものであることを確認する。
+ウ出力時にく、＞、＆、”・，'の各文字をエスケープする。
+エ 同一生成元ポリシを適用する。
+オバインド機能を使う。</pre>
+<pre class="text-block">設問2 [Wシステムの設計に関する弱性]について、（1），（2）に答えよ。
+ha■に入れる適切な字句を、解答群の中かb（1） 本文中のら選び、記号で答えよ。
+解答群ウ Max-Ageイ HttpOnlyア Expiresオ Securedエ Secure（2） 本文中の下線②について、W システムで採用するホワイトリスト方式の適切な仕様を、40字以内で具体的に述べよ。
+設問3 [施弱性対策の強化]について、（1）～（3）に答えよ。
+（1） 本文中の下線③について、どのように改善すべきか。改善された検査手順を30字以内で述べよ。
+（2） 本文中の下線④について、XSS 攻撃の試みを完遂できないことがある理由を30字以内で述べよ。
+（3） 本文中の下線⑤について、低減できるリスクを50字以内で述べよ。</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問2　JavaセキュアプログラミングとXSS・SQLi・オープンリダイレクト</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">行番号：9・11　カ・ア・イ・ウ（修正が必要なコード行）</div></div><div class="expl-explanation">XSSとSQLiの対策実装の位置。XSSはHTMLエスケープを出力時に実施（行9・11等）。SQLiはPreparedStatementへの変更（行22・23等）。複数の脆弱性が混在するコードの全箇所を特定する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">認証後のリダイレクト先URLをWシステムのFQDNのものに限定する</div></div><div class="expl-explanation">オープンリダイレクト対策。ログイン後のリダイレクト先URLをパラメータで受け取る場合、自社ドメインの前方一致チェックまたはホワイトリストで検証する。許可リスト外のURLにはリダイレクトしない。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

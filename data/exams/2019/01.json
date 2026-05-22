@@ -1,0 +1,156 @@
+{
+  "id": "2019-01",
+  "era_label": "平成31年度 春 問1",
+  "problems": [
+    {
+      "problem": "問1",
+      "title": "Webサイトのセキュリティ",
+      "items": [
+        {
+          "type": "text",
+          "content": "M 社は、従業員数 200名の小売業である。コーポレートサイトであるWebサイトA （URLは、https://site-a.m-sha.co.jp/）と、自社の特定のブランドを取り扱うECサイト（以下，ブランドサイトという）を複数運営している。現在運営しているブランドサイトは、WebサイトBから WebサイトFの五つである。Webサイトの開発や運用は自社の開発部で行っている。\nWebサイト A は、ブランドサイト全体のポータルサイトでもあり、各ブランドのキャンペーン情報などを掲載している。会員専用の機能は有していない。\nWebサイト B （URLは， https://site-b.m-sha.co.jp/）は、ブランドBの商品を扱うECサイトで、会員数は10万名である。WebサイトBでは、Cookie を利用したセッション管理を行っている。\n会員情報は、各ブランドサイトで個別に管理している。"
+        },
+        {
+          "type": "text",
+          "content": "[各ブランドサイトから Webサイト A への情報連携]今回，各ブランドサイトの売上数を基にした、ブランド別の売れ筋商品情報を、Web サイトA上で表示するとともに、希望があれば、各ブランドサイトの会員に電子メールでも定期的に配信することにし、そのために売れ筋商品情報及び会員情報を取得する機能（以下、情報連携機能という）を実装することにした。具体的な機能は次のとおりである。\n機能1WebサイトAが各ブランドサイトの売れ筋商品情報を取得する。\n機能2 希望する会員に電子メールを配するために、WebサイトAは、当該会員の会員情報を取得する。\nなお、配備の申込みは、WebサイトA上で行う。"
+        },
+        {
+          "type": "text",
+          "content": "情報連携機能の実装は、開発部のCさんが中心になって進めることになった。まず初めに Webサイト B からWebサイト A への情報連携を行うために、次の二つのWeb APIをWebサイトBに実装することにした。\n・Webサイト B の売れ筋商品情報を取得可能とするための Web API（以下、APIXという）・Webサイト Bの会員情報を取得可能とするための Web API（以下、APIYという）"
+        },
+        {
+          "type": "text",
+          "content": "なお、Web APIで受け渡されるデータは、JSON （JavaScript Object Notation）形式にする。Cさんは、APIY からブランドサイトの会員情報を取得する際、配信を希望する会員の同意を得たいと考えた。そこで、会員情報の取得には、会員のWebブラウザを経由して行う方式を採用することにした。\nWebサイトBからWebサイトAへの情報連携機能を図1に示す。"
+        },
+        {
+          "type": "text",
+          "content": "（X-1）売れ筋商品情報取得リクWebサイトBエストが送られる。'）WebサイトAAPI-XAPI-Y（X-2）売れ筋商品情報が返される。\n（Y-1）会員が売れ筋商品情報配の申込ページにアクセスする。2）（Y-4） 会員情報を取得す（X-2）申込ページに加え、るリクエストがスWebサイトBのAPI-Y（Y-7） 申込情報と会員情報がWebサイクリプト2から送を呼び出すスクリプトAに送られ、保存される。\nられる。\nトZが返される。\nWebブラウザ（Y-3）会員が申込みを行う。\nスクリプトZ（Y-6） 会員情報がWebブラ（X-5）会員情報が返される。3）ウザに表示される。4）注 ”）API-Xでは、WebサイトAからだけアクセスできるように、接続元のIPアドレスを制限する。\n2） 会員がWebサイトBにログインした状態のときにアクセスする。\n3） 会員情報が得られない場合、エラーを返す。\n4）（¥-5）でエラーが返ってきた場合、WebサイトBにログイン後再度操作を行うよう促す。\n図1 WebサイトBからWebサイトAへの情報連携機能"
+        },
+        {
+          "type": "text",
+          "content": "[情報連携機能の実装についての検討）_ポリシによって、bスクリプト2は、aのいずれかが異なるリソースへのアクセスが制限される。そこで、Cさdんは、この制限をう回するために JSONP （JavaScript Object Notation with Padding）を用いることを開発部のD課長に提案した。次は、その時の会話である。"
+        },
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "speaker": "Cさん",
+              "text": "APIYからの会員情報の取得にJSONP を用いるつもりです。"
+            },
+            {
+              "speaker": "D課長",
+              "text": "JSONPは、アクセス先を制限する機能をもたないので、その実装では問題がある。例えば、まず、会員情報を窃取するように攻撃者がスクリプト Zを変更して、攻撃者のWeb サイトのページに置く。次に、被害者に①特定の操作をさせた上で、そのページにアクセスさせると、攻撃者が被害者の"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "= 3 ="
+        },
+        {
+          "type": "text",
+          "content": "会員情報を窃取できてしまう。\nCさん：JSONP の代わりに何の技術を用いればよいでしょうか。\nD 課長：CORS （Cross-Origin Resource Sharing）を用いるのがよいだろう。"
+        },
+        {
+          "type": "text",
+          "content": "[CORSの概要］CORS とは、あるWeb サイトから他の Web サイトへのアクセスを制御することができる仕組みである。XMLHttpRequestを使って“https://test2.example.com/test”にリクエストを送るスクリプトの例を図2に示す。"
+        },
+        {
+          "type": "text",
+          "content": "var xhr = new XMLHttpRequest（）；xhr.open（GET, https://test2.example.com/test, true）；xhr.setRequestHeader（X-Requested-With, XMLHttpRequest）；xhr.send（null）；図 2 XMLHttpRequestを使ったスクリプトの例"
+        },
+        {
+          "type": "text",
+          "content": "Web ブラウザが “https://test1.example.com/”にアクセスし、図2のスクリプトを含むページを読み込んだとする。図2のスクリプトが実行されると、最初にWeb ブラウザは“https://test2.example.com/test”にプリフライトリクエストと呼ばれるリクエストを送る。そうすると、実際のリクエスト（以下、メインリクエストという）で許可されるメソッド名やヘッダフィールド名などがレスポンスとして返る。その後，メインリクエストを送り、レスポンスが返る。この一連の動作を図3に、また、図3中の（五）～（vi）のリクエストとレスポンスの先頭部分の例を図4～図7に示す。"
+        },
+        {
+          "type": "text",
+          "content": "Webブラウザtest2.example.comtestl.example.com（i）アクセス（ii）スクリプト（皿）プリフライトリクエスト（i）レスポンス（V）メインリクエスト（vi） レスポンス←図3 一連の動作"
+        },
+        {
+          "type": "text",
+          "content": "OPTIONS /test HTTP/1.1Host: test2.example.comAccess-Control-Request-Method: GET 1）Access-Control-Request-Headers: x-requested-with 2）3）Origin: https://testl.example.com注1）Access-Control-Request-Method には、メインリクエストで利用したいメソッド名を指定する。\n2）Access-Control-Request-Headers には、メインリクエストで利用したいヘッダフィールド名を指定する。\n3）Origin は、スクリプトを含むページのオリジンであり、Webブラウザが付与している。\n図4（ii）のリクエストの先頭部分の例（抜粋）"
+        },
+        {
+          "type": "text",
+          "content": "HTTP/1.1 200 OKAccess-Control-Allow-Origin: https://testl.example.com \"）Access-Control-Allow-Methods: GET, POST, OPTIONS 2）Access-Control-Allow-Headers: x-requested-with 3）注 ” Access-Control-Allow-Originには、Webサイトが許可するオリジンが返される。\n2） Access-Control-Allow-Methods には、Webサイトが許可するメソッド名が返される。\n3）Access-Control-Allow-Headers には、Webサイトが許可するヘッダフィールド名が返される。\n図5（i）のレスポンスの先頭部分の例（抜粋）"
+        },
+        {
+          "type": "text",
+          "content": "GET /test HTTP/1.1Host: test2.example.comX-Requested-With: XMLHttpRequestOrigin: https://testl.example.com（v）のリクエストの先頭部分の例（抜粋）図 6"
+        },
+        {
+          "type": "text",
+          "content": "HTTP/1.1 200 OKAccess-Control-Allow-Origin: https://testl.example.com図7（vi）のレスポンスの先頭部分の例（抜粋）"
+        },
+        {
+          "type": "text",
+          "content": "また、CORS では通常，Web ブラウザは、スクリプトを読み込んだページのオリジンだけに Cookie や，ベーシック認証の情報を送る。図2では設定していないが、XMLHttpRequest のプロパティの withCredentials の値がtrue に設定されている場合、図3であれば、の動作の際に、test2.example.com から発行された Cookieeが送られる。"
+        },
+        {
+          "type": "text",
+          "content": "= 5 ="
+        },
+        {
+          "type": "text",
+          "content": "[CORSを利用した実装]Cさんは、スクリプト2の実装にCORS を用いたときの一連の動作を検討し，表1にまとめた。"
+        },
+        {
+          "type": "text",
+          "content": "表1スクリプトZの実装に CORSを用いたときの一連の動作内容No.Web ブラウザは、Webサイト Aの売れ筋商品情報配の申込ページにアクセスする。\n1Webサイト Aは、WebサイトBのAPIYを呼び出すスクリプトZを含むページをレスポ2ンスとして返す。\nWeb ブラウザは、会員が申込みを行うと、Webサイト B にプリフライトリクエストを送3する。プリフライトリクエストは、OPTIONS メソッドの呼出しであり、Origin ヘツタフィールドには\"https://site-a.m-sha.co.jp”が設定されている。\nAPIY は、送られてきたリクエストに Origin ヘッダフィールドが存在する場合，Access-4Control-Allow-Origin ヘッダフィールドを付加し、レスポンスを返す。 Access-Control-”である。Origin ヘッダフィールドAllow-Origin ヘッダフィールドの値は、fが存在しない場合，エラーを返す。\nと Access-Control-Allow-Origin ヘッダフィールドの値を照合Web ブラウザは、5gし、アクセスが許可されていることを確認する。許可されている場合は、次の処理に進む。確認できない場合は、メインリクエストを送らずに終了する。"
+        },
+        {
+          "type": "text",
+          "content": "スクリプト2は、受け取ったJSON 形式の値を変数に格納し、表示する。さらに、受け取9った値は WebサイトAに送られ、保存される。"
+        },
+        {
+          "type": "text",
+          "content": "Cさんは、表1についてD 課長に確認した。次は、その時のD課長とCさんの会話である。"
+        },
+        {
+          "type": "text",
+          "content": "D課長：今後、他のシステムでも CORSを利用することが考えられるので、コーデイング規約も併せてまとめておきたい。Access-Control-Allow-Origin ヘッタフィールドに指定できるオリジンは一つだけなので、複数のオリジンからのアクセスを許可するような仕様であった場合に、No. 4の内容では不十分である。Web APIのプログラム内に、許可するオリジンのリストを用意しておく必要がある。プリフライトリクエスト又はメインリクエストが Web APIを、に送られてきたときに、そのリクエスト中のした値があればその値を Access-Control-Allow-Originと突合し、ヘッダフィールドに設定するという内容もコーディング規約に含めればよ"
+        },
+        {
+          "type": "text",
+          "content": "いだろう。\nCさん：分かりました。"
+        },
+        {
+          "type": "text",
+          "content": "Cさんは、CORSの利用に関するコーディング規約をまとめ、表1をこれに合うように修正し、D課長に再度確認した。修正後の内容で問題ないということだったので，Cさんは実装を行った。\nその後、セキュリティ専門業者に胎弱性診断を依頼し、脆弱性が検出されないことを確認した上で、情報連携機能をリリースした。その後、同様に残り四つのブランドサイトから WebサイトAへの情報連携機能も実装した。"
+        },
+        {
+          "type": "text",
+          "content": "設問1[情報連携機能の実装についての検討】について、（1）～（3）に答えよ。\n（1） 本文中のに入れる適切な字句を答えよ。\naコに入れる適切な字句を解答群の中から（2） 本文中のbd選び、記号で答えよ。\n解答群ア Cookieイ FQDNウ Location ヘッダフィールドエ Referer ヘッダフィールドカ時刻オ User-Agent ヘッダフィールドキスキームクポート番号（3） 本文中の下線①について、操作の具体的な内容を、20字以内で答えよ。\n」に入れる適切な記号を、（日）～（i）の中から選び、答設問2 本文中のeえよ。\n設問3（CORSを利用した実装］について、（1）～（3）に答えよ。\n（1） 表1中のfに入れる適切なURLを答えよ。\n（2） 表1中のに入れる適切な字句を、30字以内で答えよ。\ng■に入れる適切な字句を、それぞれ20字（3） 本文中のhi】に入れる適切な字句を、5字以内で答えよ。\n以内で、本文中の"
+        },
+        {
+          "type": "text",
+          "content": "[メモ用紙]"
+        }
+      ]
+    }
+  ],
+  "explanations": [
+    {
+      "problem": "問1",
+      "title": "Web APIのCORSとSame-Originポリシー",
+      "items": [
+        {
+          "label": "設問1(1)",
+          "answer": "a＝Same-Origin（同一オリジンポリシー）",
+          "explanation": "ブラウザのセキュリティ基本機能。オリジン（スキーム＋ホスト＋ポート）が異なるリソースへのアクセスをJavaScriptから禁止する。CORSはこの制限を安全に緩和するためのHTTPヘッダベースの仕組み。"
+        },
+        {
+          "label": "設問1(2)",
+          "answer": "b＝イ・キ（CORSヘッダの設定値）\nc,d＝ク（許可するOrigin）",
+          "explanation": "CORSのAccess-Control-Allow-Originヘッダ。特定のオリジンのみ許可する場合は具体的なオリジンを指定（'*'は認証情報を含むリクエストには使えない）。許可オリジンをホワイトリスト管理することが重要。"
+        },
+        {
+          "label": "設問2",
+          "answer": "WebサイトBへのログイン（CSRF等の悪用可能性）",
+          "explanation": "CORSの過剰許可によるリスク。Access-Control-Allow-Originsに悪意あるサイトのオリジンを許可した場合、そのサイトのJavaScriptから認証済みAPIを呼び出せる。XMLHttpRequestのwithCredentials=trueと組み合わさると深刻。"
+        }
+      ]
+    }
+  ]
+}

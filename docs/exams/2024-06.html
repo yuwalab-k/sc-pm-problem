@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>令和6年度 秋 問2 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">令和6年度 秋 問2</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問2　ドメイン名変更</h2><div class="problem-body"><pre class="text-block">A社は、従業員1,000名の工作機械製造会社である。A社の技術力は高く評価されている。A社には、総務部、営業部、情報システム部，技術部及び製造部がある。
+A社のWebサイトでは、一般向けにIR情報と関連会社へのリンクを、顧客向けに自社製の工作機械管理用アプリケーションプログラムとそのソフトウェア修正プログラムを提供している。また、A社では、電子メール（以下、メールという）を用いて、顧客との間で見積書や注文書の送受をしたり、ニュースサイトのメールマガジンに登録して最新の情報を収集したりしている。
+A社のドメイン名を詐称したメールが毎週2通程度、送られていることが、多くの顧客から報告されている。情報システム部長は、顧客に詐欺などの被害が生じるおそれがあることを認識し、メールの詐称対策が必要であると考えている。</pre>
+<pre class="text-block">[情報システムの現状]A社は、10年前にドメイン名 a-sha.co.jp（以下、A社ドメイン名という）を取得して以降、A社のWebサイト（以下、A-Webサイトという）及びメールアドレスのドメイン名として利用している。A社ドメイン名は、DNS サービス事業者であるS社の権威DNS サービス（以下、Sサービスという）を用いて管理している。
+A-Webサイトは、Webサービス事業者であるW社のWebサービス（以下，Wサービスという）を用いて提供している。
+A社のネットワークを図1に、構成要素の機能を表1に示す。A社の従業員は、PC-LAN内のPCで業務を行っている。</pre>
+<pre class="text-block">キャッシュDNSサービスWサービスインターネットSサービスA社「サーバLAN・DMZレイヤー2メールファイアサーバフォール｜スイッチ業務サーバPC-LAN注記 PC-LAN内のPCの記載は省略している。
+図1 A社のネットワーク（抜粋）</pre>
+<div class="table-wrap"><p class="table-caption">表1 構成要素の機能（抜粋）</p><pre class="raw-ocr-table">表1 構成要素の機能（抜粋）機能構成要素・S社が提供するキャッシュ DNSサービスを用いて、DNS問合せを行う。
+メールサーバ・インターネットとの間で、SMTP を用いてメールを転送する。
+・PC-LAN及び業務サーバから SMTP を用いて送信されるメールを受言する。
+であるメールをメールボッ・宛先メールアドレスのドメイン名がクスに格納する。
+・第三者中継防止のためのルールを用いて、第三者中継を防止する。第三者中継防止のためのルールを表2に示す。
+・メールボックス内のメールを、PC-LAN内のPC がPOP3を用いて受できるようにする。</pre></div>
+<pre class="text-block">表2 第三者中継防止のためのルール転送処理宛先メールアドレスのドメイン名転送元項番許可インターネット1a許可PC-LANb2許可業務サーバA社ドメイン名3拒否全て全て4注記項番が小さいルールから順に、最初に一致したルールが適用される。</pre>
+<pre class="text-block">[ドメイン名の変更についての検討]A社は、3か月後に2社への社名変更を予定している。情報システム部長は、メールの詐称対策の導入及び社名変更に合わせたドメイン名変更を検討するように情報システム部のN主任に指示した。N主任は情報システム部のEさんと、次のとおり検討した。
+■・z-sha.co.jp（以下、Z社ドメイン名という）が過去に取得されたことがないドメイン名であることを確認してから取得する。
+・Z 社ドメイン名の管理もSサービスで行う。
+・W サービスで 2社ドメイン名の Webサイト（以下，z-Webサイトという）も立ち上げる。
+・図1のメールサーバでは、複数のドメイン名のメールを受できないことから、商用のメールサービスに移行する。
+・メールの詐称対策は、SPF,DKIM 及びDMARC で対応する。</pre>
+<pre class="text-block">N主任とEさんは、7社が送するメールの詐称対策（以下、送信対応という）と、2社が受言するメールの詐称対策（以下、受信対応という）について方針をそれぞれ表3と表4のとおり作成した。</pre>
+<pre class="text-block">表3 送信対応方針項番対応方針概要1送するメールのエンベロープ From 及びヘッダーFromのドメイン名を1社ドメイン名とする。
+2社ドメイン名のメールを受信した側でSPFによる認証及びDKIMによる認証に失敗し2た場合のアクションを DMARC ポリシーとして定義する。
+DMARC ポリシーレコード（以下、DMARCレコードという），SPFレコード及びDKIM キー3レコード（以下、DKIMレコードという）をSサービスに登録する。
+送するメールには、DKIM 署名を付与する。
+4DMARC レポートを分析する。
+5顧客に、2社は送するメールについて、SPF,DKIM 及びDMARCに対応済みであること6を周知する。</pre>
+<div class="table-wrap"><p class="table-caption">表4 受借対応方針項番対応方針概要受備するメー</p><pre class="raw-ocr-table">表4 受借対応方針項番対応方針概要受備するメールの宛先メールアドレスのドメイン名は、2社ドメイン名とする。
+1顧客に、送するメールについて SPF、DKIM及びDMARCに対応するように依頼する。
+23SPF による認証及びDKIによる認証を行いそのいずれかが成功した場合、DMARC の認証が成功したものと判断し、受備する。
+送元のDMARC ポリシーに基づき、メールの受，隔離又は拒否を行う。
+4</pre></div>
+<pre class="text-block">N主任とEさんは、これまでの結果を，情報システム部長に報告し、了承を得た。</pre>
+<pre class="text-block">[メールサービスの機能の検討］N主任とEさんは、メールサービスの機能について検討し、メールサービス事業者であるU社のメールサービス（以下、Uサービスという）に移行することにした。Uサービスの機能の概要を表5に示す。</pre>
+<pre class="text-block">表5Uサービスの機能の概要（抜粋）概要機能を使用してメcメール転送・インターネットとの間は、SMTPをTLSで暗号化するールを転送することができる。
+・Web ブラウザを用いてメールを送受する。
+Webメール・利用者アカウントの登録や削除を行う。
+Uサービス・送信したメールについて DMARC レポートの分析結果を参照することができる。
+管理 Web</pre>
+<pre class="text-block">[z-Webサイト及びUサービスへの移行手順の検討]Eさんは、Z-Webサイト及びUサービスへの移行手順を検討した。検討結果を、図2及び図3にそれぞれ示す。
+Web-Step1: A-Web サイトのコンテンツを全て、2-Webサイトに同一構成で配置する。2-Webサイトに配置したコンテンツ中のA社ドメイン名を2社ドメイン名に書き換える。
+Web-Step2：次を1年間、実施する。
+・A-Webサイトへのアクセスを、2-Webサイトのトップページにリダイレクトする。
+Web-Step3：A-Webサイトを停止する。A-Webサイト用のDNS レコードは削除する。
+図2 2-Webサイトへの移行手順</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>Mail-Step1</dt><dd>試行期間として次を1か月間、実施する。
+・総務部及び情報システム部のメンバーだけが、2社ドメイン名のメールアドレスを使用する。
+・送信対応では、DMARC ポリシーを、特定のアクションを要求しないこととし、メールを受信してもらう。
+・受対応では、DMARC の認証結果にかかわらず受する。</dd></div><div class="dialogue-line"><dt>Mail-Step2</dt><dd>図1のメールサーバの利用をやめ、次を3か月間、実施する。
+・Z社全体が、Uサービスを用いて2社ドメイン名のメールアドレスを使用する。
+・2 社ドメイン名でのメールの利用を顧客に文書で周知するとともに、2-Webサイトで周知する。
+・A社ドメイン名宛てのメールをUサービスで受備する。</dd></div><div class="dialogue-line"><dt>Mail-Step3</dt><dd>送信対応のDMARC ポリシーを隔離に変更し、その6か月後、拒否に変更する。</dd></div><div class="dialogue-line"><dt>Mail-Step4</dt><dd>A社ドメイン名でのメールの受情を停止する。メールサーバ用のDNSレコードは削除する。</dd></div><div class="dialogue-line"><dt>Mail-Step5</dt><dd>問題がないと確認できたら、受対応でDMARC の処理を行う。
+図3 Uサービスへの移行手順</dd></div></dl>
+<pre class="text-block">Eさんは、図2及び図3をN主任に説明し、了承を得た。</pre>
+<pre class="text-block">[送信対応の設定内容についての検討）Eさんは、送対応に用いる SPF レコードを、Uサービスから提供された情報に基づいて作成した。
+次に、Eさんは、送信対応に用いるDKIM レコードについて検討した。2社がUサービスを利用した場合、送されるメールに付与される DKIM-Signature ヘッダーのタグの内容を表6に示す。</pre>
+<pre class="text-block">表6 タグの内容（抜粋）タグ内容vrsa-sha256az-sha.co.jpdFrom: To: Subject: Date: Message-ID: MIME-Versionh22024s</pre>
+<pre class="text-block">表6から、①DKIM レコードの名称として使用するFQDNが決まる。Eさんは、Uサービスから提供された情報に基づきDKIMレコードを作成した。
+最後に、Eさんは、Mail-Step1の送信対応ではDMARCレコードを図4のとおりとすることにした。</pre>
+<pre class="text-block">V=DMARC1: p=i rua=mailto:rua-report@z-sha.co.jpd図 4DMARC レコード</pre>
+<pre class="text-block">Eさんは、設定内容をまとめてN主任に報告し、了承を得た。</pre>
+<pre class="text-block">[A社ドメイン名の契約についての検討]N 主任とEさんは、A社ドメイン名使用の契約を継続するか解約するかについて検討した。解約した場合、第三者がA社ドメイン名を取得することができる。N主任とEさんは、第三者がA社ドメイン名を取得した場合のA社ドメイン名の悪用例を検討し、表7のとおりまとめた。</pre>
+<pre class="text-block">表7 A社ドメイン名の悪用例悪用の例項目第三者が、A社ドメイン名を用いて、現在のA-Webサイトと見た目が同Web の悪用じ Webサイトを立ち上げるという悪用が考えられる。さらに、第三者が、コンテンツを細工してWebサイトの見た目を変えずに②顧客に景を及ぼす攻撃をすることが考えられる。
+第三者が、メールサーバを立ち上げ、A社ドメイン名のメールアドレスメールの送信を送信元メールアドレスとしてメールを送するという悪用が考えられる。
+従業員が業務で用いる社外サービスがあり、メールでの連絡先としメールの受て，A社ドメイン名のメールアドレスを登録していたとする。もし連絡先の変更を忘れてしまうと、③第三者が、社外サービスからA社ドメイン名のメールアドレスへのメールを受し、そのメールを使って続きの攻撃を行うという悪用が考えられる。</pre>
+<pre class="text-block">N 主任とEさんは、A社ドメイン名使用の契約を継続することを情報システム部長に報告し、承認を得た。
+また、A社ドメイン名については、MaiL-Step4の後で次のとおり、設定することにした。
+・DMARC レコードを設定する。
+・DMARC の受対応を行った組織が A社ドメイン名からのメールを拒否できるようにする。</pre>
+<pre class="text-block">そのために，A社ドメイン名について、SPF レコードを図5のように設定する。
+DKIM レコードは設定しない。</pre>
+<pre class="text-block">v=spf1eSPF レコード図5</pre>
+<pre class="text-block">[U サービスへの移行の見直し]Mail-Step1において、DMARC レポートの分析結果を参照した結果、送対応には問題がないことが確認できた。
+Mail-Step2の開始1週間後、情報システム部のEさんに営業部のHさんから、図6に示すメールの一斉配信をしても問題ないか相談があった。</pre>
+<pre class="text-block">1.定期的に、2社の公式情報の周知のためのメールを一斉配合する。
+2. 宛先には、社内と社外のメールアドレスが含まれている。
+3.一斉配には、T社のサービス（以下、「サービスという）を利用する計画であり、「サービスの仕様は次のとおりである。
+・配倉方法-宛先メールアドレスは、サービス契約者が登録できる。
+-宛先メールアドレスごとに個別に送する。
+・メールのヘッダーの設定- Fromは、サービス契約者が所属する組織が保有するドメイン名を用いたメールアドレスだけを設定できる。
+- Toは、宛先のメールアドレスから一つずつ、Tサービスが設定する。
+-Subjectは、一斉配備の都度、サービス契約者が設定する。
+-他のヘッダーは、Tサービスが設定する。
+図 6メールの一斉配の説明</pre>
+<pre class="text-block">Eさんから相談を受けたN主任は、図6の一斉配メールについて、次のとおりEさんに説明した。
+・Mail-Step3 以降で、一斉配されたメールが届かない場合がある。メールが届くように、Mail-Step2の期間で、④表3の項番3での登録内容を見直す必要がある。</pre>
+<pre class="text-block">Eさんは、見直し案を作成し、N主任の了承を得てから、Hさんに問題ないことを説明した。
+Mail-Step2の開始2週間後、情報システム部に技術部の」さんから、図7に示すメーリングリストを新たに利用することが可能か相談があった。</pre>
+<figure class="text-figure"><div class="text-figure-body"><div class="fig-l1"><span class="fig-marker">1.</span><span class="fig-body">使用するメーリングリストは一つである。</span></div>
+<div class="fig-l1"><span class="fig-marker">2．</span><span class="fig-body">メーリングリストの管理者は、2社従業員である。</span></div>
+<div class="fig-l1"><span class="fig-marker">3.</span><span class="fig-body">製品に関する情報交換のために、メーリングリストを使用する。</span></div>
+<div class="fig-l1"><span class="fig-marker">4.</span><span class="fig-body">メーリングリストの配先となる宛先には、社内及び社外のメールアドレスを登録する（以下、登録されたメールアドレスを登録メンバーという）。</span></div>
+<div class="fig-l1"><span class="fig-marker">5.</span><span class="fig-body">登録メンバーから、メーリングリスト宛てにメールを送できる。</span></div>
+<div class="fig-l1"><span class="fig-marker">6.</span><span class="fig-body">メールサービス事業者であるY社のサービス（以下、Yサービスという）を利用する計画であり，Yサービスの仕様は次のとおりである。</span></div>
+<div class="fig-l2"><span class="fig-marker">（1）</span><span class="fig-body">メーリングリストのメールアドレスは、サービス契約者ごとに割り当てられたYサービスのメールアドレスである。ドメイン名はY社のドメイン名である。</span></div>
+<div class="fig-l2"><span class="fig-marker">（2）</span><span class="fig-body">Yサービスの管理画面で設定できる項目は（3）～（6）であり、配されるメールに反映される。</span></div>
+<div class="fig-l2"><span class="fig-marker">（3）</span><span class="fig-body">エンベロープ Fromの設定・メーリングリストの管理者のメールアドレスを設定する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（4）</span><span class="fig-body">ヘッダーFromの設定・次のいずれかを選択する。</span></div>
+<div class="fig-text">ヘッダーFrom 設定 1：メーリングリスト宛てに送信されたメールのヘッダーFromを使用する。</div>
+<div class="fig-text">ヘッダーFrom設定2：メーリングリストのメールアドレスを使用する。</div>
+<div class="fig-l2"><span class="fig-marker">（5）</span><span class="fig-body">Subject の設定・次のいずれかを選択する。</span></div>
+<div class="fig-text">Subject 設定1：メーリングリスト宛てに送信されたメールのSubjectを使用する。</div>
+<div class="fig-text">Subject設定2：メーリングリスト宛てに送信されたメールのSubjectにメールの通番情報を付加する。</div>
+<div class="fig-l2"><span class="fig-marker">（6）</span><span class="fig-body">Reply-To の設定・メーリングリストのメールアドレスを設定する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（7）</span><span class="fig-body">ヘッダーFrom, Subject及びReply-To以外のヘッダー・メーリングリスト宛てに送信したメールのヘッダーを引き継ぐ。</span></div>
+<div class="fig-l2"><span class="fig-marker">（8）</span><span class="fig-body">Authenticated Received Chain '）（ARC）について・ARC には、対応していない。</span></div>
+<div class="fig-text">メールが転送される場合でも、メールの認証結果を確認できるようにする仕組みとして、RFC注”）8617 に定義されている。</div></div><figcaption>図7 メーリングリストの説明</figcaption></figure>
+<pre class="text-block">N主任は、Eさんに図8に示すとおり説明した。</pre>
+<pre class="text-block">・Mail-Step3 以降に2社の従業員が送信したメールについて-ヘッダーFrom 設定1とSubject設定1の組合せでは、不達の問題は起きない。
+-ヘッダーFrom設定1と Subject 設定2の組合せでは、⑤SPFによる認証及びDKIMによる認証の両方に失敗することによって不達の問題が発生することがある。
+-ヘッダーFrom 設定 2については、2社の従業員が送信したメールであるかどうかの判定ができないので、用いるべきではない。
+・Mail-Step3 以降に2社の従業員以外が送したメールについて（省略）図8 N主任の説明</pre>
+<pre class="text-block">N主任とEさんは、Jさんには、ヘッダーFrom設定1とSubject設定1の組合せを用いるよう説明した。</pre>
+<pre class="text-block">その後、2-Webサイト及びUサービスへの移行は、順調に進み、完了した。</pre>
+<pre class="text-block">設問！[情報システムの現状］について答えよ。
+（1） 表1中及び表2中のに入れる適切な字句を答えよ。
+（2） 表2中のbに入れる適切な字句を答えよ。
+設問2 表5中の「一に入れる適切な字句を英字10字以内で答えよ。
+設問3【送対応の設定内容についての検討】について答えよ。
+（1） 本文中の下線①のFQDN を解答群の中から選び、記号で答えよ。
+解答群アrsa-sha256._dkim. 2-sha.co.jpイrsa-sha256._domainkey.z-sha.co.jpウ22024._dkim.z-sha.co.jpエ22024._domainkey.z-sha.co.jpオ22024.2-sha.co.jp（2） 図4中のに入れる適切な字句を解答群の中から選び、記号で答えよ。
+解答群ア acceptウ quarantineイnoneI receiveオreject設問4 [A社ドメイン名の契約についての検討]について答えよ。
+（1） 表7中の下線②について、攻撃の方法を具体的に答えよ。
+（2） 表7 中の下線③について、受信するメールの内容及び続きの攻撃の例を具体的に答えよ。
+（3） 図5中のに入れる適切な字句を解答群の中から選び、記号で答えよ。
+解答群ウ blockイ？allア-allエ denyオrefuse</pre>
+<pre class="text-block">設問 5[Uサービスへの移行の見直し]について答えよ。
+（1） 本文中の下線④について、見直しの内容を具体的に答えよ。
+（2）図 8中の下線⑤について、SPF による認証に失敗する理由及び DKIMによる認証に失敗する理由をそれぞれ、Sサービスへの登録内容とYサービスの仕様を含めて、具体的に答えよ。</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問2　メールセキュリティとDMARC</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝A社ドメイン名　b＝全て</div></div><div class="expl-explanation">DMARCのalignmentモード。From:ヘッダのドメインとSPF/DKIMで検証されたドメインが一致するか確認する。strictモードでは完全一致、relaxedモードではオーガニックドメインの一致で検証が通る。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">c＝SMTPS（SMTP over TLS）</div></div><div class="expl-explanation">メール送受信の暗号化。SMTPSはポート465でTLS接続、STARTTLSはポート587でSTARTTLSコマンドによるアップグレード。中間者攻撃によるメール傍受を防ぐ。MTA-STS（SMTP MTA Strict Transport Security）も関連する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">c（SPFレコードの設定内容）</div></div><div class="expl-explanation">SPF（Sender Policy Framework）レコードはDNSのTXTレコードに記載。送信元として許可するIPアドレス・ホスト名をinclude・ip4・ip6等で指定する。~all（ソフトフェイル）より-all（ハードフェイル）を推奨。</div></div>
+<div class="expl-item"><div class="expl-label">設問3</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">エ（ソフトウェア修正プログラムに見せかけたマルウェアをダウンロードさせる）</div></div><div class="expl-explanation">フィッシングメール経由のマルウェア配布。DMARC非設定ドメインのなりすましメールに正規ソフトウェアに見せかけたマルウェアリンクを掲載する攻撃。DMARC+DMARCアナライザーによる可視化で送信元を管理する。</div></div>
+<div class="expl-item"><div class="expl-label">設問4(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">社外サービスのパスワード再設定画面のURLが書かれたメールを送り、任意のパスワードを設定しアカウントを乗っ取る</div></div><div class="expl-explanation">メール乗っ取り後の被害シナリオ。攻撃者がなりすましメールで「パスワードをリセットしてください」という正規ふりのメールを送り、フィッシングサイトに誘導してパスワードを奪取するアカウントテイクオーバー。</div></div>
+<div class="expl-item"><div class="expl-label">設問5(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">SPFレコードに、TサービスのメールサーバのIPアドレスを追加する</div></div><div class="expl-explanation">新たなメール送信サービス（T社）を追加する際のSPFレコード更新。SPFレコードの~all/-allより前に新サービスのip4やincludeを追加する。DNS伝播後、SPF検証が通ることを確認する。</div></div>
+<div class="expl-item"><div class="expl-label">設問5(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">SPF：YサービスのIPアドレスがSPFレコードに未登録のためSPF認証失敗
+DKIM：DKIMレコードのhタグにSubjectが含まれているのにYサービスがSubjectを変更するためDKIM認証失敗</div></div><div class="expl-explanation">DKIM署名の仕組み。署名ヘッダのhタグで署名対象ヘッダを指定するが、中間のMTAがそのヘッダを変更すると署名が無効になる。Subjectを書き換えるメール転送サービスはDKIM認証が壊れる場合がある。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

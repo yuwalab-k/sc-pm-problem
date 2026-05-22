@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>令和元年度 秋 問1 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">令和元年度 秋 問1</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問1　電子メールのセキュリティ対策</h2><div class="problem-body"><pre class="text-block">N社は、従業員数500名の情報サービス事業者である。N社の情報システムの構成を図1に示す。</pre>
+<pre class="text-block">FW：ファイアウォールL2SW：レイヤ2スイッチインターネットL3SW：レイヤ3スイッチN社プロキシ外部メール外部DNSルータ「サーバセグメントサーバサーバサーバ内部DNS内部メールL2SWFWDMZサーバサーバL3SWL2SWL2SWPCPCセグメント注記外部DNSサーバのグローバルIPアドレスは、x1.y1.21.2である。
+図1 N社の情報システムの構成</pre>
+<pre class="text-block">N 社の情報システムは、情報システム部（以下，情部という）のQ部長とひ主任を含む5名で運用している。
+各PC 及び各サーバは胎弱性修正プログラムが自動的に適用され，導入済のマルウェア対策ソフトのマルウェア定義ファイルが自動的にアップデートされる設定になっている。外部メールサーバでは、スパムメールフィルタの機能を利用している。
+N 社では、インターネットドメイン名 n-sha.co.jp（以下、N社ドメイン名という）を取得しており、メールアドレスのドメイン名にも使用している。外部DNS サーバは、電子メール（以下、メールという）に関して図2のように設定してある。</pre>
+<pre class="text-block">INMX 10 mail.n-sha.co.jp.”/n-sha.co.jp.mail.n-sha.co.jp. INA x1.y1.21.1 2）注記 逆引きの定義は省略しているが、適切に設定されている。
+注 1mail.n-sha.co.jp は、外部メールサーバのホスト名である。
+2）x1.y1.21.1は，グローバルIPアドレスを示す。
+図2 N社の外部 DNSサーバのメールに関する設定</pre>
+<pre class="text-block">コマンドで指定されるエンベロ送者メールアドレスには、SMTP のaープの送者メールアドレス（以下、Envelope-FROM という）と、メールデータ内のメールヘッタで指定される送者メールアドレス（以下，Header-FROM という）</pre>
+<pre class="text-block">がある。送信したメールが不達になるなど配送エラーとなった場合，Envelope-FROM で指定したメールアドレス宛てに通知メールが届く。N社では、従業員がPOからメールを送言する場合、Envelope-FROM 及びHeader-FROMとも自身のメールアドレスが設定される。
+昨今、メールを悪用して企業税密や金銭をだまし取る攻撃が発生しており、N社が属する業界団体の会員企業でも、なりすましメールによる攻撃によって被害が発生した。こうした被害を少しでも抑えるため、同団体から送者メールアドレスが詐称されているかをドメイン単位で確認する技術（以下、送信ドメイン認証技術という）を普及させるよう働きかけがあったことから、N社でも情シ部が中心になって送信ドメイン認証技術の利用を検討することになった。</pre>
+<pre class="text-block">[送ドメイン認証技術の検討]Q部長とU 主任は、送信ドメイン認証技術の利用について検討を始めた。次は、その際のQ部長とひ主任の会話である。</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>Q部長</dt><dd>当社でも送信ドメイン認証技術を利用すべきだと経営陣に報告したい。まずは、どのような送ドメイン認証技術を利用するかを検討しよう。</dd></div><div class="dialogue-line"><dt>U主任</dt><dd>送ドメイン認証技術では、SPF， DKIM，DMARC が標準化されています。
+当社の外部メールサーバでは、いずれも利用が可能です。</dd></div></dl>
+<pre class="text-block">Q部長は、図3のなりすましメールによる攻撃の例を示し、送宿ドメイン認証技術が各攻撃の対策となるかどうかをまとめるようにU主任に指示した。</pre>
+<pre class="text-block">攻撃 1N 社の取引先のメールアドレスを送言者として設定したメールを、攻撃者のメールサーバからN社に送する。
+攻撃 2N 社のメールアドレスを送信者として設定したメールを、攻撃者のメールサーバからN社の取引先に送信する。
+図3 なりすましメールによる攻撃の例</pre>
+<pre class="text-block">U 主任は，SPF への対応と各攻撃に対する効果の関係を表1にまとめ、SPF が対策となるかどうかを同表を用いてQ部長に説明した。</pre>
+<pre class="text-block">表1 SPF への対応状況と各攻撃に対する効果SPF への対応状況攻撃 2に対攻撃1に対外部メールサー取引先のDNS 取引先のメール外部 DNSサー項番する効果する効果バでの設定”）バでの対応 2）サーバでの設サーバでの対応定 1）実施する設定済み実施する設定済み1設定済み実施する未設定実施しない4bC：設定済み設定済み実施しない実施しない6de設定済み実施する実施しない未設定78！13未設定実施しない実施する設定済みhi未設定実施しない未設定16実施しないXX“X”は判断不可を示す。
+表中の“O”は送信者メールアドレスが詐称されているかを判断可，注記注1） SPFに必要な設定をDNS サーバに設定済みかを示す。
+2） メール受時に、SPFに必要な問合せを実施するかを示す。</pre>
+<pre class="text-block">次は、その後のQ部長とU主任の会話である。</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>Q部長</dt><dd>SPFに対応するには、具体的にどのような設定が必要になるのか。</dd></div><div class="dialogue-line"><dt>U主任</dt><dd>DNS サーバでの設定は，当社の外部DNS サーバに図4に示すTXT レコードを登録します。</dd></div></dl>
+<pre class="text-block">-all"n-sha.co.jp. IN TXT "v=spfl +ip4：図 4 TXT レコード</pre>
+<pre class="text-block">メールサーバでの対応は、当社の外部メールサーバの設定を変更します。
+SPF による検証（以下、SPF 認証という）が失敗したメールは、件名に[NonSPF］などの文字列を付加して、受信者に示すこともできます。
+Q部長：なるほど。SPF の利用に注意点はあるのかな。
+U 主任：メール送信側のDNS サーバ、メール受信側のメールサーバの両方がSPFに対応している状態であっても、その間で SPF に対応している別のメールサーバが Envelope-FROM を変えずにメールをそのまま転送する場合は、①メール受備側のメールサーバにおいて、SPF 認証が失敗してしまうという制</pre>
+<pre class="text-block">約があります。
+Q部長：なるほど。それでは、DKIMはどうかな。
+U主任：DKIM に対応したメールを送言するためには、まず、準備として公開鍵と税密鍵のペアを生成し、そのうち公開鍵を当社の外部 DNS サーバに登録し、当社の外部メールサーバの設定を変更します。DKIM 利用のシーケンスは、図5及び図6に示すとおりとなります。</pre>
+<pre class="text-block">外部受言側外部メールサーバDNSサーバメールサーバ1. DKIM-Signature ヘッダ付メールの送信2．公開鍵の要求3. 公開鍵の送信4. 検証図5DKIM利用のシーケンス</pre>
+<figure class="text-figure"><div class="text-figure-body"><div class="fig-l1"><span class="fig-marker">1.</span><span class="fig-body">DKIM-Signature ヘッタにディジタル署名を付与し、メールを送する。</span></div>
+<div class="fig-l1"><span class="fig-marker">2．</span><span class="fig-body">受信側メールサーバは、DKIM-Signature ヘッダのdタグに指定されたドメイン名を基に、外部DNS サーバに公開鍵を要求する。</span></div>
+<div class="fig-l1"><span class="fig-marker">3．</span><span class="fig-body">要求を受けた外部DNS サーバは、登録されている公開鍵を送信する。</span></div>
+<div class="fig-l1"><span class="fig-marker">4.</span><span class="fig-body">②受信した公開鍵，並びに署名対象としたメール本文及びメールヘッダを基に生成したハッシュ値を用いて、DKIM-Signature ヘッダに付与されているディジタル署名を検証する。</span></div></div><figcaption>図6DKIM利用のシーケンスの説明</figcaption></figure>
+<dl class="dialogue"><div class="dialogue-line"><dt>Q部長</dt><dd>DKIMの方が少し複雑なのだな。</dd></div><div class="dialogue-line"><dt>U主任</dt><dd>はい。しかし、DKIM は、メール本文及びメールヘッダを基にディジタル署名を付与するので、転送メールサーバがディジタル署名、及びディジタル署名の基になったメールのデータを変更しなければ、たとえメールが転送された場合でも検証が可能です。SPFとDKIMは併用できます。</dd></div><div class="dialogue-line"><dt>Q部長</dt><dd>分かった。両者を導入するのがよいな。それでは、DMARCはどうかな。</dd></div><div class="dialogue-line"><dt>U主任</dt><dd>DMARC は、メール受備側での，SPFとDKIMを利用した検証，検証したメールの取扱い、及び集計レポートについてのポリシを送備側が表明する方法です。DMARC のポリシの表明は、DNS サーバに TXT レコードを追加することによって行います。TXT レコードに指定する DMARC の主なタク</dd></div></dl>
+<pre class="text-block">を表2に示します。</pre>
+<div class="table-wrap"><p class="table-caption">表2</p><pre class="raw-ocr-table">表2DMARC の主なタグ（概要）タグの説明タグ値と説明送信側が指定する受信側でのメnone：何もしない。
+Pールの取扱いに関するポリシquarantine：検証に失敗したメールは隔離する。
+（必須）reject ：検証に失敗したメールは拒否する。
+aspfSPF 認証の調整パラメタ（任r： Header-FROM と Envelope-FROM に用いられているド意）メイン名の組織ドメインが一致していれば認証に成功s: Header-FROM と Envelope-FROM に用いられている完全修飾ドメイン名が一致していれば認証に成功adkimDKIM 認証の調整パラメタ（任r：DKIM-Signature ヘッダのd タグと Header-FROM に月意）いられているドメイン名の組織ドメインが一致していれば認証に成功s：DKIM-Signature ヘッタのdタグと Header-FROM に用いられている完全修飾ドメイン名が一致していれば認証に成功DMARC の集計レポートの送信先URI形式で指定する。
+rua（任意）注記完全修飾ドメイン名が “a-sub.n-sha.co.jp”の場合、組織ドメインは“n-sha.co.jp”となる。</pre></div>
+<pre class="text-block">これらの検討結果を経営陣に報告したところ、N社は送ドメイン認証技術としてSPF， DKIM， DMARCを全て利用することになり、情部が導入作業に着手した。</pre>
+<pre class="text-block">[ニュースレターの配]送ドメイン認証技術の導入作業着手から 1週間後、N 社営業部で取引先宛てに二ユースレターを配する計画が持ち上がった。ニュースレターの配備には、X社のクラウド型メール配信サービス（以下、X配信サービスという）を利用する。ニュースレターは、X社のメールサーバから配備され、配送エラーの通知メールは、X社のメールサーバに届くようにする。Header-FROMには、N社ドメイン名のメールアドレス（例：letter@n-sha.co.jp）を設定する。Envelope-FROM には、N社のサブドメイン名a-sub.n-sha.co.jpのメールアドレス（例：letter@a-sub.n-sha.co.jp）を設定する。
+X 社のメールサーバのホスト名は、mail.x-sha.co.jp であり、グローバルIPアドレスは、X2.y2.22.1である。X社のDNS サーバのグローバルIPアドレスは、82.y2.22.2である。X配信サービスでは、SPF,DKIM，DMARCのいずれも利用が可能である。
+N 社は、ニュースレターの配信についても、3種類の送信ドメイン認証技術を利用することにした。具体的には、N 社の外部DNS サーバに図7のレコードを追加する。</pre>
+<pre class="text-block">a-sub.n-sha.co.jp. IN MX 10k-all"a-sub.n-sha.co.jp. IN TXT "v=spfl +ip4：1注記1 逆引きの定義は省略しているが、適切に設定されている。
+注記2DKIM，DMARCのレコードは省略しているが、適切に設定されている。
+図7 追加するレコード</pre>
+<pre class="text-block">ここで、受備側で検証に失敗したメールは隔離するポリシとするため、DMARC のpタグとaspt タグの設定は表3のとおりとする。</pre>
+<div class="table-wrap"><p class="table-caption">表3 DMARC のタグ設定タグ値Pmaspf</p><pre class="raw-ocr-table">表3 DMARC のタグ設定タグ値Pmaspfn注記ほかのタグは省略しているが、適切に設定されている。</pre></div>
+<pre class="text-block">その後、N社と主要な取引先での送信ドメイン認証技術の導入が完了した。</pre>
+<pre class="text-block">設問1 本文中のに入れる適切な字句を答えよ。
+a設問2[送ドメイン認証技術の検討]について、（1）～（4）に答えよ。
+■に入れる適切な内容を、“O”又は“✕”_i（1） 表1中のbのいずれかで答えよ。
+に入れる適切な字句を答えよ。
+（2） 図4中の（3） 本文中の下線①について、SPF 認証が失敗する理由を、SPF 認証の仕組みを踏まえて、50字以内で具体的に述べよ。
+（4） 図6 中の下線②の検証によってメールの送信元の正当性以外に確認できる事項を、20字以内で述べよ。
+，表3中のに入設問3 図7中の。
+knmれる適切な字句を答えよ。
+設問4 攻撃者がどのように N 社の取引先になりすましてN社にメールを送信すると、N社が SPF, DKIM 及び DMARC では防ぐことができなくなるのか。その方法を50字以内で具体的に述べよ。</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問1　送信ドメイン認証（SPF・DKIM・DMARC）</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝MAIL FROM（エンベロープFrom）</div></div><div class="expl-explanation">SPFが検証する送信者アドレスはSMTPの「MAIL FROM」（エンベロープFrom）。メール表示上のFromヘッダとは別物。なりすましメール対策にはSPF・DKIM・DMARCの3つを組み合わせることが重要。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（X,Xの組み合わせ）SPF/DKIM通過・失敗の組み合わせ</div></div><div class="expl-explanation">SPFとDKIMの検証結果の組み合わせ分析。SPFはエンベロープFromのドメインのIPと送信元IPを照合。DKIMはメール本文とヘッダのハッシュを署名で検証。両方通過で正当なメールの可能性が高い。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">送信側のDNSサーバに設定されたIPアドレスとSMTP接続元のIPアドレスが一致しないから</div></div><div class="expl-explanation">SPFの検証メカニズム。メール受信サーバが送信元ドメインのSPFレコード（TXTレコード）をDNSから取得し、そこに記載されたIPアドレスと実際のSMTP接続元IPを照合する。不一致はSPF失敗。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">メール本文及びメールヘッダの改ざんの有無</div></div><div class="expl-explanation">DKIMが検証するもの。秘密鍵で署名したヘッダと本文のハッシュを公開鍵で検証することで、転送中の改ざんを検知できる。DKIMは送信者なりすましよりも転送完全性の検証に強い。</div></div>
+<div class="expl-item"><div class="expl-label">設問3</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">k＝mail.x-sha.co.jp
+m＝quarantine（DMARCポリシー）
+n＝（DMARCレポート送信先）</div></div><div class="expl-explanation">DMARCの設定。quarantineポリシーは検証失敗メールをスパムフォルダに振り分ける。rejectは完全拒否。noneはモニタリングのみ。_dmarc.ドメインのTXTレコードでポリシーを設定する。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

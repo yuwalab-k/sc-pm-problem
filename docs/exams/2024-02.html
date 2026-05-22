@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>令和6年度 春 問2 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">令和6年度 春 問2</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問2　サイバー攻撃への対策</h2><div class="problem-body"><pre class="text-block">H社は、従業員 3,000名の製造業であり、H社製品の部品を製造する約 500社と取引を行っている。取引先は、H社に設置された取引先向けWebサーバに HTTPSでアクセスし、利用者IDとパスワードでログインした後，H社との取引業務を行っている。
+また、公開 Web サーバでは、H社製品の紹介に加え、問合せや要望の受付を行っている。いずれのWebサーバが停止しても，業務に支障が出る。
+H社では、社内に設置しているPC（以下、H-PCという）とは別に、一部の従業員に対して、VPN クライアントソフトウェアを導入したリモート接続用 PC（以下、リモート接続用PCをR-PCという）を貸与し、リモートワークを実現している。R-PCと上社との間のVPN通信には、VPNゲートウェイ（以下、VPN ゲートウェイをVPN-GWといい、H社が使用しているVPN-GWをVPN-Hという）を使用している。
+H社のネットワークは、情報システム部の部長と「主任を含む6名で運用している。H社のネットワーク構成を図1に示す。</pre>
+<pre class="text-block">L2SW：レイヤー2スイッチR-PCUTM：統合脅威管理インターネットメール：電子メール内部サーバセグメントDMZ取引先向けWebサーバ公開WebサーバDNSサーバ 1）L2SWL2SWUTMH-PC ープロキシサーバ 2）PCセグメント！illilllllメールサーバVPN-HH社注”）H社ドメインの権威 DNS サーバと再帰的な名前解決を行うフルサービスリゾルバを兼ねる。
+注2H-PCからインターネットへのHTTP及びHTTPS通言を中継する。
+図1 H社のネットワーク構成</pre>
+<pre class="text-block">UTMの機能概要及び設定を表1に、VPN-Hの機能概要及び設定を表2に示す。</pre>
+<pre class="text-block">表1 UTMの機能概要及び設定機能概要機能名設定ステートフルパケットインスペクション型であり、送元のIPアドレ有効ファイアウオール機能スとポート番号、宛先のIPアドレスとポート番号の組合せによる通の許可と拒否のルールによって通言を制御する。
+NAT 機能（省略）有効無効IPS機能不正アクセスの検知方法は、次の2通りを設定できる。
+アノマリ型：あらかじめ登録したしきい値を超えた通信を異常として検知する。
+シグネチャ型：あらかじめ登録したシグネチャと一致した通信を異常として検知する。
+WAF機能不正アクセスの検知方法は、IPS機能と同様に、アノマリ型とシグネチ無効ャ型を設定できる。</pre>
+<pre class="text-block">表2 VPN-H の機能概要及び設定（抜粋）機能名機能概要設定VPN 通機有効VPNクライアントソフトウェアを導入したPCとの間でVPN通信を行う。
+VPN接続時の認証方式は、VPN クライアントソフトウェア起動時に表示能されるダイアログボックス（以下、VPN ダイアログという）に、利用者IDとパスワードを入力させる方式である。
+多要素認証利用者IDとパスワードによる認証方式に次のいずれかの認証方式を組無効機能み合わせた多要素認証を行う。
+（ア） スマートフォンに SMSでセキュリティコードを送り、その入力を確認する方式”）（イ） デジタル証明書によってクライアント認証を行う方式（ウ）スマートフォンに承認要求のプッシュ通知を送り、その通知の承認を確認することで認証を行う方式注”）VPN ダイアログに利用者IDとパスワードを入力し、その認証が完了すると、セキュリティコード入力画面が表示され、SMSでセキュリティコードがスマートフォンに送信される。送信されたセキュリティコードを、セキュリティコード入力画面に入力することで認証される。
+w最近，同業他社でサイバー攻撃による被害が2件立て続けに発生したという報道があった。1件は、VPN-GWが攻撃を受け、社内ネットワークに侵入されて情報漏えいが発生した事案である。もう1件は、DDoS攻撃による被害が発生した事案である。
+H社でも同様な事案が発生する可能性について、L部長と「主任が調査することにした。</pre>
+<pre class="text-block">[VPN-GWへの攻撃に対する調査]T主任は、VPN-GWIへの攻撃方法を次のようにまとめた。
+方法 1：VPN-GWの認証情報を推測し、社内ネットワークに侵入する。
+方法 2：VPN-GWの製品名や型番を調査した上で、社内ネットワークへの侵入が可能にぜいなる施弱性を調べる。もし、弱性が存在すればその脈弱性を悪用し，社内ネットワークに侵入する。</pre>
+<pre class="text-block">T主任は、方法 1については、VPN-Hの認証強化を検討することにした。また、方法 2については、VPN-Hの弱性対策と、VPN-Hへのポートスキャンに対する応答を返さないようにする方法（以下、ステルス化という）を検討することにした。方法1と方法2について「主任がまとめた対策案を表3に示す。</pre>
+<pre class="text-block">表3 方法1と方法2についてT主任がまとめた対策案内容対策攻撃方法対策名インターネットから VPN-Hへのアクセス時は、V-1VPN-H の認証強化方法1多要素認証を用いる。
+V-2VPN-H の脆弱性対策（省略）方法2VPN-Hのポートを通常は応答を返さないようにV-3ステルス化設定しておく。H社が許可したPCからのアクセス時だけ、接続を許可する。</pre>
+<pre class="text-block">[DDoS攻撃に対する調査]次に、「主任は、DDoSに関連する攻撃について調査し、H社で未対策のものを表4にまとめた。</pre>
+<pre class="text-block">表4 H社で未対策の DDoSに関連する攻撃例攻撃項番公開 Web サーバ、DNS サーバを攻撃対象に、の送信元IPUDP Flood 攻撃1アドレスとランダムな宛先ポート番号を設定した UDP データグラムを大量に送り付ける。
+（省略）SYN Flood 攻撃2（省略）3DNS リフレクション攻撃の踏み台にされるHTTP GET Flood 攻撃4a</pre>
+<pre class="text-block">次は、表4についての「主任とL部長の会話である。</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>T主任</dt><dd>項番 1，2,4のDDoS攻撃のサーバへの影響は、UTMのIPS機能とWAF機能で軽減することができます。</dd></div><div class="dialogue-line"><dt>L部長</dt><dd>そうか。機能の設定に関する注意点はあるのかな。</dd></div><div class="dialogue-line"><dt>T主任</dt><dd>例えば、アノマリ型 IPS機能で、トラフィック量について、しきい値が高すぎる場合にも、①しきい値が低すぎる場合にも弊害が発生するので、しきい値の設定には注意するようにします。また、項番3の対策として、現在のDNSサーバを廃止して、権威DNS サーバの機能をもつサーバ（以下、DNS-Kという）とフルサービスリゾルバの機能をもつサーバ（以下、DNS-Fという）を社内に新設します。インターネットから社内へのDNS 通はbへの通だけを許可し、社内からインターネットへのDNS通はからの通だけを許可します。
+C</dd></div></dl>
+<pre class="text-block">[対策 V-1についての検討］次は、対策V-1についてのL部長と「主任の会話である。</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>L 部長</dt><dd>対策V-1での注意点はあるのかな。</dd></div><div class="dialogue-line"><dt>T主任</dt><dd>最近は、多要素認証の利用が多くなってきたこともあり、多要素認証を狙った攻撃が発生しています。多要素認証を狙った攻撃例を表5に示します。</dd></div></dl>
+<pre class="text-block">表5 多要素認証を狙った攻撃例概要攻撃例表 2（ア）と組み合わせた多要素認証を突破するフィッシング攻撃であり、次の攻撃例1手順で行われる。
+わな（1） 攻撃者が、フィッシングメールを使って、VPNダイアログの画面を装った罠のWebサイトに正規利用者を誘導し、正規利用者に利用者IDとパスワードを入力させる。
+（2）d（3）e（4）攻撃者が、社内ネットワークに不正に接続する。
+表 2（ウ）と組み合わせた多要素認証を突破する多要素認証疲労攻撃であり、次攻撃例2の手順で行われる。
+（省略）</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>[部長</dt><dd>攻撃例1については、不正なリモート接続を阻止するために、メールで受信したメッセージ内のURLリンクを安易にクリックしないよう注意喚起する必要があるな。</dd></div><div class="dialogue-line"><dt>T主任</dt><dd>はい。しかし、当社では、業務の手続の督促などで従業員にURLリンクが含まれるメールを送っているので、URLリンクのクリックを禁止することはできません。不審なURL かどうかを見極めさせることは難しいでしょう。そこで、②たとえ罠のWebサイトへのURLリンクをクリックしてしまっても、不正なリモート接続をされないように、従業員全員が理解できる内容を、注意喚起する必要があります。</dd></div></dl>
+<pre class="text-block">[対策 V-3についての検討]次は、対策V-3についてのL部長と「主任の会話である。</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>L部長</dt><dd>対策V-3について説明してほしい。</dd></div><div class="dialogue-line"><dt>T主任</dt><dd>VPN-Hには、どのような通信要求に対しても応答しない “Deny-ALL”を設定した上で、あらかじめ設定されている順番にポートに要求した場合だけ所定のポートへの接続を許可するという設定（以下、設定Pという）があります。</dd></div><div class="dialogue-line"><dt>L部長</dt><dd>設定Pの注意点はあるのかな。</dd></div><div class="dialogue-line"><dt>T主任</dt><dd>設定されている順番を攻撃者が知らなくても、③攻撃者が何らかの方法でパケットを盗聴できた場合，設定Pを突破されてしまいます。</dd></div><div class="dialogue-line"><dt>L部長</dt><dd>設定Pとは別の方法はあるのかな。</dd></div><div class="dialogue-line"><dt>T主任</dt><dd>VPN-Hの機能にはありませんが、SPA （Single Packet Authorization）というプロトコルがあります。SPAの主な仕様を表6に示します。</dd></div></dl>
+<pre class="text-block">表6 SPAの主な仕様項番内容TCP の SYNパケット又はUDPの最初のパケット（以下、SPAパケットという）には、HMAC1ベースのワンタイムパスワードが含まれており、送元の真正性を送先が検証できる。検証に成功すれば、以降の通信のパケットは許可される。検証に失敗すれば、以降の通のパケットは破棄される。
+2SPA パケットにはランダムデータが含まれており、送先で検証される。以前受信したものと同じランダムデータをもつ SPAパケットを受した場合は、破棄される。
+SPA パケットの最後尾フィールドには先行フィールドのハッシュ値が格納されている。送3先では、この値を検証し、検証に失敗すれば、そのパケットは破棄される。
+送信先では、検証した結果は、送信元に返さない。
+4</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>T主任</dt><dd>SPAなら、④攻撃者が何らかの方法でパケットを盗聴できたとしても、突破はされません。</dd></div><div class="dialogue-line"><dt>L部長</dt><dd>そうか。VPN 通機能と同様の機能をもち、SPAを採用している製品があるかどうか、ベンダーに相談してみよう。</dd></div></dl>
+<pre class="text-block">L 部長がベンダーに相談したところ、S社が提供しているアプライアンス（以下、S-APPL という）の紹介があった。L部長と↑主任は、S-APPLの導入検討を進めた。</pre>
+<pre class="text-block">[S-APPL の導入検討]S-APPL は、VPN通信機能，SPAパケットを検証する機能などをもつ。S-APPL と接続するためには、S-APPL のエージェントソフトウェア（以下、Sソフトという）を接続元のPCに導入し、接続元のPCごとのIDと秘密情報を、S-APPL と接続のPCそれぞれに設定する必要がある。なお、秘密情報は、SPA パケットのHMAC ベースのワンタイムパスワードの生成などに使われる。S-APPLとSソフトの主な機能を表7に示す。</pre>
+<pre class="text-block">表7S-APPL とSソフトの主な機能機能概要項番機能名SPA 機能SPAパケットを用いて送元の真正性をS-APPLが検証する。
+1VPN通信機能S-APPLとSソフトを導入したPCとの間でVPNを確立する。
+2VPN-Hの多要素認証機能と同じ機能をもつ。
+多要素認証機能3接続サーバ許可機能VPN 確立後にアクセス可能なサーバをPCごとに設定する。
+4</pre>
+<pre class="text-block">T主任は、対策V-1～3について、次のように考えた。
+・対策 V-1については、表7項番3の機能で対応する。方式は、表2（イ）の方式を採用する。
+・対策 V-2については、S-APPLの弱性情報を収集し、弱性修正プログラムが公開されたら、それを適用する。
+・対策V-3については、表7項番1の機能で対応する。</pre>
+<figure class="text-figure"><div class="text-figure-body"><div class="fig-text">「主任は、対策V-3のためのH社のネットワーク構成の変更案を作成した。なお、変更する際は、次の対応が必要になる。</div>
+<div class="fig-l2"><span class="fig-marker">（1）</span><span class="fig-body">VPN-HをS-APPLに置き換える。R-PCには、Sソフトを導入する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（2）</span><span class="fig-body">R-PCごとのIDと秘密情報を、S-APPLとR-PCそれぞれに設定する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（3）</span><span class="fig-body">VPN-Hに付与していたIPアドレスをS-APPLに付与する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（4）</span><span class="fig-body">S-APPLのFQDNをDNSサーバに登録する。</span></div></div></figure>
+<pre class="text-block">T主任は、S-APPLの導入によってVPN-GW への攻撃の対策が可能であることをL部長に説明した。「部長は、効果とリスクを検討した上で、S-APPLを導入することを決めた。</pre>
+<pre class="text-block">[DDoS攻撃に対する具体的対策の検討]T主任は、表4の項番3以外に対する具体的対策の検討に着手した。
+まず、通回線については、DDoS攻撃で大量のトラフィックが発生すると、使えなくなる。これについては、通回線の帯域を大きくするという方法のほか、⑤外部のサービスを利用するという方法があることが分かった。
+次に、サーバへの影響は、これまでに検討したUTMのIPS機能とWAF機能を有効化することで軽減できることが分かっている。加えて、取引先向けWebサーバについては、次の対応によって、⑥更にDDOS攻撃の影響を軽減できることが分かった。
+・取引先には、H社との取引専用のPC（以下、取引専用PCという）を貸与する。取引専用PCには、Sソフトを導入する。
+・取引専用PC ごとのIDと秘密情報を、S-APPL と取引専用PCそれぞれに設定する。
+・S-APPLに、取引専用PCがVPN 確立後にアクセス可能なサーバとして、取引先向けWeb サーバだけを設定する。
+・UTMのファイアウォール機能で、インターネットから取引先向け Web サーバへの通を拒否するように設定する。</pre>
+<pre class="text-block">その後、H社では、S-APPLの導入、UTMの設定変更、DNSサーバの変更などを行い，新たな運用を開始した。</pre>
+<pre class="text-block">設問1[DDoS攻撃に対する調査]について答えよ。
+に入れる攻撃の例を、H社での攻撃対象を示して具体（1） 表4中の的に答えよ。
+（2） 本文中の下線①の場合に発生する弊害を、25字以内で答えよ。
+■に入れる適切な字句を，“DNS-F” 又は（3） 本文中の"DNS-K” から選び答えよ。
+設問2【対策 V-1についての検討]について答えよ。
+■に入れる、不正な接続までの攻撃手順（1） 表5中のeを、具体的に答えよ。
+（2） 本文中の下線②について、注意喚起の内容を、具体的に答えよ。
+設問3[対策V-3についての検討]について答えよ。
+（1） 本文中の下線③について、設定Pを突破する方法を、30字以内で答えよ。
+（2） 本文中の下線④について、突破されないのはなぜか。40字以内で答えよ。
+設問4 （DDoS攻撃に対する具体的対策の検討]について答えよ。
+（1） 本文中の下線⑤について、利用する外部のサービスを、20字以内で具体的に答えよ。
+（2） 本文中の下線⑥について、軽減できる理由を、40字以内で答えよ。</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問2　DDoS攻撃対策とVPNセキュリティ</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝公開WebサーバへHTTP GETリクエストを繰り返し送る（HTTPフラッド攻撃）</div></div><div class="expl-explanation">L7 DDoS攻撃（HTTPフラッド）。正常なHTTPリクエストを大量に送りつけることでWebサーバを過負荷にする。SYNフラッドなどL3/L4攻撃と異なり、IDS/IPSでは検知が困難でWAFやCDNによる緩和が有効。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">正常な通信を異常として検知してしまう（誤検知・フォールスポジティブ）</div></div><div class="expl-explanation">レートベースのDDoS対策の課題。閾値の設定が低すぎると正常トラフィックを遮断し、高すぎると攻撃を見逃す。機械学習を使ったベースライン比較や行動分析型の検知が精度向上に有効。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">b＝DNS-K　c＝DNS-F</div></div><div class="expl-explanation">DNS水責め攻撃（DNS Amplification/Random Subdomain Attack）の経路を整理する問題。権威DNSサーバとキャッシュDNSサーバそれぞれへの攻撃パターンを理解する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">d＝攻撃者が正規のVPNダイアログに利用者IDとパスワードを入力すると正規利用者のスマートフォンにセキュリティコードが送信される</div></div><div class="expl-explanation">MFA疲弊攻撃（MFA Fatigue Attack）の手順。攻撃者が正規利用者のID/PWで認証を試みることで、正規利用者のSMSにOTPが送られる。利用者が誤って承認してしまうと認証が突破される。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">e＝正規利用者が受信したセキュリティコードを攻撃者のサイトに入力すると攻撃者がそのコードを正規VPNに入力して認証を突破する</div></div><div class="expl-explanation">フィッシング＋リアルタイムリレー攻撃。攻撃者は偽のVPNポータルを用意し、被害者が入力したOTPを即座に本物のVPNに転送する。OTPの有効時間内に中継することで多要素認証を無効化できる。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">認証情報の入力は、受信したメール内のURLリンクをクリックして起動したブラウザ上のVPNページで行う</div></div><div class="expl-explanation">フィッシング対策として正規サイト（VPNポータル）へのアクセス方法をメールリンクでなくブックマーク・直接入力に限定する。Certificate Transparency監視やEV証明書もフィッシング検知に有効。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

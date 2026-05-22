@@ -1,0 +1,148 @@
+{
+  "id": "2023-01",
+  "era_label": "令和5年度 春 問1",
+  "problems": [
+    {
+      "problem": "問1",
+      "title": "Webアプリケーションプログラム開発",
+      "items": [
+        {
+          "type": "text",
+          "content": "G社は，システム開発を行う従業員100名のSI企業である。このたび、オフィス用品を販売する従業員200名のY社から、システム開発を受託した。開発プロジェクトのリーダーには、G社の開発課のD 主任が任命され、メンバーには、開発課から、Eさんと新人のFさんが任命された。G社では、セキュリティの品質を担保するために，プログラミング完了後にツールによるソースコードの静的解析を実施することにしている。"
+        },
+        {
+          "type": "text",
+          "content": "[受託したシステムの概要]受託したシステムには、Y社の得意先がオフィス用品を注文する機能、Y社とY社の得意先が注文履歴を表示させる機能，Y社とY社の得意先が注文番号を基に注文情報を照会する機能（以下、注文情報照会機能という），Y社とY社の得意先が納品書のPDF ファイルをダウンロードする機能などがある。"
+        },
+        {
+          "type": "text",
+          "content": "[ツールによるソースコードの静的解析]プログラミングが完了し、ツールによるソースコードの静的解析を実施したところ、Fさんが作成した納品書 PDF ダウンロードクラスのソースコードに問題があることが分かった。納品書 PDF ダウンロードクラスのソースコードを図1に、静的解析の結果を表1に示す。"
+        },
+        {
+          "type": "text",
+          "content": "（省略）1/package宣言，import宣言など1: public class DeliverySlipBL ｛private static final String PDF_DIRECTORY = ”/var/pdf”；//PDFディレクトリ定義2：（省略）//変数宣言などpublic DeliveryslipBean getDeliverySlipPDF （String inOrderNo, Connection conn） ｛3：（省略）//変数宣言などDeliverySlipBean deliverySlipBean = new DeliveryslipBean（）；4：try ｛5：/＊ 検索用SQL文作成*/String sql = \"SELECT \"；6：sql=sql +（省略）；//抽出項目，テーブル名など7：図1 納品書PDF ダウンロードクラスのソースコード"
+        },
+        {
+          "type": "text",
+          "content": "sql = sql + ” WHERE head. order_no = 1” + inorderNo + ” ”：8：9：sql = sql +（省略）；//抽出条件の続きStatement stmt = conn.createStatement（）；10：11：Resultset resultObj = stmt, executeQuery （sql）；（省略）／/注文情報の存在チェック（存在しないときはnullを返してメソッドを終了）12：String clientCode = resultObj.getString （\"client_code”）；1/得意先コード取得LDIRECTORY + \"/\" + clientCode + \"/\" + \"Deliveryslip”File fileobj = new File（PDF13：+ inOrderNo + ”1.pdf”）；（省略）1/PDFファイルが既に存在しているかの確認など14：BufferedinputStream in = new BufferedinputStream （new FileInputStream （fileObj））；15：bytel］ buf = new bytelin. available（）］；16：in. read （buf）；17：deliveryslipBean. setFi leByte （buf） ；18：｝ catch （Exception e） ｛（省略） 1/エラー処理（ログ出力など）19：｝20：return de liveryslipBean；21：｝（省略）図1 納品書 PDF ダウンロードクラスのソースコード（続き）"
+        },
+        {
+          "type": "text",
+          "content": "表1 静的解析の結果ぜい項番指摘内容指摘箇所脆弱性（省略）1SQL インジェクシ（省略）ョン2ディレクトリトファイルアクセスに用いるパス名の文字列作成で、利行目aラバーサル用者が入力したデータを直接使用している。\n確保したリソー3（省略）変数 stmt，変数 result0bj、変数■が指すbスの解放漏れリソースが解放されない。"
+        },
+        {
+          "type": "text",
+          "content": "この解析結果を受けて、Fさんは、Eさんの指導の下、ソースコードを修正した。\n表1の項番1について図1の8行目から 11行目を図2に示すソースコードに修正した。項番2と項番3についてもソースコードを修正した。"
+        },
+        {
+          "type": "text",
+          "content": "sql = sql + ”csql =sql+（省略）；1/抽出条件の続きdstmt. setString （1, inOrderNo）；ResultSet resultObj= stmt.executeQuery（）；図2 納品書 PDF ダウンロードクラスの修正後のソースコード"
+        },
+        {
+          "type": "text",
+          "content": "再度，ツールによるソースコードの静的解析が実施され、表1の指摘は解消していることが確認された。"
+        },
+        {
+          "type": "text",
+          "content": "[システムテスト］システムテストを開始したところ、注文情報照会機能において不具合が見つかった。この不具合は、ある得意先の利用者IDでログインして画面から注文番号を入力すると、別の得意先の注文情報が出力されるというものであった。なお、ログイン処理時に、ログインした利用者IDと、利用者IDにひも付く得意先コード及び得意先名はセッションオブジェクトに保存されている。\n注文情報照会機能には，業務処理を実行するクラス（以下、ビジネスロジッククラスという）及びリクエスト処理を実行するクラス（以下、サーブレットクラスという）が使用されている。注文情報照会機能が参照するデータベースのE-R 図を図3に、Eさんが作成したビジネスロジッククラスのソースコードを図4に、サーブレットクラスのソースコードを図5に示す。"
+        },
+        {
+          "type": "text",
+          "content": "注文明細テーブル注文ヘッダーテーブル得意先マスター利用者マスター注文番号注文番号得意先コード→利用者ID注文明細番号得意先名注文日時利用者名真品コード意先ヨニード郵便番号得意先ヨード数量注文総額住所パスワードソルト消費税額電話番号パスワードハッシュ"
+        },
+        {
+          "type": "text",
+          "content": "凡例ーは主キーを、破線注記1 属性名の実線の下線ー→：1対多エンティティ名の下線ーーーー は外部キーを示す。主キーの実線属性名が付いている属性名には、外部キーの破線を付属性名けていない。\n属性名注記2主キー及び外部キーは、全て表記している。"
+        },
+        {
+          "type": "text",
+          "content": "図3 注文情報照会機能が参照するデータベースのE-R 図"
+        },
+        {
+          "type": "text",
+          "content": "//package宣言， import宣言など（省略）1: public class OrderInfoBL f2：private static String orderNo;//注文番号/* 注文番号の設定メソッド＊/3：public static void setOrderNo （String inOrderNo） ｛4：orderNo = inorderNo；5： ｝／* 注文情報の取得メソッド*/6：public static Order InfoBean getOrderInfoBean（） ｛7：Preparedstatement psObj；（省略） //try文、変数定義などString sql = \"SELECT \"；8：9：sql=sql +（省略）；//SQL文構築sql = sql + ” WHERE head. order_no =？”；//抽出条件：注文へッダーテーブルの注文番10：号と画面から入力された注文番号との完全一致（省略）／/PreparedStatementの作成psObj.setString （1, orderNo）；//検索キーに注文番号をセット11：12：ResultSet resultObj=psObj.executeduery（）；（省略）／/例外処理やその他の処理図 4 ビジネスロジッククラスのソースコード"
+        },
+        {
+          "type": "text",
+          "content": "//package宜言， import宣言など（省略）1: public class OrderInfoServlet extends HttpServlet ｛（省略）／/変数定義2：public void doPost （HttpservletRequest reqObj, HttpServletResponse resObj） throwsIOException, ServletException ｛String orderNo; //注文番号3：（省略） //try文、リクエストから注文番号を取得Order InfoBL. setOrderNo （orderNo）；4：5：Order InfoBean order infoBeanObj = OrderInfoBL. getOrderInfoBean（）；（省略） 1/例外処理やその他の処理図5 サーブレットクラスのソースコード"
+        },
+        {
+          "type": "text",
+          "content": "D主任，Eさん、Fさんは、不具合の原因が特定できず、セキュアプログラミングに詳しい技術課のHさんに協力を要請した。\nHさんはアプリケーションログ及びソースコードを解析し、不具合の原因を特定した。\nが「として宣言されていることである。\nf原因は、図4で変数この不具合は、①並列動作する複数の処理が同一のリソースに同時にアクセスしたとき、想定外の処理結果が生じるものである。\n原因を特定することができたので、Eさんは、Hさんの支援の下、次の4点を行った。"
+        },
+        {
+          "type": "figure",
+          "caption": "",
+          "content": "（1） 図4の2行目から5行目までのソースコードを削除する。\n（2） 図4の6行目を、図6に示すソースコードに修正する。"
+        },
+        {
+          "type": "text",
+          "content": "） ｛public Order infoBean getOrder infoBean（ g図 6 ビジネスロジッククラスの修正後のソースコード"
+        },
+        {
+          "type": "text",
+          "content": "図7に示すソースコードに修正する。\n（3） 図5の4行目と5行目を，"
+        },
+        {
+          "type": "text",
+          "content": "Order InfoBL（）；Order infoBL orderInfoBLObj=【hOrder InfoBean orderInfoBeanObj = orderInfoBLObj.i図7 サーブレットクラスの修正後のソースコード"
+        },
+        {
+          "type": "text",
+          "content": "（4） 保険的な対策として、図4の10行目の抽出条件に、セッションオブジェクトにと注文ヘッダーテーブルのの完全一致の条件保存されたを AND 条件として追加する。"
+        },
+        {
+          "type": "text",
+          "content": "ソースコードの修正後、改めてシステムテストを実施した。システムテストの結果は良好であり、システムがリリースされた。"
+        },
+        {
+          "type": "text",
+          "content": "設問1[ツールによるソースコードの静的解析]について答えよ。\nに入れる適切な行番号を、図1中から選び、答えよ。\n（1） 表1中のaに入れる適切な変数名を、図1中から選び、答えよ。\n表1中のb（2）コに入れる適切な字句を答えよ。\n（3） 図2中のdC設問2[システムテスト]について答えよ。\n（1） 本文中のに入れる適切な変数名を、図5中から選び、答えよ。\neに入れる適切な字句を、英字10字以内で答えよ。\nf（2） 本文中の（3） 本文中の下線①の不具合は何と呼ばれるか。15字以内で答えよ。\nに入れる適切なi図6中の図7中のh（4）9字句を答えよ。\nに入れる適切な属性名を、図3中から選び、答えよ。\n（5） 本文中のj"
+        }
+      ]
+    }
+  ],
+  "explanations": [
+    {
+      "problem": "問1",
+      "title": "Javaセキュアプログラミングと静的解析",
+      "items": [
+        {
+          "label": "設問1(1)",
+          "answer": "a＝13（行番号）",
+          "explanation": "静的解析ツール（FindBugs/SpotBugs/SonarQube等）によるセキュリティ脆弱性の検出位置の特定。SQLインジェクション脆弱性はユーザ入力をPreparedStatementでなくString連結でSQL文に組み込む箇所で発生する。"
+        },
+        {
+          "label": "設問1(2)",
+          "answer": "b＝in（PreparedStatementのパラメータ）\nWHERE head, order_no = ?（修正後のSQL）",
+          "explanation": "PreparedStatementによるSQLインジェクション対策。プレースホルダ（?）を使ってSQL構造を固定し、パラメータは型付きバインドで渡す。文字列連結によるSQL組み立ては禁止。"
+        },
+        {
+          "label": "設問1(3)",
+          "answer": "c＝D（アクセス修飾子等）\nPreparedStatement stmt = conn.prepareStatement(sql)（修正コード）\nd＝orderNo（バインド変数名）",
+          "explanation": "Javaのセキュアコーディング実装。PreparedStatementのインスタンス作成時にSQL文を確定し、setString/setIntメソッドでパラメータをバインドすることで入力値がSQL構造に影響しない。"
+        },
+        {
+          "label": "設問2(1)",
+          "answer": "e＝（アクセス制御の不備箇所）",
+          "explanation": "認証済みユーザが他ユーザのリソースにアクセスできるIDOR（Insecure Direct Object Reference）脆弱性の箇所特定。セッションからログインユーザIDを取得し、アクセス対象リソースの所有者と照合する処理が欠如している。"
+        },
+        {
+          "label": "設問2(2)",
+          "answer": "f＝static（修飾子の不備）",
+          "explanation": "Javaのstaticフィールドはクラスレベルで共有されるため、複数リクエストが同時に処理される場合にstaticフィールドの値が混在する「レースコンディション」が発生する。インスタンス変数またはスレッドローカル変数を使う。"
+        },
+        {
+          "label": "設問2(3)",
+          "answer": "レースコンディション",
+          "explanation": "マルチスレッド環境でのスレッドセーフ問題。Webアプリでstaticフィールドを状態保存に使うと、同時リクエスト時に意図しないユーザの情報が返される。synchronized修飾子やAtomicクラス、またはstatic利用をやめることで解決。"
+        },
+        {
+          "label": "設問2(5)",
+          "answer": "j＝得意先コード",
+          "explanation": "アクセス制御の修正で認可に使用すべき情報の特定。セッションに格納された「得意先コード（ログインユーザのID）」と、アクセス対象データの所有者コードを比較することで不正アクセスを防ぐ。"
+        }
+      ]
+    }
+  ]
+}

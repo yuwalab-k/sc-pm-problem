@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>令和5年度 秋 問3 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">令和5年度 秋 問3</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問3　継続的インテグレーションサービスのセキュリティ</h2><div class="problem-body"><pre class="text-block">N 社は、Nサービスという継続的インテグレーションサービスを提供している従業員 400名の事業者である。Nサービスの利用者（以下，Nサービス利用者という）は、バージョン管理システム（以下、VCSという）にコミットしたソースコードを自動的にコンパイルするなどの目的で、Nサービスを利用する。VCSでは、リポジトリという単位でソースコードを管理する。Nサービスの機能の概要を表1に示す。</pre>
+<pre class="text-block">表1 Nサービスの機能の概要（抜粋）概要機能名ソースコード取得機能リポジトリから最新のソースコードを取得する機能である。Nサービス利用者は、新たなリポジトリに対してNサービスの利用を開始するときに、そのリポジトリを管理するVCSのホスト名及びリポジトリ固有の認証用 SSH鍵を登録する。ソースコードの取得は、VCS から新たなソースコードのコミットの通知をHTTPSで受け取ると開始される。
+コマンド実行機能ソースコード取得機能がリポジトリからソースコードを取得した後に、リポジトリのルートディレクトリにあるci.shという名称のシェルスクリプト（以下、ビルドスクリプトという）を実行する機能である。Nサービス利用者は、例えば、コンパイラのコマンドや、指定された Webサーバにコンパイル済みのバイナリコードをアップロードするコマンドを、ビルドスクリプトに記述する。
+シークレット機能ビルドスクリプトを実行するシェルに設定される環境変数を，Nサービス利用者が登録する機能である。登録された情報はシークレットと呼ばれる。Nサービス利用者は、例えば、指定された Web サーバに接続するために必要なAPIキーを登録することによって、ビルドスクリプト中にAPIキーを直接記載しないようにすることができる。</pre>
+<pre class="text-block">N サービスはC社のクラウド基盤で稼働している。Nサービスの構成要素の概要を表2に示す。</pre>
+<pre class="text-block">表2Nサービスの構成要素の概要（抜粋）概要Nサービスの構成要素VCSから新たなソースコードのコミットの通知を受け取るための APIを備えフロントエンドたWebサイトである。
+ユーザーデータベ各Nサービス利用者が登録した VCS のホスト名、各リポジトリ固有の認証用SSH 鍵。及びシークレットを保存する。読み書きはフロントエンドからだけースに許可されている。
+Linux をインストールしており、ソースコード取得機能及びコマンド実行機バックエンド能を提供する常駐プログラム（以下、CIデーモンという）が稼働する。インターネットへの通が可能である。バックエンドは50台ある。
+仮想ネットワークフロントエンド、ユーザーデータベース及びバックエンド 1～50を互いに接続する。</pre>
+<pre class="text-block">フロントエンドは、ソースコードのコミットの通知を受け取ると図1の処理を行う。</pre>
+<figure class="text-figure"><div class="text-figure-body"><div class="fig-l1"><span class="fig-marker">1.</span><span class="fig-body">通知を基にNサービス利用者とリポジトリを特定し、そのNサービス利用者が登録したVCSのホスト名，各リポジトリ固有の認証用 SSH 鍵、及びシークレットをユーザーデータベースから取得する。</span></div>
+<div class="fig-l1"><span class="fig-marker">2.</span><span class="fig-body">バックエンドを一つ選択する。</span></div>
+<div class="fig-l1"><span class="fig-marker">3．</span><span class="fig-body">2で選択したバックエンドのCIデーモンに1.で取得した情報を送し，処理命令を出す。</span></div></div><figcaption>図1 フロントエンドが行う処理</figcaption></figure>
+<pre class="text-block">CI デーモンは、処理命令を受け取ると、特権を付与せずに新しいコンテナを起動し、当該コンテナ内でソースコード取得機能とコマンド実行機能を順に実行する。
+ビルドスクリプトには、利用者が任意のコマンドを記述できるので、不正なコマンドを記述されてしまうおそれがある。さらに、不正なコマンドの処理の中には、①コンテナによる仮想化の弱性を悪用しなくても成功してしまうものがある。そこで、バックエンドには管理者権限で稼働する監視ソフトウェア製品✕を導入している。製品✕は、バックエンド上のプロセスを監視し、プロセスが不正な処理を実行していると判断した場合は、当該プロセスを停止させる。
+C社は、C社のクラウド基盤を管理するためのWebサイト（以下、クラウド管理サイトという）も提供している。N社では、クラウド管理サイト上で、クラウド管理サイトのアカウントの管理、Nサービスの構成要素の設定変更，バックエンドへの管理者権限でのアクセス、並びにクラウド管理サイトの認証ログの監視をしている。N社</pre>
+<pre class="text-block">では、C社が提供するスマートフォン用アプリケーションソフトウェア（以下，スマートフォン用アプリケーションソフトウェアをアプリという）に表示される、時効を用いたワンタイムパスワード（TOTP）を、クラウド管理サイトへのログイン時に入力するように設定している。
+N社では、オペレーション部がクラウド管理サイト上でNサービスの構成要素の設定及び管理を担当し、セキュリティ部がクラウド管理サイトの認証ログの監視を担当している。</pre>
+<pre class="text-block">[N社のインシデントの発生と対応］1月4日 11時、クラウド管理サイトの認証ログを監視していたセキュリティ部のHさんは、同日 10時にオペレーション部のUさんのアカウントで国外のIPアドレスからクラウド管理サイトにログインがあったことに気付いた。
+HさんがUさんにヒアリングしたところ、Uさんは社内で同日 10時にログインを試み、一度失敗したとのことであった。Uさんは、同日 10時前に電子メール（以下，メールという）を受け取っていた。メールにはクラウド管理サイトからの通知だと書かれていた。Uさんはメール中のURLを開き、クラウド管理サイトだと思ってログインを試みていた。Hさんがそのメールを確認したところ、URL 中のドメイン名はクラウド管理サイトのドメイン名とは異なっており、Uさんがログインを試みたのは備サイトだった。Hさんは、同日 10時の国外IPアドレスからのログインは②攻撃者による不正ログインだったと判断した。
+Hさんは、初動対応としてクラウド管理サイトのUさんのアカウントを一時停止した後、調査を開始した。Uさんのアカウントの権限を確認したところ、フロントエンド及びバックエンドの管理者権限があったが、それ以外の権限はなかった。
+まずフロントエンドを確認すると、Webサイトのドキュメントルートに "/. welL-known/pki-validation/” ディレクトリが作成され、英数字が羅列された内容のファイルが作成されていた。そこで、③RFC 9162に規定された証明書発行ログ中のNサービスのドメインのサーバ証明書を検索したところ、正規のもののほかに、N社では利用実績のない認証局Rが発行したものを発見した。
+バックエンドのうち1台では、管理者権限をもつ不審なプロセス（以下、プロセスYという）が稼働していた（以下、プロセス Yが稼働していたバックエンドを被害バ</pre>
+<pre class="text-block">ックエンドという）。被害バックエンドのその時点のネットワーク通信状況を確認すると、プロセスYは特定のCDN事業者のIPアドレスに、HTTPSで多量のデータを送していた。TLS の Server Name Indication（SNI）には，著名なOSS配布サイトのドメイン名が指定されており、製品✕では、安全な通だと判断されていた。
+詳しく調査するために、TLS 通ライブラリの機能を用いて、それ以降に発生するプロセスYのTLS通を復号したところ、HTTP Hostヘッダーでは別のドメイン名が指定されていた。このドメイン名は、製品✕の脅威データベースに登録された要注意ドメインであった。プロセスYは、④監視ソフトウェアに検知されないように SNIを備装していたと考えられた。ILS 通言の内容には被害バックエンド上のソースコードが含まれていた。Hさんはクラウド管理サイトを操作して被害バックエンドを一時停止した。Hさんは、⑤プロセスYがシークレットを取得したおそれがあると考えた。
+Hさんの調査結果を受けて、N社は同日、次を決定した。
+・不正アクセスの概要とNサービスの一時停止をN社のWebサイトで公表する。
+・被害バックエンドでソースコード取得機能又はコマンド実行機能を利用した顧客に対して、ソースコード及びシークレットが第三者に漏えいしたおそれがあると通知する。</pre>
+<pre class="text-block">Hさんは図2に示す事後処理と対策を行うことにした。</pre>
+<figure class="text-figure"><div class="text-figure-body"><div class="fig-text">フロントエンド及び全てのバックエンドを再構築する。</div>
+<div class="fig-l1"><span class="fig-marker">1.</span><span class="fig-body">認証局R に対し、Nサービスのドメインのサーバ証明書が勝手に発行されていることを伝2.え、その失効を申請する。</span></div>
+<div class="fig-l1"><span class="fig-marker">3．</span><span class="fig-body">サイトでログインを試みてしまっても、クラウド管理サイトに不正ログインされることのないよう，クラウド管理サイトにログインする際の認証を⑥ WebAuthn（WebAuthent ication）を用いた認証に切り替える。</span></div>
+<div class="fig-l1"><span class="fig-marker">4.</span><span class="fig-body">Nサービスのドメインのサーバ証明書を発行できる認証局を限定するために、Nサービスのレコードをドメインの権威 DNSサーバに、Nサービスのドメイン名に対応する設定する。</span></div></div><figcaption>図2 事後処理と対策（抜粋）</figcaption></figure>
+<pre class="text-block">[N社の顧客での対応]Nサービスの顧客企業の一つに、従業員1,000名の資金決済事業者であるP社がある。P社は，決済用のアプリ（以下、Pアプリという）を提供しており、スマートフオン OS 開発元のJ社が運営するアプリ配信サイトである」ストアを通じて、Pアプリの利用者（以下、Pアプリ利用者という）に配布している。P社はNサービスを、最新版ソースコードのコンパイル及びJストアへのコンパイル済みアプリのアップロードのために利用している。P社には開発部及び運用部がある。
+Jストアへのアプリのアップロードは、J社の契約者を特定するための認証用APIキーをHTTPヘッダーに付加し，JストアのREST API を呼び出して行う。認証用APIキーはJ社が発行し，契約者だけが」社のWebサイトから取得及び削除できる。また、」ストアは、アップロードされる全てのアプリについて、J社が運営する認証局からのコードサイニング証明書の取得と、対応する署名鍵によるコード署名の付与を求めている。」ストアのアプリを実行するスマートフォン OSは、各アプリを起動する前にコード署名の有効性を検証しており、検証に失敗したらアプリを起動しないようにしている。
+P社は、Nサービスのソースコード取得機能に、Pアプリのソースコードを保存しているVCS のホスト名とリポジトリの認証用 SSH 鍵を登録している。Nサービスのシークレット機能には、表3に示す情報を登録している。</pre>
+<pre class="text-block">表3P社がNサービスのシークレット機能に登録している情報シークレット名値の説明APP_SIGN KEYコード署名の付与に利用する署名鍵とコードサイニング証明書STORE_API_KEYJストアにアプリをアップロードするための認証用 APIキー</pre>
+<pre class="text-block">Pアプリのビルドスクリプトには、図3に示すコマンドが記述されている。</pre>
+<pre class="text-block">1. コンパイラのコマンド2．生成されたバイナリコードにAPP_SIGN_KEY を用いてコード署名を付与するコマンド3. STORE_API_KEYを用いて、署名済みのバイナリコードをJストアにアップロードするコマンド図3 ビルドスクリプトに記述されているコマンド</pre>
+<pre class="text-block">1月4日、P社運用部のKさんがN社からの通知を受した。それによると、ソースコード及びシークレットが漏えいしたおそれがあるとのことだった。Kさんは、⑦P アプリ利用者に被害が及ぶ攻撃が行われることを予想し、すぐに二つの対応を開始した。
+Kさんは、一つ目の対応として、⑧漏えいしたおそれがあるので，STORE API_KEYとして登録されていた認証用APIキーに必要な対応を行った。また、二つ目の対応として、APP SIGN KEYとして登録されていたコードサイニング証明書について認証局に失効を申請するとともに、新たな鍵ペアを生成し、コードサイニング証明書の発行申請及び受領を行った。鍵ペア生成時、N サービスが一時停止しており、鍵ペアの保存に代替手段が必要になった。FIPS 140-2 Security Level 3の認証を受けたハードウェアセキュリティモジュール（HSM）は、⑨コード署名を付与する際にセキュリティ上の利点があるので、それを利用することにした。さらに、二つの対応とは別に、リポジトリの認証用 SSH鍵を無効化した。
+その後、開発部と協力しながら、P社内のPCでソースコードをコンパイルし、生成されたバイナリコードに新たなコード署名を付与した。JストアへのPアプリのアップロード履歴を確認したが、異常はなかった。新規の認証用APIキーを取得し、署名済みのバイナリコードをJストアにアップロードするとともに、LOKさんの二つの対応によってPアプリ利用者に生じているかもしれない影響、及びそれを解消するためにPアプリ利用者がとるべき対応について告知した。さらに、外部委託先であるN社に起因するインシデントとして関係当局に報告した。</pre>
+<pre class="text-block">設問1 本文中の下線①について、該当するものはどれか。解答群の中から全て選び、記号で答えよ。
+解答群ア CIデーモンのプロセスを中断させる。
+イ いずれかのバックエンド上の全プロセスを列挙して攻撃者に送する。
+ウインターネット上のWebサーバに不正アクセスを試みる。
+エ 攻撃者サイトから命令を取得し、得られた命令を実行する。
+オほかのNサービス利用者のビルドスクリプトの出力を取得する。</pre>
+<pre class="text-block">設問2[N社のインシデントの発生と対応]について答えよ。
+（1） 本文中の下線②について、攻撃者による不正ログインの方法を、50字以内で具体的に答えよ。
+（2） 本文中の下線③について、RFC 9162で規定されている技術を、解答群の中から選び、記号で答えよ。
+解答群イHTTP Public Key Pinningア Certificate Transparencyウ HTTP Strict Transport SecurityI Registration Authority（3） 本文中の下線④について、このような手法の名称を、解答群の中から選び、記号で答えよ。
+解答群アDNS スプーフィングイドメインフロンティングエ ランダムサブドメイン攻撃ウ ドメイン名ハイジャック（4） 本文中の下線⑤について、プロセス Yがシークレットを取得するのに使った方法として考えられるものを、35字以内で答えよ。
+（5） 図2中の下線⑥について、仮に、利用者がサイトでログインを試みてしまっても、攻撃者は不正ログインできない。不正ログインを防ぐ WebAuthn の仕組みを、40字以内で答えよ。
+（6） 図2中のに入れる適切な字句を、解答群の中から選び、記号で答えよ。
+解答群ア CAA イ CNAME ウ DNSKEY INS オ SOA 力TXT[N社の顧客での対応]について答えよ。
+設問3（1） 本文中の下線⑦について、Kさんが開始した対応を踏まえ、予想される攻撃を、40字以内で答えよ。
+（2） 本文中の下線⑧について、必要な対応を、20字以内で答えよ。
+（3） 本文中の下線⑨について、コード署名を付与する際に HSMを使うことによって得られるセキュリティ上の利点を、20字以内で答えよ。
+（4） 本文中の下線0について、影響と対応を、それぞれ20字以内で答えよ。</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問3　CIサービスのインシデントとサプライチェーン攻撃</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">ウ・エ（攻撃の手順）</div></div><div class="expl-explanation">CI/CDパイプラインへの侵入手法。ビルド環境の環境変数（秘密鍵・APIキー）の窃取、パイプライン設定ファイルの改ざんによるマルウェアの混入等。SolarWindsやCCleaner等の実際の事例でも確認された攻撃手法。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">サイトに入力されたTOTPを入手し、そのTOTPが有効な間にログインした</div></div><div class="expl-explanation">TOTPベースのMFAのリアルタイム盗用。TOTP（Time-based One-Time Password）は30秒間有効なため、フィッシングサイトで入力されたTOTPを即座に正規サイトに転送することでMFAを突破できる。認証アプリのPush型MFAでも類似攻撃（MFA Fatigue）がある。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">イ（環境変数の窃取方法）</div></div><div class="expl-explanation">/procファイルシステムからの環境変数読み取り。Linuxコンテナ内で /proc/1/environ を読むことで、プロセスに渡された環境変数（APIキー・秘密鍵等）を取得できる。Kubernetes環境ではSecretリソースの暗号化保存が重要。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">認証に用いる情報に含まれるオリジン及び署名をサーバが確認する仕組み</div></div><div class="expl-explanation">FIDO2/WebAuthnによる認証。クライアント（ブラウザ）がオリジン（ドメイン）を含めて署名を生成し、サーバが署名検証＋オリジン確認を行うことで、フィッシングサイトでは認証情報が使えない。フィッシング耐性のある認証方式。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(6)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">有効なコード署名が付与されたPアプリをJストアにアップロードする</div></div><div class="expl-explanation">ソフトウェアサプライチェーン攻撃の最終ステップ。正規の署名鍵（または盗んだ署名鍵）で署名したトロイの木馬をアプリストアに公開し、ユーザに正規アップデートとして配布する。SolarWinds Orionのケースが典型例。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

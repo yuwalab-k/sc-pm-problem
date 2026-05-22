@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>平成31年度 春 問3 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">平成31年度 春 問3</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問3　IoT機器の開発</h2><div class="problem-body"><pre class="text-block">V 社は、IoT 機器を製造・販売している従業員数3,000名の会社である。家庭用ゲーム機（以下、ゲーム機＞という）の発売を予定しており、設計を開発部が担当している。設計リーダは、開発部のHさんである。利用者はゲーム機Vとゲームプログラムの利用権を購入し、ゲーム機＞ からゲームサーバ上のゲームプログラムを利用する。複数のゲームプログラム開発会社が、それぞれ複数のゲームプログラムを開発し、販売する予定である。開発部が設計したゲーム機V、認証サーバ及びゲームサーバ（以下、三つを併せてゲームシステム ♥ という）の構成を図1に、構成要素とその概要を表1に示す。</pre>
+<pre class="text-block">インターネットゲーム機V専用OSゲームサーバm認証サーバゲームサーバ1通プログラム利用者認証プログラムゲームプログラムn．利用者情報 1）クライアント証明書ゲームプログラム1購入情報 2）ゲームプログラムIDデバイスIDサーバ証明クラウドV：V社が用意したクサーバ証明書ラウドサービスクラウドVファイアウォールなどのネットワーク機器は省略している。
+注記1ゲーム機Vと各サーバとの間の通信には、HTTP over TLSを使用する。
+利用者 ID，パスワードのハッシュ値，ニックネーム、性別及び誕生日から成る。
+2）利用者ID、利用者が購入したゲームプログラムのゲームプログラム ID から成る。
+図1 ゲームシステムVの構成（概要）</pre>
+<pre class="text-block">= 16 =</pre>
+<pre class="text-block">表1 ゲームシステムVの構成要素とその概要構成要素概要ゲーム機 V・無線LAN機能，コントローラ”及びディスプレイを備えている。
+・専用 OSがインストールされており、ブートローダから起動される。
+・専用 OS に含まれる通プログラムは、ゲームサーバ上のゲームプログラム及び認証サーバ上の利用者認証プログラムと通信する。
+・通プログラムは、コントローラの操作情報をリアルタイムにゲームプログラムに送信し、ゲームプログラムからゲームの処理結果をゲーム画面として受信してディスプレイに表示する。
+・ゲーム機Vごとに一意のデバイスIDが付与される。
+・ゲーム機Vごとに発行されたクライアント証明書を格納している。各サーバとの通時には、クライアント証明書を使用したクライアント認証が行われる。
+・各サーバとの通信時には、サーバ認証を行い、クラウドV中のサーバとだけ通言を行う。
+・初期セットアップ時に認証サーバに利用者情報を登録する。
+・PCに接続しても外部ストレージとして認識されず、内部のデータを直接読み出すことはできない。
+ゲームサーバ・クラウド V に複数のゲームプログラム開発会社がそれぞれゲームサーバを立ち上げ、各ゲームサーバで一つ又は複数のゲームプログラムを稼働させる。
+・ゲームプログラム開発会社のゲームサーバ管理者が運用する。
+・各ゲームプログラムには、固有のゲームプログラム IDが付与される。
+・ゲームサーバごとに発行されたサーバ証明書を格納している。
+認証サーバ・利用者情報と購入情報を管理する。
+・利用者認証プログラムは、ゲーム機V がゲームプログラムを利用する際の利用者の認証を行う。認証の結果、利用者が購入したゲームプログラムだけの利用を許可する。
+・認証サーバに発行されたサーバ証明書を格納している。
+注 1ゲームを行う際などに使用する入力装置</pre>
+<pre class="text-block">ゲームを行う際は図2の認証フローで利用者の認証が行われる。
+ゲームサーバのゲーム機Vの認証サーバの利用者認証プログラム通信プログラムゲームプログラム1.利用者IDとパスワード2.アクセス可能なゲームプログラムIDの一覧3.アクセスするゲームプログラムID→4. 認証トークンとゲームプログラムのURL 1）5.認証トークン6.ゲーム画面注記 1.又は5.で認証に失敗した場合は、ゲーム機Vに認証エラー画面が送信される。
+注1）URL はゲームプログラムごとに固有である。
+図2 利用者がゲームを行う際の認証フロー</pre>
+<pre class="text-block">認証トークンには、認証サーバの FQDN、利用者ID 及び MAC （MessageAuthentication Code）が格納される。①MAC は、認証サーバのFQDNと利用者IDに対して、ハッシュ関数を共通鍵と組み合わせて使用し、生成する。共通鍵は、ゲームシステム ♥ 全体で一つの鍵が使用され、ゲームサーバ管理者がゲームプログラムに設定する。図2の5.では、ゲームブログラムによる認証トークンのMAC の検証が成功し、かつ、FQDN が確かに認証サーバのものであることが確認された場合だけ、認証が成功し、図2の6.でゲームプログラムからゲーム画面が送される。</pre>
+<pre class="text-block">【セキュリティレビューの実施]認証トークンが認証サーバ以外で不正に生成されると、購入していないゲームプログラムを利用されたり、クラウド V 上のリソースを不正に利用されたりするおそれがある。そこで仮に認証サーバ以外で認証トークンを生成されたとしてもゲームプログラムでは検証に失敗することが求められる。また、利用者がコントローラの不正な操作情報をゲーム機Vから送信することによって、ゲームを有利に進めるといったことも防ぐ必要がある。
+V社では、システム設計にセキュリティ上の問題がないか、製品の設計工程でセキユリティレビュー（以下、レビューという）を実施することになっており、ゲームシステムVはセキュリティ部のNさんがレビューを担当することになった。次は、NさんがゲームシステムVのレビューを行った時の、Hさんとの会話である。</pre>
+<dl class="dialogue"><div class="dialogue-line"><dt>Nさん</dt><dd>現状の認証トークンの設計には二つの問題があります。一つ目の問題は、現在の設計では認証トークンに格納される情報が不足しているということです。情報が不足していることによって、ゲームプログラム A 用の認証トークンがゲームプログラム B においても認証に成功してしまうので、攻撃者がゲームプログラムの URLを知ることができれば、購入していないゲームプログラムも利用できてしまいます。②この問題への対策を検討してください。</dd></div><div class="dialogue-line"><dt>Hさん</dt><dd>分かりました。</dd></div><div class="dialogue-line"><dt>Nさん</dt><dd>二つ目の問題は、③認証トークンをゲームサーバ管理者が不正に生成できてしまうことです。</dd></div></dl>
+<dl class="dialogue"><div class="dialogue-line"><dt>Hさん</dt><dd>その問題への対策としては、ゲームプログラムごとに別の共通鍵を利用するという設計はどうでしょうか。</dd></div><div class="dialogue-line"><dt>Nさん</dt><dd>それでは対策として不十分です。④その設計にしたとしても、不正にゲームプログラムが利用できる認証トークンをゲームサーバ管理者が生成できてしまいます。</dd></div><div class="dialogue-line"><dt>Hさん</dt><dd>MACではなく、ディジタル署名を利用すれば対策になりますか。</dd></div><div class="dialogue-line"><dt>Nさん</dt><dd>はい。そうすればゲームサーバ管理者が認証トークンを不正に生成したとしても、ゲームプログラムで検証が失敗します。</dd></div><div class="dialogue-line"><dt>Hさん</dt><dd>では、で公開鍵と秘密鍵の鍵ペアを生成し、をゲーbムサーバに配布しておきます。
+がを使って認証トCaークンに署名を付加し、ゲームプログラムではを使って署名のb検証を行います。</dd></div><div class="dialogue-line"><dt>Nさん</dt><dd>それで問題ありません。次に、不正な機器から認証サーバとゲームサーバへのアクセスをどのようにして防ぐのか教えてください。</dd></div><div class="dialogue-line"><dt>Hさん</dt><dd>クライアント認証を使います。</dd></div><div class="dialogue-line"><dt>Nさん</dt><dd>ゲーム機♥ 内のクライアント証明書とそれに対応する秘密鍵（以下、鍵Cという）が攻撃者のPCから不正に使用できると、そのPCから各サーバに接続されてしまいます。さらに、コントローラの操作情報を改ざんして送言することによって、ゲームを有利に進めることも考えられます。クライアント証明書と鍵Cはゲーム機Vのどこに格納しますか。</dd></div><div class="dialogue-line"><dt>Hさん</dt><dd>鍵Cを含めた全てのデータは、搭載する SSD （Solid State Drive）に格納します。搭載する SSD は、広く流通しているものです。</dd></div><div class="dialogue-line"><dt>Nさん</dt><dd>それでは問題がありますね。現状の設計では、専用 OSに弱性が存在しなかったとしても、⑤攻撃者がゲーム機Vを購入すれば、専用 OSを改ざんせずに、ゲーム機V内のクライアント証明書と鍵CをPCなどから不正に使用できます。</dd></div><div class="dialogue-line"><dt>Hさん</dt><dd>どのように対策したらいいでしょうか。</dd></div><div class="dialogue-line"><dt>Nさん</dt><dd>TPM （Trusted Platform Module）をゲーム機Vに搭載し、TPM内に鍵Cを保存するという方法があります。TPMは、⑥内部構造や内部データを解析されにくい性質を備えているので、TPM 内に鍵Cを保存すれば不正に読み</dd></div></dl>
+<pre class="text-block">取ることは困難になります。
+また、ブートローダ又は専用 OSの改ざんはゲーム機Vの不正利用につながります。例えば，コントローラの不正な操作情報を送されるおそれがあります。そのため、ブートローダ及び専用 OS の改ざん対策についても検討してください。
+Hさん：分かりました。設計を見直します。</pre>
+<pre class="text-block">[ブートローダ及び専用 OSの改ざん対策]2回目のレビューでは、ブートローダ及び専用 OSの改ざん対策について確認した。
+次は、その時のHさんとNさんの会話である。</pre>
+<pre class="text-block">Hさん：ブートローダ及び専用 OS の改ざんに備えた対策として、ブートローダ又は専用 OSが改ざんされていると判定されたときは、ゲーム機Vの起動処理を中止するようにしました。ブートローダ及び専用 OSの改ざん対策の処理の流れを図3に示します。</pre>
+<figure class="text-figure"><div class="text-figure-body"><div class="fig-l1"><span class="fig-marker">1.</span><span class="fig-body">ブートローダ及び専用 OS 中の起動時に実行されるファイルのハッシュ値をあらかじめ計算し、ハッシュ値のリスト（以下、ハッシュ値リストという）を作成しておく。ゲーム機♥への専用 OSの導入時、ハッシュ値リストを併せて保存する。起動時に専用 OS 中のファイルが実行される順番は、あらかじめ決められている。</span></div>
+<div class="fig-l1"><span class="fig-marker">2．</span><span class="fig-body">ゲーム機Vの起動時には，CRTM （Core Root of Trust for Measurement）と呼ばれる、改ざんが困難な起動コードから起動処理を開始する。</span></div>
+<div class="fig-l1"><span class="fig-marker">3.</span><span class="fig-body">CRTMは、ブートローダのハッシュ値を計算し、そのハッシュ値がハッシュ値リスト中に存在することを確認できたら実行する。</span></div>
+<div class="fig-l1"><span class="fig-marker">4.</span><span class="fig-body">ブートローダは、専用 OSの最初に実行されるファイルのハッシュ値を計算し、ハッシュ値リスト中に存在することを確認し、実行する。同様に、後続のファイルについて計算、確認」実行を繰り返し、専用 OSが起動する。</span></div>
+<div class="fig-l1"><span class="fig-marker">5.</span><span class="fig-body">ハッシュ値がハッシュ値リスト中に存在しないファイルは改ざんされていると判定され、起動処理が中止される。</span></div></div><figcaption>図3 ブートローダ及び専用 0Sの改ざん対策の処理の流れ</figcaption></figure>
+<pre class="text-block">Nさん：処理の流れは分かりました。ハッシュ値リストが保護されていないと、改ざんされたファイルが実行されるおそれがありますが、どのように対策していますか。</pre>
+<pre class="text-block">Hさんは、⑦ハッシュ値リストを保護するための方法を説明した。</pre>
+<pre class="text-block">Nさん：それであれば、改ざんされたファイルが実行される危険性は低いですね。</pre>
+<pre class="text-block">その後、クラウドVの準備が整い、ゲーム機Vが発売された。</pre>
+<pre class="text-block">設問1 本文中の下線①に該当する方式はどれか。該当する方式を解答群の中から選び、記号で答えよ。
+解答群ウ CSRイ CMACア CBC-MACオ MD5力 RC4エ HMAC設問2（セキュリティレビューの実施】について、（1）～（6）に答えよ。
+（1） 本文中の下線②について、対策として認証トークンに追加する必要がある情報を、15字以内で答えよ。
+（2） 本文中の下線③について、その原因となるゲームサーバの仕様を、30字以内で述べよ。
+（3） 本文中の下線④について、その原因となる認証トークンの仕様を、20字以内で述べよ。また、不正に生成した認証トークンで利用できるゲームプログラムの範囲を、35字以内で述べよ。
+」に入れる適切な字句を解答群の中から（4） 本文中の選び、記号で答えよ。
+解答群イゲーム機Vア共通鍵ウ ゲームサーバオ認証サーバエ公開鍵力祕密鍵（5） 本文中の下線⑤について、どのようにするとクライアント証明書と鍵CをPC などから使用可能にしてしまうことができるか。攻撃者が使用前に行う必要があることを、25字以内で具体的に述べよ。
+（6） 本文中の下線⑥について、この性質を何というか。10字以内で答えよ。
+設問3 本文中の下線⑦について、保護するための適切な方法を本文中の用語を使って、25字以内で具体的に述べよ。</pre>
+<pre class="text-block">モ用紙][メ</pre>
+<pre class="text-block">モ用紙］[メ</pre>
+<pre class="text-block">6． 退室可能時間中に退室する場合は、手を挙げて監督員に合図し、答案用紙が回収されてから静かに退室してください。
+退室可能時間13:10～13:50問題に関する質問にはお答えできません。文意どおり解釈してください。
+7.8． 問題冊子の余白などは、適宜利用して構いません。ただし、問題冊子を切り離して利用することはできません。
+9． 試験時間中，机上に置けるものは、次のものに限ります。
+なお、会場での貸出しは行っていません。
+受験票、黒鉛筆及びシャープペンシル（B 又は HB），鉛筆削り，消しゴム、定規、時計（時計型ウェアラブル端末は除く。アラームなど時計以外の機能は使用不可），ハンカチ、ポケットティッシュ、目薬これら以外は机上に置けません。使用もできません。
+10.試験終了後、この問題冊子は持ち帰ることができます。
+11. 答案用紙は、いかなる場合でも提出してください。回収時に提出しない場合は、採点されません。
+12．試験時間中にトイレへ行きたくなったり、気分が悪くなったりした場合は、手を挙げて監員に合図してください。
+13．午後の試験開始は14:30ですので、14:10までに着席してください。</pre>
+<pre class="text-block">試験問題に記載されている会社名又は製品名は、それぞれ各社又は各組織の商標又は登録商標です。
+なお、試験問題では、IM 及び®を明記していません。</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問3　IoT機器のセキュリティ設計と認証連携</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">エ（ゲーム機のセキュリティリスク）</div></div><div class="expl-explanation">IoT機器の物理的アクセスリスク。ゲーム機は物理的に手元にあるためハードウェアデバッグインターフェース（JTAG・UART）を悪用した解析・改ざんが可能。セキュアブートと耐タンパ性が対策。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">ゲームサーバに認証サーバと同じ共通鍵を保存する</div></div><div class="expl-explanation">共通鍵（対称鍵）を使ったトークン検証の仕組み。認証サーバが発行したJWT（HMAC署名）をゲームサーバが同じ鍵で検証する。鍵を共有するため鍵漏えいの影響範囲が広い。非対称鍵（JWT RS256）の方がセキュリティ上望ましい。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(5)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">耐タンパ性（Tamper Resistance）</div></div><div class="expl-explanation">ハードウェアセキュリティの重要概念。SSDを取り出して解析されても内部のデータ（秘密鍵・DRMキー等）を保護するための物理的・論理的な防護技術。TPM・HSM・Secure Enclaveが実装例。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

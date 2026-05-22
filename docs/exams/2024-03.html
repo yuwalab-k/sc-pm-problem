@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>令和6年度 春 問3 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">令和6年度 春 問3</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問3　Webセキュリティ</h2><div class="problem-body"><pre class="text-block">D社は、従業員1,000名の小売業である。自社のホームページやEC サイトなどのWebサイトについては、Webアプリケーションプログラム（以下、Webアプリという）に対する診断（以下、Webアプリ診断という）を専門会社の2社に委託して実施している。Webアプリ診断は、Webサイトのリリース前だけではなく、リリース後も定期ぜい的に実施している。2社のWeb アプリ診断は、弱性診断ツールによるスキャンだけではなく、手動による高度な分析も行う。</pre>
+<pre class="text-block">[新たな Webサイトの構築］D社では、新たにECサイトメ（以下、サイト✕という）と商品企画サイトY（以下、サイトYという）をW社が提供するクラウドサービス（以下、クラウドWという）上に構築することになった。
+サイトメでは、D社が取り扱う商品をインターネットを介して会員に販売する予定である。取引は毎月 10,000件ほどを見込んでいる。サイトYでは、サイトXで販売する新商品の企画・開発を顧客参加型で行う。サイトメとサイトYは、いずれもWebサーバとデータベースサーバ（以下、DB サーバという）で構成する。WebサーバについてはクラウドWの仮想Webサーバサービスを利用し、DBサーバについてはクラウド※のリレーショナルデータベースサービスを利用する。サイト✕とサイトYはいずれも，コンテンツマネジメントシステム（以下，CMSという）を使って構築される。サイトメとサイトYにはいずれも、Webアプリ，HTML による静的コンテンツ、DBサーバに格納したデータを使った動的コンテンツなどを用意する。
+D社は、V大学と新商品開発の共同研究を行っている。新商品開発の共同研究では、V 大学が運用する情報交換サイト（以下，サイトPという）を利用している。サイトYは、サイトPで取り扱っている情報などを表示する。
+D社は、Webサイト構築に関連するデータやドキュメントの保存場所として、クラウドWのストレージサービス（以下、ストレージWという）を利用する。
+D社は、サイト✕及びサイトYの設計書を作成した。設計書のうち、サイトX、サイトY及びサイトPのネットワーク構成を図1に、サーバやサービスの説明を図2に示す。</pre>
+<pre class="text-block">D社クラウドWインターネットストレージWD社管理者PCVPCWebサーバX内部ネットワニクーーーDBサーバメV大学IG1）サイトメWebサーバPFWIMDSWebサーバYDBサーバPVG2）サイトPDBサーバYサイトY学内ネットワニク--IG：インターネットゲートウェイFW：ファイアウオールIMDS：インスタンスメタデータサービス VG：VPNゲートウェイ VPC：仮想プライベートクラウド注 1/VPC とインターネットとの間の通を可能にする。
+注 2）VPCとD社の内部ネットワークとの間のVPN通を可能にする。
+図1 サイトX，サイトY及びサイトPのネットワーク構成</pre>
+<pre class="text-block">[クラウドWにあるサーバ及びストレージWについて］クラウド W上のサービスの管理のためのアクセスの際は、クラウド W用の利用者ID，アクセスキーなどのクレデンシャル情報をリクエストに含める必要がある。D社が利用するクラウド W 上のサービスには、D社用に発行されたクレデンシャル情報でアクセスでき、全ての操作ができる。</pre>
+<pre class="text-block">[IMDSについて］IMDS は、VPC の各サーバから特定のURLにアクセスされると特定の情報を返す。例えば、https:/1000.000.000.000/meta-data/credentialにGETメソッドでアクセスされると、クラウド W 上のサービスのクレデンシャル情報を返す。IMDSには、インターネットから直接アクセスできないプライベートIPアドレス（〇〇〇.000.000.000）が設定されている。
+IMDSにアクセスする方式は、次のいずれかを採用する必要がある。D社では、方式1を採用する。
+方式1：特定のURLにアクセスするだけで情報を取得できる。
+方式2：トークンを発行するURLにPUT メソッドでアクセスし、レスポンスボディに含まれるトークンを入手してから、そのトークンをリクエストヘッダに含めて特定のURLにアクセスすると情報を取得できる。
+[CMS について］Web サーバメのhttps://ロロロ.jp/admin 又は WebサーバYのhttps://■■■.jp/adminにアクセスすると、それぞれのサーバの CMSの管理ログイン画面にアクセスできる。ログインは、POST メソッドでは許可されるが、GETメソッドでは許可されない。各 CMSの管理ログイン画面へのアクセスは、VPN接続されたD社管理者 PC，又はVPC内からのアクセスだけに制限される。D社では、各CMS の管理者アカウントは初期パスワードのまま運用する。
+図2 サーバやサービスの説明</pre>
+<pre class="text-block">[サイト X］サイトメには、会員用の利用者アカウントとD社管理者用の利用者アカウントがある。サイトメのログインセッション管理は、cookie パラメータのSESSIONIDで行う。
+SESSIONID には、値とSecure 属性だけがセットされる。なお、サーバ側のセッションの有効期間は24時間である。設計書のうち、サイト✕の機能一覧を表1に示す。</pre>
+<pre class="text-block">表1 サイトメの機能一覧（抜粋）詳細機能項番機能機能概要ログイン機能1ログイン機能利用者IDとパスワードを入力し、ログインに成功すると利用できる機能が表示されるページに遷移する。
+2利用者機能会員機能（登録）登録画面では最初にメールアドレスを入力す（ログイン前）る。そのメールアドレス宛てに送られた電子メールに記載されたURLにアクセスして利用者情報を入力し、登録する。
+3利用者機能注文機能（商品検商品には商品コードが付与されており、商品検（ログイン後）素，注文、注文履歴素画面で検索できる。注文履歴は、注文年月で閲覧）ある数字6桁とランダムな英大文字6桁の値をハイフンでつないだ注文管理番号で管理される。注文履歴を閲覧する際は、注文管理番号を基に検索する。
+4会員機能（編集）登録した利用者情報を編集できる。
+5問合せ機能問合せ情報を入力できる。入力した問合せ情報は、数字 10桁の管理番号が発番され、管理される。
+6サイト管理機能商品管理機能（登商品情報を登録、編集、削除できる。商品情報（ログイン後）録、編集、削除）が登録されると、数字 10桁の商品コードが割り当てられ、その商品を会員が注文できるようになる。
+7売上管理機能（売上商品の売上情報を閲覧できる。また、条件を指情報閲覧，検索）定して検索することができる。
+8会員管理機能（閲登録された会員の利用者情報を閲覧、変更、削覧、変更，削除）除できる。
+9問合せ機能で入力された問合せ情報が閲覧でき問合せ管理機能る。</pre>
+<pre class="text-block">サイト管理機能は、D社の内部ネットワーク以外からも利用する可能性があり、サイトメでは、接続元の制限は行わない。</pre>
+<pre class="text-block">サイト✕とサイトYの構築は順調に進み、D社はリリース前のWebアプリ診断をZ社に委託した。2社は、サイト✕とサイトYそれぞれに対してWeb アプリ診断を実施した。</pre>
+<pre class="text-block">[サイト✕に対する Webアプリ診断]サイト✕に対する Webアプリ診断では、次の三つの弱性が検出された。
+・クロスサイトスクリプティング（以下，XSSという）・クロスサイトリクエストフォージェリ（以下，CSRF という）・認可制御の不備</pre>
+<pre class="text-block">[XSS について]Z社がXSSを検出した経緯は、次のとおりであった。
+（1） 問合せ機能で、脆弱性診断ツールによるリクエストとレスポンスを確認した。
+このときのリクエストとレスポンスは、図3のとおりであった。</pre>
+<pre class="text-block">[リクエスト］POST /shop/contact HTTP/1.1Host： （省略）（省略）Content-Type: application/x-www-form-ur lencodedContent-Length：（省略）Cookie: SESSIONID=nt1t3dmxmlmwuicyiz3h4nq1subject_id=0048name=%22%3e%3cscript%3ealert%281%29%30%2fscript%/3e%30%228tel=（省略）&amp;mail=（省略）&amp;mai 12=（省略）&amp;comment=（省略）[レスポンス］（省略）く1&gt;問合せを受け付けました。く/h1＞（省略）注記 パラメータ nameの値は"&gt;＜script＞alert（1）&lt;/script＞ぐ”をURLエンコードした値である。
+図3問合せ機能のリクエストとレスポンス</pre>
+<pre class="text-block">（2）図3 中のレスポンスボディには、問合せ機能で入力した値は出力されていない。
+しかし、2社は、①設計書を調査した上で手動による分析を行い、図3中のリクエスト内のスクリプトが別の機能の画面に出力されることを確認した。</pre>
+<pre class="text-block">2社は、②攻撃者がこの XSSを悪用してサイト✕内の全会員の利用者情報を取得する可能性があると説明した。</pre>
+<pre class="text-block">[CSRF について］2社がCSRF を検出した経緯は、次のとおりであった。
+（1） 会員機能（編集）において、図4に示すリクエストを送ってその応答を確認した。リクエストは正常に処理された。</pre>
+<pre class="text-block">POST /shop/editmember HTTP/1.1Host： （省略）（省略）Content-Type: application/x-www-form-ur lencodedContent-Length：（省略）Cookie: SESSIONID=b9y33f89umt6uualpe4j4jn7sei=sato&amp;mei=taro&amp;mail=aaa%40example.jp&amp;csrff_token=KCRO88ERH2G8MGT319E50SMOA JFDIVEN図4 会員機能（編集）のリクエスト</pre>
+<pre class="text-block">（2） リクエスト内のメッセージボディの一部を変更して送り、その応答を確認した。
+リクエスト内のメッセージボディと応答は表2のとおりであった。</pre>
+<pre class="text-block">表2 リクエスト内のメッセージボディと応答手順リクエスト内のメッセージボディ応答1sei=sato&amp;me i=tar o&amp;mail=aaa%40example.jp&amp;csrf_token=エラー2sei=sato&amp;me i=taro&amp;mai l=aaa%40example.jpエラー3sei=sato&amp;me i=tar o&amp;mail=aaa%40example. jp&amp;csrf_token=（異なる利用正常に処理者アカウントで取得した csrf_token の値）</pre>
+<pre class="text-block">（3） 2社は、手順1，2の応答が“エラー”であることから一定のCSRF 対策ができているが、手順 3の応答が“正常に処理”であることから③利用者に被害を与える可能性があると判断した。</pre>
+<pre class="text-block">2社は、対策には二つの方法があることを説明した。
+・csrf_token の処理の修正・cookie への SameSite 属性の追加</pre>
+<pre class="text-block">サイト✕の構成次第では、SameSite 属性をcookie に付与することも有効な対策となり得る。SameSite 属性は、Strict,Lax,None の三つの値のうちのいずれかを取る。
+サイトメにログインした利用者のWebブラウザにおいて、サイト内で遷移する場合と外部Webサイトからサイト✕に遷移する場合では、SameSite 属性の値によってサイトメの cookie 送の有無が表3のように異なる。</pre>
+<pre class="text-block">表3 Samesite 属性の値の違いによる cookie 送信の有無外部 Webサイトからサイト✕に遷移サイト✕内で遷移SameSitePOSTGETPOST属性の値GETbStrictaLaxC（省略）（省略）None"O”は cookieが送られることを示す。“X”はcookieが送られないことを示す。
+注記</pre>
+<pre class="text-block">[認可制御の不備について]2社が認可制の不備を検出した経緯は、次のとおりであった。
+（1） 2社は、利用者&amp;、利用者βという二つの利用者アカウントを用いて、注文履歴を閲覧した際のリクエストを確認した。注文履歴を閲覧した際のリクエストを図5及び図6に示す。</pre>
+<pre class="text-block">POST /shop/order-history HTTP/1.1Host： （省略）（省略）Content-Type: application/x-www-form-ur lencodedContent-Length： （省略）Cookie: SESSIONID=ac9t66bx lxmwuiiki53h4nq3order-code=202404-AHUJKI 1）注”表1の注文管理番号のことである。値から利用者を特定することができる。
+図5 利用者αで注文履歴を閲覧した際のリクエスト</pre>
+<pre class="text-block">POST /shop/order-history HTTP/1.1Host： （省略）（省略）Content-Type: application/x-www-form-ur lencodedContent-Length： （省略）Cook ie: SESSIONID=k1ctghbxbx5wuj3ki 33hlnq5order-code=202404-BAKCXW図6 利用者βで注文履歴を閲覧した際のリクエスト</pre>
+<figure class="text-figure"><div class="text-figure-body"><div class="fig-l2"><span class="fig-marker">（2）</span><span class="fig-body">図5のリクエストのパラメータ order-code の値を図6中の値に改変してリクエストを送った。</span></div>
+<div class="fig-l2"><span class="fig-marker">（3）</span><span class="fig-body">利用者αが、本来は閲覧できないはずの利用者βの注文履歴を閲覧できるという攻撃が成功することを確認した。</span></div>
+<div class="fig-l2"><span class="fig-marker">（4）</span><span class="fig-body">さらに、ある利用者がほかの利用者が注文した際の order-code を知らなくても、④ある攻撃手法を用いれば攻撃が成功することを確認した。</span></div></div></figure>
+<pre class="text-block">2社は、⑤サイト✕のWebアプリに追加すべき処理を説明した。</pre>
+<pre class="text-block">[サイトYに対する Web アプリ診断]サイトYに対するWebアプリ診断では、次の弱性が検出された。
+・サーバサイドリクエストフォージェリ（以下，SSRF という）</pre>
+<pre class="text-block">[SSRF について]Z社がSSRF を検出した経緯は、次のとおりであった。
+（1） サイトPの新着情報を取得する際に、利用者のWebブラウザがWeb サーバYに送るリクエストを確認したところ、図7のとおりであった。</pre>
+<pre class="text-block">GET /top?page=https://AAA.jp/topic/202404.html HTTP/1.1Host： （省略）（省略）Cookie: SESSIONID=pq4ikd31op215jebter41 sae注記 AAA.jpはサイトPのFQDNである。
+図7 利用者のWebブラウザが Web サーバYに送るリクエスト</pre>
+<figure class="text-figure"><div class="text-figure-body"><div class="fig-l2"><span class="fig-marker">（2）</span><span class="fig-body">⑥図7のリクエストのパラメータの値を WebサーバYのCMSの管理口グイン画面のURL に変更することで、その画面にアクセスできるが、ログインはできないことを確認した。</span></div>
+<div class="fig-l2"><span class="fig-marker">（3）</span><span class="fig-body">⑦図 7のリクエストのパラメータの値を別の URLに変更するという方法（以下、方法Fという）でSSRF を悪用して、クレデンシャル情報を取得し，ストレージWから情報を盗み出すことができることを確認した。</span></div>
+<div class="fig-l2"><span class="fig-marker">（4）</span><span class="fig-body">IMDS にアクセスする方式を方式1から方式2に変更すると、方法Fではクレテンシャル情報を取得できないので、ストレージWから情報を盗み出すことができない。しかし、図7のリクエストのパラメータの値を変更することで、Webサーバ＞から送られるリクエストに任意のメソッドの指定及び任意のヘッダの追加ができる方法（以下、方法Gという）がある。方法Gを用いれば、方式2に変更しても、⑧クレデンシャル情報を取得し、ストレージW から情報を盗み出すことができることを確認した。</span></div></div></figure>
+<pre class="text-block">2社は、クラウドW上のネットワークでのアクセス制の設定，及び①サイト♥のWebアプリに追加すべき処理を提案した。</pre>
+<pre class="text-block">リリース前の脆弱性診断で検出された脆弱性の対策が全て完了し、サイト✕とサイトYは稼働を開始した。</pre>
+<pre class="text-block">設問1[XSS について]について答えよ。
+（1） 本文中の下線①について、図3 中のリクエスト内のスクリプトが出力されるのはどの機能か。表1の詳細機能に対する項番を選び答えよ。
+（2） 本文中の下線②について、攻撃者はどのような手順で利用者情報を取得するか。具体的に答えよ。
+設問2[CSRF について】について答えよ。
+（1） 本文中の下線③について、被害を与える攻撃の手順を、具体的に答えよ。
+」に入れる適切な内容を、“O”又は“メ"（2） 表3中のから選び答えよ。
+設問3[認可制街の不備について】について答えよ。
+（1） 本文中の下線④について、どのような攻撃手法を用いれば攻撃が成功するか。30字以内で答えよ。
+（2） 本文中の下線⑤について、サイト✕のWeb アプリに追加すべき処理を、60字以内で具体的に答えよ。
+[SSRF について]について答えよ。
+設問4（1） 本文中の下線⑥について、ログインができないのはなぜか。SSRF 攻撃の特徴を基に、35字以内で答えよ。
+（2） 本文中の下線⑦について、クレデンシャル情報を取得する方法を、具体的に答えよ。
+（3） 本文中の下線⑧について、方法Gを用いてクレデンシャル情報を取得する方法を、具体的に答えよ。
+（4） 本文中の下線⑨について、サイトYのWeb アプリに追加すべき処理を，35字以内で具体的に答えよ。</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問3　Webサイトの脆弱性診断と対策</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（診断対象ページ数）＝9</div></div><div class="expl-explanation">Webアプリ診断の対象ページ数を正確に把握することは、工数・費用の見積もりに直結する。シングルページアプリ（SPA）やAPIエンドポイントの数え方等、診断範囲の定義が重要。</div></div>
+<div class="expl-item"><div class="expl-label">設問2</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">攻撃者がわなリンクを用意し、管理者にそのリンクを踏ませることで管理者権限のCookieを攻撃者のWebサイトに送信させ、その値を読み取って利用することで管理者としてサイトにアクセスできる</div></div><div class="expl-explanation">反射型XSS（Reflected XSS）を使ったセッションハイジャック。HttpOnly属性がCookieに設定されていないため、JavaScriptからdocument.cookieが読み取れる。HttpOnly設定とCSPによる対策が有効。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

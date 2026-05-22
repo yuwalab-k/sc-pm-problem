@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>令和6年度 秋 問4 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">令和6年度 秋 問4</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問4　セキュリティ診断</h2><div class="problem-body"><pre class="text-block">B社は，セキュリティ診断サービスを提供している会社である。このたび、転職支援サービスを提供している M社から、転職支援 Webサイト（以下，Mサイトという）のセキュリティ診断を受注した。
+Mサイトを利用する求職者は、氏名、自宅住所、電話番号、勤務先などの求職者属性情報と、希望職種、希望条件などの求職情報を入力する。求人企業は、会社情報」求人情報，求人担当者の氏名，所属部署などの情報を入力する。これらの情報は、Mサイトのデータベースに保存される。Mサイトでは、入力された情報に基づいて、求職者と求人企業のマッチングを行っている。求職者は、マッチングで提案された企業に問合せや応募をすることができる。
+Mサイトは、機能を追加した新しいバージョンの Web アプリケーションプログラム（以下、MサイトのWeb アプリケーションプログラムを Web アプリという）と、求人企業がアプリケーションプログラムからHTTPSで呼び出すことを想定したインタフェース（以下、このインタフェースを WebAPIという）の開発が完了したところであり、リリース前である。</pre>
+<pre class="text-block">[セキュリティ診断の診断対象と診断方法]今回のセキュリティ診断の診断対象と診断方法は、図1のとおりである。</pre>
+<pre class="text-block">【診断対象】・Mサイトには本番用サイトと検証用サイトがあり、診断対象は Mサイトの検証用サイトとする。検証用サイトには、開発が完了した新しいバージョンのWebアプリが導入されている。なお、本番用サイトと検証用サイトは、同一の構成である。
+・検証用サイトでは、アクセス元のIPアドレスを制限している。診断に当たり、B社からも検証用サイトにアクセスできるように、検証用サイトの設定を変更する。
+・検証用サイトには、テスト用疑似データが投入されている。
+【診断方法】・B社の社内にある診断用PCからインターネットを経由して診断を行う。
+・Web アプリの弱性の検出と、Web サーバのプラットフォームの弱性の検出を行う。
+・Web アプリの弱性の検出は、診断ツールと診断員の手作業で行う。
+・Web サーバのプラットフォームの弱性の検出は、診断ツールで行う。
+・診断に当たり、必要に応じてMサイトの設計書を参照する。
+図1 診断対象と診断方法</pre>
+<pre class="text-block">Mサイトの設計書の中で参照した部分を、図2、図3及び表1に示す。</pre>
+<figure class="text-figure"><div class="text-figure-body"><div class="fig-l1"><span class="fig-marker">1.</span><span class="fig-body">プロトコルは、HTTPSとする。</span></div>
+<div class="fig-l1"><span class="fig-marker">2.</span><span class="fig-body">RESTful APIによって、次の機能を求人企業に提供する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（1）</span><span class="fig-body">日時の範囲を指定して、当該企業宛てに問合せがあった求職者の求職者ID1を取得する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（2）</span><span class="fig-body">日時の範囲を指定して、当該企業宛てに応募があった求職者の求職者IDを取得する。</span></div>
+<div class="fig-l2"><span class="fig-marker">（3）</span><span class="fig-body">任意の求職者IDを指定して、求職者属性情報を取得する。</span></div>
+<div class="fig-l1"><span class="fig-marker">3．</span><span class="fig-body">求人企業の認証方式は次のとおりとする。</span></div>
+<div class="fig-text">ひも（1） WebAPIを利用する際の利用者認証のために、Mサイトの利用者ID”と組付けられた APIkeyを発行する。APIkey の有効期間は、発行後14日間とする。</div>
+<div class="fig-l2"><span class="fig-marker">（2）</span><span class="fig-body">WebAPIを利用する際のHTTP Request内のAPIkey が、発行済みのものであり、かつ、有効期間内であるか確認することで、正規利用者であるかどうかを確認する。</span></div>
+<div class="fig-l1"><span class="fig-marker">4.</span><span class="fig-body">APIkeyについては、次のとおりとする。</span></div>
+<div class="fig-l2"><span class="fig-marker">（1）</span><span class="fig-body">求人企業のうち、WebAPI の利用契約を締結済みの企業だけにAPIkeyを発行する。利用契約で認めている求職者属性情報の利用範囲は、当該企業への問合せ又は当該企業への応募それぞれに関する対応だけである。</span></div>
+<div class="fig-l2"><span class="fig-marker">（2）</span><span class="fig-body">一つの利用者IDに対して複数のAPIkey を発行できる。</span></div>
+<div class="fig-l2"><span class="fig-marker">（3）</span><span class="fig-body">求職者には、APIkey を発行しない。</span></div>
+<div class="fig-text">注 ”/求職者がMサイトに利用者登録をした年月日の8桁の数字の後ろに、日ごとに000001から登録順に割り当てられる6桁の数字を加えた数字14桁の文字列である。</div>
+<div class="fig-text">注2）Mサイトを利用する求職者及び求人企業の担当者ごとに発行される。</div></div><figcaption>図2 WebAPI の仕様</figcaption></figure>
+<pre class="text-block">01 ログイン02 求人企業トップ03求人企業マイページ（オ）求人情報登録利用者ID（04へ）APIkey管理（ア）PW応募者確認（カ）プロパティ変更（09へ）（PW用設定ログイン問合せ確認（キ）（イ）マイページPW変更（12へ）（ウ）（14へ）（エ）</pre>
+<pre class="text-block">04 APIkey管理0506 APIkey一覧PW手確認（1）発行済みAPIkey数：3001: 01234・・・abcdePW（ク）（コ）002： stuvw 98765APIkey確認APIkey確認…゠シ003：abcde...09876（サ）APIkey発行OK→▶（03へ）07 PW再確認（2）08APIkey発行PW004：12345・・・bcdef（シ）（ス）（ケ）APIkey発行OK→（03へ）</pre>
+<pre class="text-block">10メール送信完了（1）09求人企業プロパティ変更（あ）メールを送信しました（セ）"）1メール中のリンクから処理会社名ーーーンを継続してください部署名メールアドレス求人企業プロパティ変更完了11プロパティを変更しました（夕）（ソ）2）変更-OK--&gt;▶（03へ）</pre>
+<pre class="text-block">12 PW変更13PW変更完了旧PWPWを変更しました（ツ）（チ）。
+ーーーーーーツ新PWOK→（03へ）新PW（確認用）変更～：メールPW：パスワードメール：電子メール：クロスサイトリクエストフォージェリ（CSRF）対策が施されていない画面遷移－＝→＞：CSRF対策が施された画面遷移図3 画面遷移図（抜粋）</pre>
+<pre class="text-block">15メール送完了（2）14PW再設定（1）メールを送信しました（い）利用者IDメール中のリンクから処理（テ）3）を継続してください--Vメール送</pre>
+<pre class="text-block">17PW再設定完了16 PW再設定（2）PWを再設定しました（ナ）新PW（ト）OK＞（01へ）ーーン新PW（確認用）PW再設定注記1 ログインしていない状態で、02～13の画面にアクセスした場合、エラー画面が表示される。
+設問に関係しない画面、ボタン及び画面遷移は省略している。
+注記2画面 09でメールアドレスを変更した場合の画面遷移である。画面遷移の際、Mサイトから、注 '）変更前のメールアドレスに、確認用URLが記載されたメール（あ）を送信する。利用者がメール（あ）に記載された確認用URLにアクセスすると、変更を反映し、画面11を表示するとともに、Mサイトから、変更前及び変更後のメールアドレスに、変更内容が記載されたメールを送する。
+画面 09でメールアドレス以外だけを変更した場合の画面遷移である。
+注？）画面遷移の際、Mサイトから、登録しているメールアドレスに、PW再設定用URLが記載され注 3）1たメール（い）を送する。利用者がメール（い）に記載されたPW 再設定用URLにアクセスすると、画面 16を表示する。
+図3 画面遷移図（抜粋）（続き）</pre>
+<pre class="text-block">表1 各画面のURLURL画面番号https://test. AAA.jp/0201，https://test. AAA.jp/mypage03https://test. AAA.jp/apikey04https://test. AAA.jp/key list05,06https://test. AAA.jp/keynew07,0809, 10,11https://test. AAA.jp/propertyhttps://test. A A A.Jp/pwcnange12,13https://test. AAA.jp/pwreset14, 15https://test. AAA.jp/pwreset/x"16,17xは、PW再設定を行う都度生成されるランダムな英数字 32字の文字列である。
+注'）</pre>
+<pre class="text-block">= 33 =</pre>
+<pre class="text-block">[セキュリティ診断報告書]B社は，セキュリティ診断を実施し、図4の診断報告書を作成した。</pre>
+<pre class="text-block">診断報告書1章診断結果概要1.1 診断結果要約Mサイトで、弱性を検出した。
+（省略）1.2 検出した弱性の件数（省略）2章 Web アプリケーションプログラムの診断結果2.1 検出した脆弱性の概要検出した弱性は、表Aのとおりである。
+表A 検出したWeb アプリケーションプログラムの脆弱性の一覧重要度項番弱性の種類検出箇所セッションフィクセーション1（省略）画面遷移aメールヘッダーインジェクション（省略）2メール（あ）の送信（省略）HTTPヘッダーの不備3全ての画面遷移2.2 検出した施弱性の説明2.2.1セッションフィクセーション（1） 脆弱性の内容Mサイトでは form 内の hidden フィールドである sessionID の値だけでセッション管理を実施していた。しかし、表Bのいずれの画面遷移においても、HTTP レスポンス中のsession IDの値が同一であった。
+表B セッションフィクセーション弱性の確認画面遷移HTTP レスポンス中の sessionIDWeb ブラウザに直接 URLを入力&lt;input type="hidden”id="sessionID” name=" session ID”value=" 764b2ac2-0452-49e4-92a7-0914fa005011”&gt;して、画面 01を表示したとき画面遷移（ア）&lt;input type=”hidden” id=" sessionID” name="'sessionID”value=" 764b2ac2-0452-49e4-92a7-0914fa005011”&gt;画面遷移（イ）&lt;input type="hidden” id"sessionID” name="'sessionID”value=" 764b2ac2-0452-49e4-92a7-0914fa005011”&gt;画面遷移（エ）&lt;input type="hidden” id="sessionID” name="sessionID”value=" 764b2ac2-0452-49e4-92a7-0914fa005011”&gt;図 4診断報告書</pre>
+<pre class="text-block">攻撃者が図Aの手順でこの弱性を悪用すると、Mサイトに不正にログインすることができる。
+手順1：求人企業の登録メールアドレスを、何らかの方法で入手する。
+” にアクセスして、sessionIDを入手する。
+手順2： URL "手順3：次の二つの要素を含むHTMLを作成する。
+-手順2で入手した sessionIDを記述したフォーム- 当該HTML がWebブラウザに読み込まれた直後に、上記のフォームをURL “にPOST メソッドで送するスクリプト手順4：手順3で作成したHTMLを、罠サイトに置く。
+手順 5：手順4のHTML へのリンクを含むメールを作成し、手順1で入手したメールアドレスに送する。
+手順6：手順5のメールがメール受信者に届き、罠サイトにアクセスするのを待つ。
+手順7：罠サイトへのアクセスを検知後、【が完了することを期待して数分間C”に待ち、手順2で入手した sessionIDを指定した状態で、URL "アクセスする。
+図A セッションフィクセーション脆弱性を悪用して不正ログインする手順攻撃者が、セッションフィクセーション脆弱性を悪用して不正ログインに成功し、画面02で応募者確認ボタンをクリックして、当該企業の求人に応募した求職者の求職者属性情報と求職情報を閲覧できる。また、同じ画面 02で問合せ確認ボタンをクリックして、当該企業に問合せを行った求職者の求職者属性情報と問合せ内容を閲覧できる。
+（2） 脆弱性の修正方法することを推奨の画面遷移の際に実行されるコードにおいて、する。
+2.2.2 メールヘッダーインジェクションこの脆弱性は、メール（あ）について検出された。なお、メール（い）では、この能弱性は使出されなかった。
+（1） 脆弱性の内容図Bの手順で操作を行ったところ、メール（あ）が abc@example.comだけに送され、本来の宛先である変更前のメールアドレスには送信されなかった。abc@example.comに送信されたメール（あ）の内容を表に示す。
+手順1：画面 09の会社名に図Cの検査文字列を入力して変更ボタンをクリックする。
+手順2：画面11でOK ボタンをクリックする。
+手順3：画面 03でプロパティ変更ボタンをクリックして、再度、画面 09を表示する。
+手順4：画面 09でメールアドレスにxy2@example.comを入力して変更ボタンをクリックする。
+図B メールヘッダーインジェクション施弱性を検出した手順</pre>
+<pre class="text-block">図4 診断報告書（続き）</pre>
+<pre class="text-block">●●株式会社％0D%0ATo:abc@example.com%0D%QA%QD%QA図Cメールヘッダーインジェクションの検査文字列表Cメール（あ）の内容位置内容Subject： ●●株式会社メール（あ）のヘッダー部の未尾To:abc@example.comメール（あ）のボディ部の冒頭様のメールアドレス変更のお知らせTo： ＜本来の宛先＞'）注1）＜本来の宛先＞には、変更前のメールアドレスが入っていた。
+攻撃者がこの脆弱性を悪用するには、求人企業としてMサイトにログインする必要がある。求人企業としての登録には審査が必要であり、この弱性だけを利用して攻撃が行われるおそれは小さい。
+（2） 脆弱性の修正方法（省略）2.2.3 HTTPヘッダーの不備（1） 脆弱性の内容表DのHTTPヘッダーは、出力するよう推奨されているが、いずれの画面遷移の HTTP レスポンスにおいても出力されなかった。
+表D出力されなかったHTTPヘッダーHTTPヘッダー名設定した場合の主な効果Content-Security-PolicyWebブラウザが実行可能なスクリプトの有効なソースとなるドメインを、Mサイトで必要なものだけに限定することができる。
+Strict-Transport-SecurityeX-Content-Type-Optionsf■これらのHTTP ヘッダーを設定することで他の脆弱性による被害を軽減することができる。
+（2） 脆弱性の修正方法（省略）</pre>
+<pre class="text-block">図4 診断報告書（続き）</pre>
+<pre class="text-block">3章 プラットフォームの診断結果3.1 検出した施弱性の概要検出した脆弱性は、表Eのとおりである。
+表E 検出したプラットフォームの脆弱性の一覧脆弱性の種類重要度項番TLS 1.1が利用可能（省略）1HTTP サーバのバージョンの露出（省略）23.2 検出した施弱性の説明3.2.1 TLS 1.1 が利用可能（省略）3.2.2 HTTP サーバのバージョンの露出HTTP レスポンスのヘッダーに、HTTP サーバのバージョンが出力されている。
+（省略）4章 総合評価4.1 想定される攻撃と被害攻撃者が、セッションフィクセーション施弱性を悪用するだけでも求職者属性情報を窃取することができるが、図Dの順序で攻撃をした場合、不審なメールが求人企業に届かないので、攻撃に気付かれることなく、WebAPIを悪用して、より多くの求職者属性情報を窃取することができる。
+図Aの手順で、Mサイトに不正にログインする。ただし、図Aの手順1で入手するメールアドレスは、WebAPIの利用権限をもつ求人企業のものである。
+（2）9メールアドレスに攻撃者のメールアドレスを入力して、変更ボタンをクリ画面 09で、（3）ックする。
+（4） 別の端末から、画面01でPW 再設定ボタンをクリックし、（1）で不正にログインした利用者IDに対する一連のパスワード再設定処理を行う。
+（5） 再設定後のパスワードでログインする。
+（6）h（7） WebAPI の機能を利用して、多数の求職者属性情報を窃取する。
+図Dより多くの求職者属性情報の窃取につながる攻撃（省略）図 4診断報告書（続き）</pre>
+<figure class="text-figure"><div class="text-figure-body"><div class="fig-text">参考意見5章本章は、弊社の知見に基づく参考意見である。</div>
+<div class="fig-l1"><span class="fig-marker">5.</span><span class="fig-body">1 Mサイトの仕様についての意見今回の診断の過程で、Mサイトの仕様の一部を把握することができた。弊社が把握できた範国内でも，Mサイトの仕様には幾つかの問題点があり、表Aと表Eの弱性を修正したとしても、インターネットからの攻撃によって被害が発生するおそれがある。</span></div>
+<div class="fig-l1"><span class="fig-marker">5.</span><span class="fig-body">1.1 WebAPIの仕様の改善WebAPI に関して、仕様の改善の方針案と改善すべき理由を表Fに示す。改善によって、攻撃による被害を未然に防止すること、又は被害を軽減することができる。</span></div>
+<div class="fig-text">WebAPIの仕様の改善の方針案表F項番仕様の改善の方針案改善すべき理由1i：</div></div></figure>
+<pre class="text-block">5.1.2 Webアプリケーションプログラムの求職者向け機能の仕様の改善（省略）5.1.3 Web アプリケーションプログラムの求人企業向け機能の仕様の改善Web アプリケーションプログラムの求人企業向け機能に関して、仕様の改善の方針案と改善すべき理由を表Gに示す。改善によって、攻撃による被害を未然に防止すること、又は被害を軽減することができる。
+表G Web アプリケーションプログラムの求人企業向け機能の仕様の改善の方針案改善すべき理由仕様の改善の方針案項番1k：</pre>
+<pre class="text-block">図 4診断報告書（続き）</pre>
+<pre class="text-block">B社は、M社に診断報告書を提出し、セキュリティ診断を完了した。</pre>
+<pre class="text-block">設問1 図4中の2章について答えよ。
+に入れる適切な記号を、図3中の画（1） 表A中及び2.2.1（2）中のa面遷移の記号（ア）～（土）から選び、答えよ。
+に入れる適切なURLを、表1から選び答えよ。
+（2） 図A中のに入れる適切な操作を答えよ。
+（3） 図 A中の」に入れる適切な修正方法を具体的に答えよ。
+（4） 2.2.1（2）に入れる適切な効果を答えよ。
+（5） 表D中のに入れる攻撃手順を設問2 図4中の4章にある図D中の答えよ。
+設問3 あなたがこの診断を担当したとして、図4中の5章の表「中のkeに記述する内容を答えよ。
+■j及び表G中のなお、複数の改善の方針案がある場合は、被害を防ぐ効果が最も高いものを答えよ。</pre>
+<pre class="text-block">6． 退室可能時間中に退室する場合は、手を挙げて監員に合図し、答案用紙が回収されてから静かに退室してください。
+退室可能時間13:10~14:50問題に関する質問にはお答えできません。文意どおり解釈してください。
+8． 問題冊子の余白などは、適宜利用して構いません。ただし、問題冊子を切り離して利用することはできません。
+9. 試験時間中、机上に置けるものは、次のものに限ります。
+なお、会場での貸出しは行っていません。
+受験票，黒鉛筆及びシャープペンシル（B又はHB），鉛筆削り、消しゴム、定規。
+時計（時計型ウェアラブル端末は除く。アラームなど時計以外の機能は使用不可），ハンカチ、ポケットティッシュ、目薬これら以外は机上に置けません。使用もできません。
+10．試験終了後，この問題冊子は持ち帰ることができます。
+11.答案用紙は、いかなる場合でも提出してください。回収時に提出しない場合は、採点されません。
+12. 試験時間中にトイレへ行きたくなったり、気分が悪くなったりした場合は、手を挙げて監督員に合図してください。</pre>
+<pre class="text-block">試験問題に記載されている会社名又は製品名は、それぞれ各社又は各組織の商標又は登録商標です。
+なお、試験問題では、及び®を明記していません。</pre>
+<pre class="text-block">©2024 独立行政法人情報処理推進機構</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問4　複合脆弱性と診断・対策</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（イ）　https://test.AAA.jp/</div></div><div class="expl-explanation">脆弱性診断のスコープ外サイトへの意図しないリクエスト送信の問題。診断ツールのクロールが本番環境のリンクから診断対象外サイトに誘導される場合がある。診断前の対象範囲の明確化と診断ツールの設定確認が重要。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">b＝メール受信者によるログイン</div></div><div class="expl-explanation">メールアドレス確認フロー（メール認証）の分析。メールに含まれるURLをクリックすることでアカウント有効化・ログインが完了するフローは、メール傍受者による不正ログインリスクがある。有効期限の設定と使い捨てトークンが重要。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">使用済みのsessionIDを無効にした上で、新しいsessionIDを発行する</div></div><div class="expl-explanation">セッションフィクセーション攻撃への対策。認証成功後に必ずセッションIDを再発行することで、認証前から攻撃者が埋め込んだセッションIDの悪用を防ぐ。PHPではsession_regenerate_id(true)等で実装。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（HTTPSの強制設定、HSTSの利用）</div></div><div class="expl-explanation">HSTSによりHTTPS接続を強制することで、SSLストリッピング攻撃を防ぐ。Strict-Transport-Security: max-age=31536000; includeSubDomainsをレスポンスヘッダに設定。HSTSプリロードリストへの登録も有効。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(5)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">d＝MサイトへのHTTPS接続を強制できる
+e＝X-Content-Type-OptionsでMIMEタイプを強制適用できる</div></div><div class="expl-explanation">セキュリティレスポンスヘッダの効果。HSTSはHTTPS強制、X-Content-Type-Options: nosniffはコンテンツスニッフィング攻撃防止、X-Frame-Options: DENYはクリックジャッキング防止。これらを組み合わせて多層防御を構成する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">画面09で会社名フィールドに攻撃者のメールアドレスを含む文字列を入力し、メール送信機能を悪用して任意のアドレスにメールを送信させる</div></div><div class="expl-explanation">メールヘッダインジェクション攻撃。フォームの入力値がメールのCC/BCCヘッダに直接使用される場合、改行コード（%0d%0a）を含む入力でヘッダを追加できる。入力値の改行コードのサニタイズが対策。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>

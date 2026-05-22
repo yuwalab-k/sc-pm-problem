@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>令和5年度 春 問3 | SC 午後問題</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../index.html" class="back-link">← 一覧</a>
+  <h1 class="site-header-title">令和5年度 春 問3</h1>
+  <a href="../random.html" class="random-link">ランダム</a>
+</header>
+<main class="exam-main">
+  <div class="problem-content">
+<section class="problem-section"><h2 class="problem-title">問3　クラウドサービス利用</h2><div class="problem-body"><pre class="text-block">Q社は、従業員1,000名の製造業であり、工場がある本社及び複数の営業所から成る。 社には、営業部、研究開発部、製造部、総務部、情報システム部がある。Q社のネットワークは、情報システム部のK部長とS主任を含む6名で運用している。
+Q 社の従業員にはPC 及びスマートフォンが貸与されている。PC の社外持出しは禁止されており、PCのWebブラウザからインターネットへのアクセスは、本社のプロキシサーバを経由する。Q社では、業務で Saas-a,Saas-b, Saas-C, Saas-dという四つの Saas，及びLサービスという IDaasを利用している。Q社のネットワーク構成を図1に，図1中の主な構成要素並びにその機能概要及び設定を表1に示す。</pre>
+<pre class="text-block">SaaS-a 1）LサービスSaaS-b 2）SaaS-c 3）インターネットSaaS-d 4）営業所PC セグメントDMZDNSサーバL2SWプロキシサーバL2SWL2SWIUTMPCPCメールサーバPCPCL2SW ：レイヤー2スイッチL2SW業務サーバ工場セグシントンUTM：統合脅威管理認証サーバサーバセグメント本社メール：電子メール四つの Saasのうち Saas-aは、研究開発部の従業員が使用する。それ以外のSaasは、全徒注記業員が使用する。
+Saas-aは、外部ストレージサービスであり、URLは、https://AムA-a.jp/から始まる。
+注 ”）注？Saas-bは、営業支援サービスであり、URLは、https://000-b.jp/から始まる。
+Saas-cは、経営支援サービスであり、URLは、https://ロロローC.jp/から始まる。
+注3）Saas-dは、Web会議サービスであり、URLは、https://●●●-d.jp/から始まる。
+注 4）図1 Q社のネットワーク構成</pre>
+<pre class="text-block">表1 図1中の主な構成要素並びにその機能概要及び設定機能概要設定機能名構成要素有効従業員がPCにログインする際、利用者IDとパスワー認証サーバ認証機能ドを用いて従業員を認証する。
+PCからインターネット上の Web サーバへのHTTP及び有効プロキシ機能プロキシサHTTPS 通を中継する。
+ーバ</pre>
+<pre class="text-block">表1 図1中の主な構成要素並びにその機能概要及び設定（続き）機能概要機能名構成要素設定Saas 連携機能LサービスSAML で各 Saasと連携する。
+有効契約した顧客が設定した IP アドレス 1からのアクセ有効？）送（元制限機能スだけを許可する。それ以外のアクセスの場合、拒否するか、Lサービスの多要素認証機能を動作させるかを選択できる。
+多要素認証機能無効次のいずれかの認証方式を、利用者IDとパスワードによる認証方式と組み合わせる。
+（ア） スマートフォンにSMSでワンタイムパスワードを送り、それを入力させる方式（イ）TLS クライアント認証を行う方式四つの SaasIDaas 連携機能SAML でIDaasと連携する。
+有効UTM有効3）ファイアウォーステートフルパケットインスペクション型であり、ル機能IP アドレス、ポート、通の許可と拒否のルールによって通信を制する。
+NAT 機能有効（省略）VPN機能有効 4）IPsecによるインターネット VPN通を行う。拠点間VPN通を行うこともできる。
+注 ”）IPアドレスは、複数設定できる。
+注2）本社の UTMのグローバルIPアドレスを送信元IPアドレスとして設定している。設定しているIPアドレス以外からのアクセスは拒否する設定にしている。
+注 3）インターネットからの通信で許可されているのは、本社のUTMではDMZ のサーバへの通及び営業所からのVPNだけであり、各営業所のUTMでは一つも許可していない。
+注 4）本社のUTMと各営業所のUTMとの間でVPN通信する設定にしている。そのほかのVPN 通の設定はしていない。</pre>
+<pre class="text-block">[L サービスの動作確認］Q社のPCがSaas-aにアクセスするときの、SP-Initiated方式の SAML 認証の流れを図2に示す。</pre>
+<pre class="text-block">bca（1）サービス要求、（2）認証要求（リダイレクト指示）（3）認証要求（4）利用者の認証（5）認証応答（リダイレクト指示）、（6）認証応答、（7）サービス応答図2 SAML 認証の流れ</pre>
+<pre class="text-block">ある日、同業他社の」社において、Saas-aのサイトに誘導されるというフィッシング詐欺にあった結果、Saas-aに不正アクセスされるという被害があったと報道された。しかし、Q社の設定では、仮に、同様のフィッシング詐欺のメールを受けてSaas-aのサイトにLサービスの利用者IDとパスワードを入力してしまう従業員がいたとしても、①攻撃者がその利用者IDとパスワードを使って社外からLサービスを利用することはできない。したがって、S主任は、報道と同様の被害にQ社があうおそれは低いと考えた。</pre>
+<pre class="text-block">[在宅勤務導入における課題]Q社は、全従業員を対象に在宅勤務を導入することになった。そこで、リモート接続用PC（以下、R-PC という）を貸与し、各従業員宅のネットワークから本社のサーバにアクセスしてもらうことにした。しかし、在宅勤務導入によって新たなセキュリティリスクが生じること、また、本社への通言が増えて本社のインターネット回線がひっ迫することが懸念された。そこで、K 部長は、ネットワーク構成を見直すことにし、その要件を表2にまとめた。</pre>
+<div class="table-wrap"><p class="table-caption">表2 ネットワーク構成の見直しの要件内容要件本</p><pre class="raw-ocr-table">表2 ネットワーク構成の見直しの要件内容要件本社のインターネット回線をひっ迫させない。
+要件1Lサービスに接続できるPCを、本社と営業所のPC及びR-PCに制限する。なお、従業員要件2宅のネットワークについて、前提を置かない。
+R-PC から本社のサーバにアクセスできるようにする。ただし、UTMのファイアウォール要件3機能には、インターネットからの通を許可するルールを追加しない。
+HTTPS の内容をマルウェアスキャンする。
+要件4Saas-a以外の外部ストレージサービスへのアクセスは禁止とする。また、Saas-aへのア要件5クセスは業務で必要な最小限の利用者に限定する。</pre></div>
+<pre class="text-block">K 部長がベンダーに相談したところ、R-PC，社内、クラウドサービスの間の通言を中継するP社のクラウドサービス（以下、Pサービスという）の紹介があった。Pサービスには、次のいずれかの方法で接続する。
+・IPsec に対応した機器を介して接続する方法・P サービスのエージェントソフトウェアを R-PCに導入し、当該ソフトウェアによ</pre>
+<pre class="text-block">って接続する方法</pre>
+<pre class="text-block">Pサービスの主な機能を表3に示す。</pre>
+<pre class="text-block">表3Pサービスの主な機能項番機能名機能概要1・R-PC からPサービスを経由してアクセスする Saasでの認証を、LサL サービス連携機能ービスの Saas 連携機能及び多要素認証機能を用いて行うことができる。
+・Lサービスの送信制限機能には、Pサービスに接続してきた送信元のIPアドレスが通知される。
+マルウェアスキ2・送信元からのTLS 通を終端し、復号してマルウェアスキャンを行ャン機能う。マルウェアスキャンの完了後、再暗号化して送信先に送する。これを実現するために、を発行する」として、PCにインストールする。
+を、f3URL カテゴリ単・アクセス先のURL カテゴリと利用者IDとの組みによって、“許可”又は"禁止”のアクションを適用する。
+位フィルタリング機能・URL カテゴリには、ニュース、ゲーム、外部ストレージサービスなどがある。
+・各URL カテゴリに含まれるURLのリストは、P社が設定する。
+・アクセス先のURL のスキームからホストまでの部分”と利用者IDとURL 単位フィル4の組みによって、“許可”又は“禁止”のアクションを適用する。
+タリング機能通言可視化機能5・中継する通のログを基に、クラウドサービスの利用状況の可視化の機能の一つである。
+を行う。本機能は、・Pコネクタ”を社内に導入することによって、社内と社外の境界にあリモートアクセ6ス機能るファイアウォールの設定を変更せずに社外から社内にアクセスできる。
+注 ”）https://AAA.■■■/のように、"https:// ” から最初の"／”までを示す。
+注2）P社が提供する通信機器である。PコネクタとPサービスとの通信は、PコネクタからPサービスに接続を開始する。</pre>
+<pre class="text-block">K 部長は、Pサービスの導入によって表2の要件を満たすネットワーク構成が可能かどうかを検討するようにS 主任に指示した。</pre>
+<pre class="text-block">[ネットワーク構成の見直し]S 主任は、Pサービスを導入する場合の0社のネットワーク構成を図3に、表2の要件を満たすためのネットワーク構成の見直し案を表4にまとめて、表2の要件を満たすネットワーク構成が可能であることを部長に説明した。</pre>
+<pre class="text-block">PサービスLサービスSaaS-aSaaS-bRSaaS-cインターネットSaaS-d営業所セダメント！DMiZDNSサーバPコネクタL2SWL2SWPコネクタUTML2SWPCメールサーバPCPCL2SW業務サーバ工場たグメントン認証サーバサーバセグメント注記 太枠の箇所を追加本社図3Pサービスを導入する場合の0社のネットワーク構成</pre>
+<div class="table-wrap"><p class="table-caption">表4 ネットワーク構成の見直し案（抜粋）</p><pre class="raw-ocr-table">表4 ネットワーク構成の見直し案（抜粋）ネットワーク構成の見直し内容要件・②営業所からインターネットへのアクセス方法を見直す。
+要件1・L サービスでの送信元制限機能は有効にしたまま、③営業所からLサービスにアクセスできるように設定を追加する。
+・表3の項番1の機能を使う。
+要件2・Lサービスでの送信元制限機能において、0社が設定したIPアドレス以外からのアクセスに対する設定を変更する。さらに、多要素認証機能を有効にして、④方式を選択する。
+の機能を使う。
+要件3・表3の項番hの機能を使う。
+要件4・表3の項番・表3の項番3及び項番4の機能を使って、表5に示す設定を行う。
+要件5</pre></div>
+<pre class="text-block">表5要件5に対する設定アクション利用者ID番号 表3の項番URL カテゴリ又は URLLの利用者ID1あkの利用者ID20いnm番号の小さい順に最初に一致したルールが適用される。
+注記</pre>
+<pre class="text-block">その後，表4のネットワーク構成の見直し案が上層部に承認され、Pサービスの導入と新しいネットワーク構成への変更が行われ、6か月後に在宅勤務が開始された。</pre>
+<pre class="text-block">設問1[Lサービスの動作確認］について答えよ。
+コに入れる適切な字句を、解答群の中か］~_a（1） 図2中のら選び、記号で答えよ。
+解答群アレサービスイPCのWeb ブラウザウ Saas-a（2） 本文中の下線①について、利用できない理由を、40字以内で具体的に答えよ。
+設問2[在宅勤務導入における課題]について答えよ。
+d~f■に入れる適切な字句を、解答群の中か（1） 表3中の「ら選び、記号で答えよ。
+解答群アPサービスのサーバ証明書イ信頼されたルート証明書ウ 認証局の証明（2） 表3中のに入れる適切な字句を、解答群の中から選び、記号で答えよ。
+解答群イCASBア CAPTCHAウ CHAPエ CVSSオクラウド WAF設問3【ネットワーク構成の見直し］について答えよ。
+（1） 表4中の下線②について、見直し前と見直し後のアクセス方法の違いを、30字以内で答えよ。
+（2） 表4中の下線③について、Lサービスに追加する設定を、40字以内で答えよ。
+（3） 表4中の下線④について、選択する方式を、表1中の（ア），（イ）から選び、記号で答えよ。
+■に入れる適切な数字を答えよ。
+（4） 表4中のhに入れる適切な数字、（5） 表5中のに入れる適切な字句を答えよ。
+0</pre>
+<pre class="text-block">モ用紙］[メ</pre>
+<pre class="text-block">！</pre>
+<pre class="text-block">[メモ用紙]</pre>
+<pre class="text-block">6． 退室可能時間中に退室する場合は、手を挙げて監督員に合図し、答案用紙が回収されてから静かに退室してください。
+退室可能時間13:10～13:50問題に関する質問にはお答えできません。文意どおり解釈してください。
+8．問題冊子の余白などは、適宜利用して構いません。ただし，問題冊子を切り離して利用することはできません。
+9.試験時間中、机上に置けるものは、次のものに限ります。
+なお、会場での貸出しは行っていません。
+受験票、黒鉛筆及びシャープペンシル（B 又はHB），鈴筆削り、消しゴム、定規，時計（時計型ウェアラブル端末は除く。アラームなど時計以外の機能は使用不可）、ハンカチ、ポケットティッシュ、目薬これら以外は机上に置けません。使用もできません。
+10．試験終了後、この問題冊子は持ち帰ることができます。
+11. 答案用紙は、いかなる場合でも提出してください。回収時に提出しない場合は、採点されません。
+12．試験時間中にトイレへ行きたくなったり、気分が悪くなったりした場合は、手を挙げて監員に合図してください。
+13．午後 11の試験開始は14:30ですので、14:10までに着席してください。</pre>
+<pre class="text-block">試験問題に記載されている会社名又は製品名は、それぞれ各社又は各組織の商標又は登録商標です。
+なお、試験問題では、™及び®を明記していません。</pre>
+<pre class="text-block">©2023 独立行政法人情報処理推進機構</pre></div></section>
+  </div>
+  <div class="answer-toggle-bar">
+    <button class="toggle-answer-btn" aria-expanded="false">解答を表示する</button>
+  </div>
+  <div class="answer-content" hidden>
+<section class="expl-problem"><h2 class="expl-problem-title">問3　クラウドサービス導入のセキュリティ設計</h2><div class="expl-items">
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a,b＝イ・ウ（アクセス制御設定）
+c＝（具体的な設定値）</div></div><div class="expl-explanation">クラウドサービスの送信元制限機能。本社UTMのグローバルIPアドレスからのアクセスのみ許可するIPアドレスフィルタリング。ゼロトラストアーキテクチャへの移行前の過渡期的対策として有効。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">d＝ア　e,f＝ウ・イ（プロキシ設定）</div></div><div class="expl-explanation">クラウドアクセスの経路制御。社内プロキシを経由させることでURLフィルタリング・ウイルスチェック・通信ログの一元管理が可能。SWG（Secure Web Gateway）やCASB（Cloud Access Security Broker）との組み合わせが現代的対策。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">プロキシサーバではなく、Pサービスを経由させる</div></div><div class="expl-explanation">SaaS利用時のProxy経由の課題（SSL復号・プライバシー）に対し、ZTNA/CASB等のクラウドネイティブなセキュリティサービス経由に変更する。社外からのアクセスもセキュリティポリシーを適用できる。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（CIDR表記）16（ビット）</div></div><div class="expl-explanation">VPCのCIDR範囲設定。/16は65,536アドレス。サブネット設計では将来の拡張性を考慮し適切なCIDRを選択する。プライベートIPアドレス範囲（10.0.0.0/8、172.16.0.0/12、192.168.0.0/16）から選択する。</div></div>
+</div></section>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.toggle-answer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const content = btn.closest('.answer-toggle-bar').nextElementSibling;
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? '解答を表示する' : '解答を隠す';
+    content.hidden = expanded;
+  });
+});
+</script>
+<footer class="site-footer">本サイトは個人学習目的のみで使用し、商用利用・公開配布はしていません。</footer>
+</body>
+</html>
