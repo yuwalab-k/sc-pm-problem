@@ -380,17 +380,17 @@ def build_exam_page(exam: dict) -> str:
 </header>
 <main class="exam-main">
   <div class="tab-bar">
-    <button class="tab-btn active" data-target="tab-question">問題</button>
-    <button class="tab-btn" data-target="tab-answer">解答例</button>
+    <button class="tab-btn" data-target="tab-question">問題</button>
+    <button class="tab-btn active" data-target="tab-answer">解答例</button>
   </div>
 
-  <div id="tab-question" class="tab-content active">
+  <div id="tab-question" class="tab-content">
     <div class="pages-container">
 {qs_html}
     </div>
   </div>
 
-  <div id="tab-answer" class="tab-content">
+  <div id="tab-answer" class="tab-content active">
     <div class="pages-container">
 {ans_html}
     </div>
