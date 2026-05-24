@@ -15,20 +15,18 @@
 </header>
 <main class="exam-main">
   <div class="problem-content">
-<section class="problem-section"><h2 class="problem-title">問1　API セキュリティ</h2><div class="problem-body"><pre class="text-block">G 社は、ヘルスケアサービス新興企業である。利用者が食事，体重などを入力して、そのデータを管理したり、健康リスクの判定や食事メニューのアドバイスを受けたりできるサービス（以下、サービスとという）を計画している。具体的には、クラウドサービス上にサービス ♥用のシステム（以下、Sシステムという）を構築して、G社が既に開発しているスマートフォン専用アプリケーションプログラム（以下、G 社スマホアプリという）からアクセスする。Sシステムの要件を図1に示す。</pre>
-<dl class="dialogue"><div class="dialogue-line"><dt>要件1</dt><dd>利用者が入力したデータを蓄積する。</dd></div><div class="dialogue-line"><dt>要件2</dt><dd>蓄積したデータを機械学習で学習し、その結果を利用して健康リスクの判定や食事メニューのアドバイスを利用者に提供する。</dd></div><div class="dialogue-line"><dt>要件3</dt><dd>利用者のステータス（以下，利用者ステータスという）として、“有償利用者”と“無償利用者”を定義する。有償利用者の場合、全ての機能を利用できる。無償利用者の場合，機能の利用に一部制限がある。</dd></div><div class="dialogue-line"><dt>要件4</dt><dd>可能な限り、既存のサービスやライブラリを使って構築する。
-図1 Sシステムの要件（抜粋）</dd></div></dl>
+<section class="problem-section"><h2 class="problem-title">問1　API セキュリティ</h2><div class="problem-body"><pre class="text-block">G 社は、ヘルスケアサービス新興企業である。利用者が食事，体重などを入力して、そのデータを管理したり、健康リスクの判定や食事メニューのアドバイスを受けたりできるサービス（以下、サービスとという）を計画している。具体的には、クラウドサービス上にサービス Y用のシステム（以下、Sシステムという）を構築して、G社が既に開発しているスマートフォン専用アプリケーションプログラム（以下、G 社スマホアプリという）からアクセスする。Sシステムの要件を図1に示す。</pre>
+<figure class="text-figure"><div class="text-figure-body"><div class="fig-text">要件1 利用者が入力したデータを蓄積する。</div>
+<div class="fig-text">要件2 蓄積したデータを機械学習で学習し、その結果を利用して健康リスクの判定や食事メニューのアドバイスを利用者に提供する。</div>
+<div class="fig-text">要件3 利用者のステータス（以下，利用者ステータスという）として、“有償利用者”と“無償利用者”を定義する。有償利用者の場合、全ての機能を利用できる。無償利用者の場合，機能の利用に一部制限がある。</div>
+<div class="fig-text">要件4 可能な限り、既存のサービスやライブラリを使って構築する。</div></div><figcaption>図1 Sシステムの要件（抜粋）</figcaption></figure>
 <pre class="text-block">G 社は、Sシステムの構築をITベンダーF社に委託した。F社との協議の結果、クラウドサービスプロバイダE社のクラウドサービス上にSシステムを構築する方針にした。</pre>
-<pre class="text-block">[APIの設計]Sシステムには、将来的には他社が提供するスマートフォン専用アプリケーションプログラムからもアクセスすることを想定し，RESTful API 方式のAPI（以下、SシステムのAPIをS-APIという）を用意する。RESTful APIの設計原則の一つにセッショという。
+<pre class="text-block">[APIの設計]
+Sシステムには、将来的には他社が提供するスマートフォン専用アプリケーションプログラムからもアクセスすることを想定し，RESTful API 方式のAPI（以下、SシステムのAPIをS-APIという）を用意する。RESTful APIの設計原則の一つにセッショという。
 ン管理を行わないという性質がある。この性質をE社が提供するクラウドサービスのサービス一覧を表1に、サービス Yのシステム構成を図2に、S-API呼出し時の動作概要を図3に、S-APIの仕様を表2に、Sシステムの仕様を図4に、それぞれ示す。</pre>
-<pre class="text-block">表1E社が提供するクラウドサービスのサービス一覧（抜粋）サービス名サービス概要サービスKAPI ゲートウェイサービスである。当該サービスは、APIへのリクエストを受信し、その内容に基づき、サービスを呼び出す。
-サービスLイベント駆動型のコンピューティングサービスである。サービス K からの呼出しがあったとき、又は指定された日時に、事前に定義された処理を実行する。
-また、外部サービスと連携する。
-マネージド型のデータベースサービスである。
-サービス Mサービス Nマネージド型のWAF サービスである。サービスKが受信した APIへのリクエストを検査して、許可・検知・遮断を行う。
-注記Sシステムの構築時点では、サービスNを導入しない計画である。</pre>
-<pre class="text-block">スマートフォンE社クラウドサービスSシステムG社スマホアプリインターサービスMサービスKサービスLネットメールアプリ外部サービス注記サービスK及びサービスLからインターネットへの通は許可されている。
-図2 サービスYのシステム構成</pre>
+<div class="table-wrap"><table class="exam-table"><caption>表1 E社が提供するクラウドサービスのサービス一覧（抜粋）</caption><thead><tr><th>サービス名</th><th>サービス概要</th></tr></thead><tbody><tr><td>サービスK</td><td>API ゲートウェイサービスである。当該サービスは、APIへのリクエストを受信し、その内容に基づき、サービスを呼び出す。</td></tr><tr><td>サービスL</td><td>サービス K からの呼出しがあったとき、又は指定された日時に、事前に定義された処理を実行する。また、外部サービスと連携する。</td></tr><tr><td>サービス M</td><td>マネージド型のデータベースサービスである。</td></tr><tr><td>サービス N</td><td>マネージド型のWAF サービスである。サービスKが受信した APIへのリクエストを検査して、許可・検知・遮断を行う。</td></tr></tbody></table></div>
+<pre class="text-block">注記 Sシステムの構築時点では、サービスNを導入しない計画である。</pre>
+<figure class="image-block has-image"><img src="../..//docs/images/2024/01.png" alt="図2 サービスYのシステム構成" class="inserted-image"><p class="image-caption">図2 サービスYのシステム構成</p></figure>
 <pre class="text-block">G社スマホアプリから S-API が呼び出された場合の動作は次のとおりである。
 ・S-API が呼び出されると、S-APIへのリクエストは、サービスKが一元的に受ける。サービスKは、そのリクエスト内容に基づき、サービスを呼び出す。サービスLは、事前に定義された処理を実行してレスポンスをサービス Kに返し、サービスKは、G社スマホアプリにレスポンスを返す。
 ・サービス Lでは、データベースのデータの読取り又は書込みが必要な場合は、事前に定義された処理からサービスWを呼び出す。
@@ -138,7 +136,7 @@ Rさんが考えた WAF ルールの案を表6に示す。</pre>
 （3） 表5中の下線②について、P呼出し処理に追加すべき処理を、40字以内で具体的に答えよ。
 に入れる適切な字句を、表2中の用語で答えよ。
 （4） 表5中のc（5） 表5中のに入れる適切な処理内容を、30字以内で答えよ。
-設問3[新たな弱性への対応】について答えよ。
+設問3[新たな弱性への対応]について答えよ。
 （1） 図7中の下線③について、テストサーバに実装する仕組みを、35字以内で具体的に答えよ。
 ■に入れる適切な字句を、図5 中から選（2）表 6中のび答えよ。
 （3） 本文中の下線④の変更後の案について、表 6中のルール 1に記述すべきパターンを、図5の記述形式で答えよ。
@@ -149,12 +147,20 @@ Rさんが考えた WAF ルールの案を表6に示す。</pre>
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問1　APIセキュリティ（JWT・認証・認可）</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝ステートレス</div></div><div class="expl-explanation">RESTful APIの特性。JWTを使った認証はサーバ側にセッション状態を持たない「ステートレス」方式。セッションIDをサーバに保存する必要がなく、スケールアウトが容易な反面、トークン失効管理に課題がある。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">b＝500（エラーコード）</div></div><div class="expl-explanation">不正なJWTを送付した場合のHTTPステータスコード。algをNONEに設定した場合、署名検証をスキップしようとする攻撃（Algorithm Confusion）に対して適切にエラーが返されるか確認する。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">JWTヘッダ内のalgに指定された値がNONEでないことを検証する</div></div><div class="expl-explanation">JWT Algorithm Confusion攻撃への対策。algをnone/NONE/None等に設定すると署名検証をバイパスできるJWTライブラリの脆弱性がある。サーバ側でalgが期待する値（RS256等）であることを検証する実装が必須。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">JWTに含まれる利用者IDがmidの値と一致するかどうかを検証する処理</div></div><div class="expl-explanation">Broken Object Level Authorization（BOLA/IDOR）対策。JWTのペイロードに含まれる自分の利用者IDと、アクセス対象リソースのIDが一致するか検証することで、他ユーザのリソースへの不正アクセスを防ぐ。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">c＝共通モジュールP</div></div><div class="expl-explanation">認証・認可のロジックを共通モジュールに集約することで、各APIエンドポイントへの実装漏れを防ぐ。横断的関心事（Cross-cutting Concern）として認証チェックを一元管理する設計が重要。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(5)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">d＝連続失敗回数がしきい値を超えた場合アカウントをロックする</div></div><div class="expl-explanation">ブルートフォース攻撃・パスワードスプレー攻撃への対策。一定回数の認証失敗でアカウントをロックすることで、大量の試行を防ぐ。ロック時間・ロック解除方法も適切に設計する必要がある。</div></div>
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">a＝ステートレス</div></div></div><div class="expl-explanation">RESTful APIの特性。JWTを使った認証はサーバ側にセッション状態を持たない「ステートレス」方式。セッションIDをサーバに保存する必要がなく、スケールアウトが容易な反面、トークン失効管理に課題がある。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">b＝500</div></div></div><div class="expl-explanation">不正なJWTを送付した場合のHTTPステータスコード。algをNONEに設定した場合、署名検証をスキップしようとする攻撃（Algorithm Confusion）に対して適切にエラーが返されるか確認する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">データ：JWTヘッダ内のalgに指定された値
+内容：NONEでないことを検証する</div></div></div><div class="expl-explanation">JWT Algorithm Confusion攻撃への対策。algをnone/NONE/None等に設定すると署名検証をバイパスできるJWTライブラリの脆弱性がある。サーバ側でalgが期待する値（RS256等）であることを検証する実装が必須。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">JWTに含まれる利用者IDがmidの値と一致するかどうかを検証する処理</div></div></div><div class="expl-explanation">Broken Object Level Authorization（BOLA/IDOR）対策。JWTのペイロードに含まれる自分の利用者IDと、アクセス対象リソースのIDが一致するか検証することで、他ユーザのリソースへの不正アクセスを防ぐ。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">c＝共通モジュールP</div></div></div><div class="expl-explanation">認証・認可のロジックを共通モジュールに集約することで、各APIエンドポイントへの実装漏れを防ぐ。横断的関心事（Cross-cutting Concern）として認証チェックを一元管理する設計が重要。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(5)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">d＝連続失敗回数がしきい値を超えた場合アカウントをロックする処理</div></div></div><div class="expl-explanation">ブルートフォース攻撃・パスワードスプレー攻撃への対策。一定回数の認証失敗でアカウントをロックすることで、大量の試行を防ぐ。ロック時間・ロック解除方法も適切に設計する必要がある。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">テストサーバのindex.htmlへのアクセスを記録し、確認する仕組み</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問3(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">d＝Header
+f＝Header</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問3(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">・¥W[jJ][nN][dD][iI]¥W
+・¥W(j|J)(n|N)(d|D)(i|I)¥W</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問3(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">利点：ご見地による遮断を防ぐことができる。
+内容：アラートを受信したら攻撃かどうかを精査する。</div></div></div><div class="expl-explanation"></div></div>
 </div></section>
   </div>
 </main>

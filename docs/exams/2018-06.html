@@ -55,12 +55,12 @@ g設問3[脂弱性対策強化]について、（1），（2）に答えよ。
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問1　バッファオーバフロー脆弱性と対策技術</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">キ・ウ・ア（バッファオーバフローの仕組み）</div></div><div class="expl-explanation">スタックバッファオーバフロー攻撃の仕組み。バッファ境界を超えた書き込みでリターンアドレスを上書きし、攻撃者が用意したシェルコードにジャンプさせる。現代のCPU/OSは複数の軽減技術で防御する。</div></div>
-<div class="expl-item"><div class="expl-label">設問1(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">シェルコードがDEPで実行禁止にされているスタック領域にあるから</div></div><div class="expl-explanation">DEP（Data Execution Prevention）/NX（No-eXecute）ビット。スタック・ヒープ等のデータ領域にあるコードを実行しようとするとCPUが例外を発生させる。シェルコードをスタックに配置する古典的攻撃を無効化する。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">e＝canary（スタックカナリア）
-f＝ASLR</div></div><div class="expl-explanation">軽減技術の組み合わせ。スタックカナリア（Canary）はリターンアドレス前にランダム値を配置しスタック破壊を検知する。ASLR（Address Space Layout Randomization）はメモリアドレスをランダム化し、攻撃コードの絶対アドレス特定を困難にする。</div></div>
-<div class="expl-item"><div class="expl-label">設問3</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">排除できない理由：ポインタを使って直接メモリ操作しているから
-問題：メモリ破壊攻撃を防げないこと</div></div><div class="expl-explanation">C言語のポインタ操作はOS/CPU単位の保護を超えて任意メモリを読み書きできる。Use-After-Free・Heap Overflow等はカナリアやASLRだけでは防げず、言語レベルのメモリ安全性（RustやGo等の使用）やAddressSanitizer・Valgrindによる静的/動的解析が必要。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">キ・ウ・ア（バッファオーバフローの仕組み）</div></div></div><div class="expl-explanation">スタックバッファオーバフロー攻撃の仕組み。バッファ境界を超えた書き込みでリターンアドレスを上書きし、攻撃者が用意したシェルコードにジャンプさせる。現代のCPU/OSは複数の軽減技術で防御する。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">シェルコードがDEPで実行禁止にされているスタック領域にあるから</div></div></div><div class="expl-explanation">DEP（Data Execution Prevention）/NX（No-eXecute）ビット。スタック・ヒープ等のデータ領域にあるコードを実行しようとするとCPUが例外を発生させる。シェルコードをスタックに配置する古典的攻撃を無効化する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">e＝canary（スタックカナリア）
+f＝ASLR</div></div></div><div class="expl-explanation">軽減技術の組み合わせ。スタックカナリア（Canary）はリターンアドレス前にランダム値を配置しスタック破壊を検知する。ASLR（Address Space Layout Randomization）はメモリアドレスをランダム化し、攻撃コードの絶対アドレス特定を困難にする。</div></div>
+<div class="expl-item"><div class="expl-label">設問3</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">排除できない理由：ポインタを使って直接メモリ操作しているから
+問題：メモリ破壊攻撃を防げないこと</div></div></div><div class="expl-explanation">C言語のポインタ操作はOS/CPU単位の保護を超えて任意メモリを読み書きできる。Use-After-Free・Heap Overflow等はカナリアやASLRだけでは防げず、言語レベルのメモリ安全性（RustやGo等の使用）やAddressSanitizer・Valgrindによる静的/動的解析が必要。</div></div>
 </div></section>
   </div>
 </main>

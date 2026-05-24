@@ -90,10 +90,10 @@ SESSIONID には、値とSecure 属性だけがセットされる。なお、サ
 <pre class="text-block">設問1[XSS について]について答えよ。
 （1） 本文中の下線①について、図3 中のリクエスト内のスクリプトが出力されるのはどの機能か。表1の詳細機能に対する項番を選び答えよ。
 （2） 本文中の下線②について、攻撃者はどのような手順で利用者情報を取得するか。具体的に答えよ。
-設問2[CSRF について】について答えよ。
+設問2[CSRF について]について答えよ。
 （1） 本文中の下線③について、被害を与える攻撃の手順を、具体的に答えよ。
 」に入れる適切な内容を、“O”又は“メ"（2） 表3中のから選び答えよ。
-設問3[認可制街の不備について】について答えよ。
+設問3[認可制街の不備について]について答えよ。
 （1） 本文中の下線④について、どのような攻撃手法を用いれば攻撃が成功するか。30字以内で答えよ。
 （2） 本文中の下線⑤について、サイト✕のWeb アプリに追加すべき処理を、60字以内で具体的に答えよ。
 [SSRF について]について答えよ。
@@ -107,8 +107,16 @@ SESSIONID には、値とSecure 属性だけがセットされる。なお、サ
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問3　Webサイトの脆弱性診断と対策</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（診断対象ページ数）＝9</div></div><div class="expl-explanation">Webアプリ診断の対象ページ数を正確に把握することは、工数・費用の見積もりに直結する。シングルページアプリ（SPA）やAPIエンドポイントの数え方等、診断範囲の定義が重要。</div></div>
-<div class="expl-item"><div class="expl-label">設問2</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">攻撃者がわなリンクを用意し、管理者にそのリンクを踏ませることで管理者権限のCookieを攻撃者のWebサイトに送信させ、その値を読み取って利用することで管理者としてサイトにアクセスできる</div></div><div class="expl-explanation">反射型XSS（Reflected XSS）を使ったセッションハイジャック。HttpOnly属性がCookieに設定されていないため、JavaScriptからdocument.cookieが読み取れる。HttpOnly設定とCSPによる対策が有効。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">9</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">攻撃者がわなリンクを用意し、管理者にそのリンクを踏ませることで管理者権限のCookieを攻撃者のWebサイトに送信させ、その値を読み取って利用することで管理者としてサイトにアクセスし、利用者情報を取得する。</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">攻撃者が自らのアカウントで取得したcsrf_tokenと一緒に利用者情報をサイトXに送るように構成したわなフォームに、詐欺メールなどで利用者を誘導し、利用者情報を変更させる。</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">a＝×　b＝×　c＝〇　d＝×</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">order-codeの下6桁を総当たりで試行する。</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問3(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">cookieの値を利用者アカウントを特定し、order-codeの値から特定したものと違っていれば、エラーにする。</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問4(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">変更後のURLにPOSTデータは送ることができないから</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問4(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">パラメータpageの値をIMDSのクレデンシャル情報を返すURLに変更する。</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問4(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">トークンを発行するURLにPUTメソッドでアクセスしてトークンを入手し、そのトークンをリクエストヘッダに含めて、IMDSのクレデンシャル情報を返すURLにアクセスする。</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問4(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">パラメータpageの値がサイトP以外のURLならエラーにする。</div></div></div><div class="expl-explanation"></div></div>
 </div></section>
   </div>
 </main>

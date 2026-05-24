@@ -72,7 +72,7 @@ Xさんは、項番2については、インターネットから管理者機能
 設問2[番2～4への対策]について、（1），（2）に答えよ。
 （1） 本文中の下線①について、攻撃者はどの設定項目の内容をどのように変更するか。変更する設定項目を表5の中から選び、記号で答えよ。また、変更後の設定内容を 25字以内で述べよ。
 コに入れる適切な字句を、（2） 図4中のについては解答群の中から選び記号で、については 5c字以内で、それぞれ答えよ。
-解答群イ commonNameア authority Key Identifierウissuerエ serialNumberオ subjectAltName力 subjectPublicKeyInfo【項番5への対策】について、（1），（2）に答えよ。
+解答群イ commonNameア authority Key Identifierウissuerエ serialNumberオ subjectAltName力 subjectPublicKeyInfo【項番5への対策]について、（1），（2）に答えよ。
 設問3（1） 本文中の下線②について、N システムのどのような挙動を利用してスクリーニングを実行したと考えられるか。利用したと考えられる挙動を40字以内で具体的に述べよ。
 （2） 本文中の下線③について、表3中の修正すべき処理を記号で答えよ。また、どのように修正すべきか。修正後の処理を、25字以内で述べよ。</pre></div></section>
   </div>
@@ -81,11 +81,11 @@ Xさんは、項番2については、インターネットから管理者機能
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問1　モバイル決済アプリのなりすまし対策とHMAC</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">手段：他者のバーコードを会員番号から推測して表示する・他者の会員番号を窃取してバーコードを生成し決済する
-問題：バーコードの内容が会員番号であること・バーコードが永続的に利用できること</div></div><div class="expl-explanation">バーコード決済のなりすまし脆弱性。連番や推測可能な会員番号をバーコードに使うと他者の番号を推測できる。また有効期限のない静的バーコードは一度盗撮されると永続的に悪用される。動的コード（一定時間で変わる）や HMAC値の埋め込みが対策。</div></div>
-<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">HMAC値αとHMAC値βの一致を検証する</div></div><div class="expl-explanation">HMAC（Hash-based Message Authentication Code）によるバーコードの完全性・真正性検証。共通鍵とハッシュ関数を組み合わせてMAC値を生成し、サーバ側で検証することでバーコードの改ざん・偽造を検知できる。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">変更する設定項目：い（DNSサーバ設定）
-変更後の設定内容：攻撃者のDNSサーバのIPアドレス</div></div><div class="expl-explanation">DHCP Starvation + Rogue DHCP攻撃。正規のDHCPサーバのアドレスプールを枯渇させ、偽のDHCPサーバから悪意あるDNSサーバのIPを配布することでDNSハイジャックを実行する。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">手段：他者のバーコードを会員番号から推測して表示する・他者の会員番号を窃取してバーコードを生成し決済する
+問題：バーコードの内容が会員番号であること・バーコードが永続的に利用できること</div></div></div><div class="expl-explanation">バーコード決済のなりすまし脆弱性。連番や推測可能な会員番号をバーコードに使うと他者の番号を推測できる。また有効期限のない静的バーコードは一度盗撮されると永続的に悪用される。動的コード（一定時間で変わる）や HMAC値の埋め込みが対策。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">HMAC値αとHMAC値βの一致を検証する</div></div></div><div class="expl-explanation">HMAC（Hash-based Message Authentication Code）によるバーコードの完全性・真正性検証。共通鍵とハッシュ関数を組み合わせてMAC値を生成し、サーバ側で検証することでバーコードの改ざん・偽造を検知できる。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">変更する設定項目：い（DNSサーバ設定）
+変更後の設定内容：攻撃者のDNSサーバのIPアドレス</div></div></div><div class="expl-explanation">DHCP Starvation + Rogue DHCP攻撃。正規のDHCPサーバのアドレスプールを枯渇させ、偽のDHCPサーバから悪意あるDNSサーバのIPを配布することでDNSハイジャックを実行する。</div></div>
 </div></section>
   </div>
 </main>

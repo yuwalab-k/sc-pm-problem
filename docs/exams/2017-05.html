@@ -148,7 +148,7 @@ d解答群イ MSA（Mail Submission Agent）ア MDA （Mail Delivery Agent）エ
 f答えよ。また、本文中のに入れる適切な字句を、図1中の構成要素から選び、（2） 本文中のg」に入れる抽出条件を、25字以内で述べよ。
 答えよ。また、本文中のh（3） 本文中の下線①について、外部 DNS サーバと内部DNS サーバのDNS 問合せに関する設定変更の内容を、それぞれ35字以内で述べよ。
 に入れる抽出条件を，30字以内で述べよ。
-（4） 本文中のi設問3 [ウイルス対策の強化の検討】について、（1），（2）に答えよ。
+（4） 本文中のi設問3 [ウイルス対策の強化の検討]について、（1），（2）に答えよ。
 （1） 本文中の下線②について、注意点とは何か。20字以内で述べよ。
 （2） 本文中の下線③について、調査及び対処の着手の早期化を期待してウイルス対策集中管理ソフトを導入する場合、A社がウイルス対策集中管理ソフトに求める機能はどのようなものか。40字以内で述べよ。
 に入れる適切な字句を、図1中の構成要素から選び、答設問4 表7中の</pre>
@@ -172,11 +172,11 @@ f答えよ。また、本文中のに入れる適切な字句を、図1中の構
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問2　マルウェア感染後の社内システムセキュリティ強化</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝SMTP over TLS（SMTPS）</div></div><div class="expl-explanation">メール送受信の暗号化。SMTP over TLS（ポート465）またはSTARTTLS（ポート587）でメール転送を暗号化する。中継サーバ間の通信も暗号化することで、盗聴によるメール内容の漏えいを防ぐ。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">e＝URLがマルウェアX中に保持されたURL</div></div><div class="expl-explanation">マルウェアのハードコードされたC2 URL。マルウェアバイナリを解析することで内包されているC2サーバのURLやIPアドレスを抽出できる。これをFirewallやDNSシンクホールのブロックリストとして活用する。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">外部DNSサーバの内部DNSサーバからのDNS問合せを拒否する
-内部DNSサーバでインターネット上のサーバ名についてのDNS問合せを拒否する</div></div><div class="expl-explanation">DNS漏えい・DNSトンネリング対策。内部DNSからインターネット権威DNSへの直接クエリを制限し、フォワーダー経由に限定する。また外部DNSサーバが内部からのクエリを受け付けない設定にする。</div></div>
-<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">社内専用のドメイン名以外のFQDNが書かれているファイルを暗号化しない</div></div><div class="expl-explanation">メールフィルタリングの設計。添付ファイル内のURLが外部ドメインを指している場合、標的型メール攻撃の可能性がある。コンテンツフィルタリングで不審なURLを含む添付ファイルを検疫する。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">a＝SMTP over TLS（SMTPS）</div></div></div><div class="expl-explanation">メール送受信の暗号化。SMTP over TLS（ポート465）またはSTARTTLS（ポート587）でメール転送を暗号化する。中継サーバ間の通信も暗号化することで、盗聴によるメール内容の漏えいを防ぐ。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">e＝URLがマルウェアX中に保持されたURL</div></div></div><div class="expl-explanation">マルウェアのハードコードされたC2 URL。マルウェアバイナリを解析することで内包されているC2サーバのURLやIPアドレスを抽出できる。これをFirewallやDNSシンクホールのブロックリストとして活用する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">外部DNSサーバの内部DNSサーバからのDNS問合せを拒否する
+内部DNSサーバでインターネット上のサーバ名についてのDNS問合せを拒否する</div></div></div><div class="expl-explanation">DNS漏えい・DNSトンネリング対策。内部DNSからインターネット権威DNSへの直接クエリを制限し、フォワーダー経由に限定する。また外部DNSサーバが内部からのクエリを受け付けない設定にする。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">社内専用のドメイン名以外のFQDNが書かれているファイルを暗号化しない</div></div></div><div class="expl-explanation">メールフィルタリングの設計。添付ファイル内のURLが外部ドメインを指している場合、標的型メール攻撃の可能性がある。コンテンツフィルタリングで不審なURLを含む添付ファイルを検疫する。</div></div>
 </div></section>
   </div>
 </main>

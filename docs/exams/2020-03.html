@@ -94,12 +94,12 @@ b（1） 本文中のに入れる適切な字句を、15字以内で具体的に
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問3　ECサイトの脆弱性診断計画</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">N-IPSで遮断されていたPF診断の通信が通過するから</div></div><div class="expl-explanation">ネットワークIPS（N-IPS）が本番環境で有効になっている場合、診断ツールの攻撃的なパケットが遮断され、脆弱性を見落とす原因になる。診断時はIPSをバイパス設定するか、ホスト型IPSのホワイトリストに診断PCのIPを追加する必要がある。</div></div>
-<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">ホワイトリストに診断PCのIPアドレスを登録する</div></div><div class="expl-explanation">IPS除外設定による診断精度向上。診断PCのIPアドレスをIPSの除外リストに登録し、診断トラフィックが遮断されないよう設定する。本番IPSを迂回した状態での診断が正確な脆弱性の発見につながる。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（a）a＝診断用の利用者ID</div></div><div class="expl-explanation">Webアプリ診断用の専用テストアカウントの準備。本番データや他ユーザへの影響を避けるため、診断専用のアカウントと権限（管理者・一般など複数ロール）を用意する。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">変更する項目：日時
-変更する内容：診断時間を0時〜8時の間にする</div></div><div class="expl-explanation">深夜の診断実施によるサービス影響の最小化。診断ツールはDoS的な負荷をかける場合があるため、利用者の少ない時間帯に実施することで業務への影響を抑える。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">変更後の設定：ホスト型IPSのホワイトリスト設定に診断PCのIPアドレスを登録し侵入検知設定を無効にする</div></div><div class="expl-explanation">本番DBサーバのホスト型IPS設定変更。ホスト型IPSはサーバ上で動作するため、DBサーバのホワイトリストにも診断PCのIPを追加しないと診断トラフィックが遮断される。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">N-IPSで遮断されていたPF診断の通信が通過するから</div></div></div><div class="expl-explanation">ネットワークIPS（N-IPS）が本番環境で有効になっている場合、診断ツールの攻撃的なパケットが遮断され、脆弱性を見落とす原因になる。診断時はIPSをバイパス設定するか、ホスト型IPSのホワイトリストに診断PCのIPを追加する必要がある。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">ホワイトリストに診断PCのIPアドレスを登録する</div></div></div><div class="expl-explanation">IPS除外設定による診断精度向上。診断PCのIPアドレスをIPSの除外リストに登録し、診断トラフィックが遮断されないよう設定する。本番IPSを迂回した状態での診断が正確な脆弱性の発見につながる。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">（a）a＝診断用の利用者ID</div></div></div><div class="expl-explanation">Webアプリ診断用の専用テストアカウントの準備。本番データや他ユーザへの影響を避けるため、診断専用のアカウントと権限（管理者・一般など複数ロール）を用意する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">変更する項目：日時
+変更する内容：診断時間を0時〜8時の間にする</div></div></div><div class="expl-explanation">深夜の診断実施によるサービス影響の最小化。診断ツールはDoS的な負荷をかける場合があるため、利用者の少ない時間帯に実施することで業務への影響を抑える。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">変更後の設定：ホスト型IPSのホワイトリスト設定に診断PCのIPアドレスを登録し侵入検知設定を無効にする</div></div></div><div class="expl-explanation">本番DBサーバのホスト型IPS設定変更。ホスト型IPSはサーバ上で動作するため、DBサーバのホワイトリストにも診断PCのIPを追加しないと診断トラフィックが遮断される。</div></div>
 </div></section>
   </div>
 </main>

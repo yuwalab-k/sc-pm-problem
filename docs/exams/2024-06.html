@@ -134,7 +134,7 @@ Mail-Step2の開始2週間後、情報システム部に技術部の」さんか
 （1） 表1中及び表2中のに入れる適切な字句を答えよ。
 （2） 表2中のbに入れる適切な字句を答えよ。
 設問2 表5中の「一に入れる適切な字句を英字10字以内で答えよ。
-設問3【送対応の設定内容についての検討】について答えよ。
+設問3【送対応の設定内容についての検討]について答えよ。
 （1） 本文中の下線①のFQDN を解答群の中から選び、記号で答えよ。
 解答群アrsa-sha256._dkim. 2-sha.co.jpイrsa-sha256._domainkey.z-sha.co.jpウ22024._dkim.z-sha.co.jpエ22024._domainkey.z-sha.co.jpオ22024.2-sha.co.jp（2） 図4中のに入れる適切な字句を解答群の中から選び、記号で答えよ。
 解答群ア acceptウ quarantineイnoneI receiveオreject設問4 [A社ドメイン名の契約についての検討]について答えよ。
@@ -151,14 +151,19 @@ Mail-Step2の開始2週間後、情報システム部に技術部の」さんか
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問2　メールセキュリティとDMARC</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝A社ドメイン名　b＝全て</div></div><div class="expl-explanation">DMARCのalignmentモード。From:ヘッダのドメインとSPF/DKIMで検証されたドメインが一致するか確認する。strictモードでは完全一致、relaxedモードではオーガニックドメインの一致で検証が通る。</div></div>
-<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">c＝SMTPS（SMTP over TLS）</div></div><div class="expl-explanation">メール送受信の暗号化。SMTPSはポート465でTLS接続、STARTTLSはポート587でSTARTTLSコマンドによるアップグレード。中間者攻撃によるメール傍受を防ぐ。MTA-STS（SMTP MTA Strict Transport Security）も関連する。</div></div>
-<div class="expl-item"><div class="expl-label">設問2</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">c（SPFレコードの設定内容）</div></div><div class="expl-explanation">SPF（Sender Policy Framework）レコードはDNSのTXTレコードに記載。送信元として許可するIPアドレス・ホスト名をinclude・ip4・ip6等で指定する。~all（ソフトフェイル）より-all（ハードフェイル）を推奨。</div></div>
-<div class="expl-item"><div class="expl-label">設問3</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">エ（ソフトウェア修正プログラムに見せかけたマルウェアをダウンロードさせる）</div></div><div class="expl-explanation">フィッシングメール経由のマルウェア配布。DMARC非設定ドメインのなりすましメールに正規ソフトウェアに見せかけたマルウェアリンクを掲載する攻撃。DMARC+DMARCアナライザーによる可視化で送信元を管理する。</div></div>
-<div class="expl-item"><div class="expl-label">設問4(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">社外サービスのパスワード再設定画面のURLが書かれたメールを送り、任意のパスワードを設定しアカウントを乗っ取る</div></div><div class="expl-explanation">メール乗っ取り後の被害シナリオ。攻撃者がなりすましメールで「パスワードをリセットしてください」という正規ふりのメールを送り、フィッシングサイトに誘導してパスワードを奪取するアカウントテイクオーバー。</div></div>
-<div class="expl-item"><div class="expl-label">設問5(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">SPFレコードに、TサービスのメールサーバのIPアドレスを追加する</div></div><div class="expl-explanation">新たなメール送信サービス（T社）を追加する際のSPFレコード更新。SPFレコードの~all/-allより前に新サービスのip4やincludeを追加する。DNS伝播後、SPF検証が通ることを確認する。</div></div>
-<div class="expl-item"><div class="expl-label">設問5(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">SPF：YサービスのIPアドレスがSPFレコードに未登録のためSPF認証失敗
-DKIM：DKIMレコードのhタグにSubjectが含まれているのにYサービスがSubjectを変更するためDKIM認証失敗</div></div><div class="expl-explanation">DKIM署名の仕組み。署名ヘッダのhタグで署名対象ヘッダを指定するが、中間のMTAがそのヘッダを変更すると署名が無効になる。Subjectを書き換えるメール転送サービスはDKIM認証が壊れる場合がある。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">a＝A社ドメイン名</div></div></div><div class="expl-explanation">DMARCのalignmentモード。From:ヘッダのドメインとSPF/DKIMで検証されたドメインが一致するか確認する。strictモードでは完全一致、relaxedモードではオーガニックドメインの一致で検証が通る。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">b＝全て</div></div></div><div class="expl-explanation">メール送受信の暗号化。SMTPSはポート465でTLS接続、STARTTLSはポート587でSTARTTLSコマンドによるアップグレード。中間者攻撃によるメール傍受を防ぐ。MTA-STS（SMTP MTA Strict Transport Security）も関連する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">SMTPS</div></div></div><div class="expl-explanation">SPF（Sender Policy Framework）レコードはDNSのTXTレコードに記載。送信元として許可するIPアドレス・ホスト名をinclude・ip4・ip6等で指定する。~all（ソフトフェイル）より-all（ハードフェイル）を推奨。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">エ</div></div></div><div class="expl-explanation">フィッシングメール経由のマルウェア配布。DMARC非設定ドメインのなりすましメールに正規ソフトウェアに見せかけたマルウェアリンクを掲載する攻撃。DMARC+DMARCアナライザーによる可視化で送信元を管理する。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">イ</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問4(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">ソフトウェア修正プログラムに見せかけたマルウェアをダウンロードする。</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問4(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">メール：社外サービスのパスワード再設定画面のURLが書かれたメール
+攻撃：任意のパスワードを設定し、アカウントを乗っ取る。
+</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問4(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">ア</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問5(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">SPFレコードに、Tサービスのメール送信元IPアドレスを追加する。</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問5(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">SPF：SPFレコードに、Yサービスの情報が登録されていないのに、Yサービスから送られる。
+DKIM：DKIMレコードのhタグにSubjectが含まれているのに、YサービスでメールのSubjectが変わる。</div></div></div><div class="expl-explanation"></div></div>
 </div></section>
   </div>
 </main>

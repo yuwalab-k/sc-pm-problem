@@ -81,14 +81,14 @@ Bさん：分かりました。</pre>
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問3　QRコード決済サービスの不正利用対策</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">b＝ア（リスクベース認証）</div></div><div class="expl-explanation">リスクベース認証。ログインの際にデバイス情報・IP・行動パターン等のリスク要因を評価し、異常検知時に追加認証を要求する。通常利用時はUXを損なわず、不正アクセス時のみ強化した認証を適用できる。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">・漏えいしている口座番号と暗証番号を悪用する方法
-・口座番号と暗証番号をだまして聞き出し悪用する方法</div></div><div class="expl-explanation">クレデンシャルスタッフィングとソーシャルエンジニアリングの2つの不正取得手法。他サービスから流出した認証情報の使い回し（パスワードリユース）はクレデンシャルスタッフィングで悪用される。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">イ（eKYC等の本人確認方式）</div></div><div class="expl-explanation">本人確認のセキュリティ評価。マイナンバーカードの電子署名を使ったeKYCは、なりすましに対して強い認証手段。NIST SP 800-63の認証保証レベル（IAL/AAL）の概念と対応。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">・署名用電子証明書の有効性
-・署名用電子証明書の失効の有無</div></div><div class="expl-explanation">マイナンバーカードの電子証明書を使った本人確認では、証明書の有効期限確認とCRL/OCSPによる失効確認の両方が必要。失効した証明書を有効と誤認するリスクを防ぐ。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(5)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">そのランダムな数字を紙に書き、その紙と一緒に容貌や本人確認書類を撮影</div></div><div class="expl-explanation">ライブネス検出（Liveness Detection）に代わる対策。提示された乱数（チャレンジ）を含む写真を要求することで、事前に撮影した写真を使ったなりすましを防止する。</div></div>
-<div class="expl-item"><div class="expl-label">設問3</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">QアプリのPIN認証機能（スマートフォン盗難時の不正利用防止）</div></div><div class="expl-explanation">デバイス盗難対策。アプリ起動時にPINや生体認証を要求することで、端末ロック解除後でもアプリの不正利用を防ぐ二重ロック。デバイスバインディングと組み合わせる。</div></div>
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">b＝ア（リスクベース認証）</div></div></div><div class="expl-explanation">リスクベース認証。ログインの際にデバイス情報・IP・行動パターン等のリスク要因を評価し、異常検知時に追加認証を要求する。通常利用時はUXを損なわず、不正アクセス時のみ強化した認証を適用できる。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">・漏えいしている口座番号と暗証番号を悪用する方法
+・口座番号と暗証番号をだまして聞き出し悪用する方法</div></div></div><div class="expl-explanation">クレデンシャルスタッフィングとソーシャルエンジニアリングの2つの不正取得手法。他サービスから流出した認証情報の使い回し（パスワードリユース）はクレデンシャルスタッフィングで悪用される。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">イ（eKYC等の本人確認方式）</div></div></div><div class="expl-explanation">本人確認のセキュリティ評価。マイナンバーカードの電子署名を使ったeKYCは、なりすましに対して強い認証手段。NIST SP 800-63の認証保証レベル（IAL/AAL）の概念と対応。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">・署名用電子証明書の有効性
+・署名用電子証明書の失効の有無</div></div></div><div class="expl-explanation">マイナンバーカードの電子証明書を使った本人確認では、証明書の有効期限確認とCRL/OCSPによる失効確認の両方が必要。失効した証明書を有効と誤認するリスクを防ぐ。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(5)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">そのランダムな数字を紙に書き、その紙と一緒に容貌や本人確認書類を撮影</div></div></div><div class="expl-explanation">ライブネス検出（Liveness Detection）に代わる対策。提示された乱数（チャレンジ）を含む写真を要求することで、事前に撮影した写真を使ったなりすましを防止する。</div></div>
+<div class="expl-item"><div class="expl-label">設問3</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">QアプリのPIN認証機能（スマートフォン盗難時の不正利用防止）</div></div></div><div class="expl-explanation">デバイス盗難対策。アプリ起動時にPINや生体認証を要求することで、端末ロック解除後でもアプリの不正利用を防ぐ二重ロック。デバイスバインディングと組み合わせる。</div></div>
 </div></section>
   </div>
 </main>

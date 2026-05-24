@@ -305,12 +305,24 @@ def render_explanation_section(explanations: list[dict]) -> str:
         for item in prob.get("items", []):
             label = esc(item.get("label", ""))
             answer = render_inline(item.get("answer", ""))
+            answerimage = item.get("answerimage", "")
             explanation = render_inline(item.get("explanation", ""))
+
+            # Build answer content (image first, then text)
+            inner = ""
+            if answerimage:
+                inner += (
+                    f'<img src="../../{esc(answerimage)}" alt="{label}の解答図"'
+                    f' class="expl-answer-image">'
+                )
+            if answer:
+                inner += f'<div class="expl-answer-text">{answer}</div>'
+
             parts.append(
                 f'<div class="expl-item">'
                 f'<div class="expl-label">{label}</div>'
                 f'<div class="expl-answer-box"><span class="expl-answer-tag">解答例</span>'
-                f'<div class="expl-answer-text">{answer}</div></div>'
+                f'<div class="expl-answer-content">{inner}</div></div>'
                 f'<div class="expl-explanation">{explanation}</div>'
                 f'</div>'
             )
@@ -692,6 +704,21 @@ body {
   white-space: nowrap;
   flex-shrink: 0;
   margin-top: 2px;
+}
+
+.expl-answer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.expl-answer-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
 }
 
 .expl-answer-text {

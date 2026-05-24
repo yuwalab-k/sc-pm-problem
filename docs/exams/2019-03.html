@@ -65,7 +65,7 @@ Hさん：分かりました。設計を見直します。</pre>
 <pre class="text-block">Nさん：それであれば、改ざんされたファイルが実行される危険性は低いですね。</pre>
 <pre class="text-block">その後、クラウドVの準備が整い、ゲーム機Vが発売された。</pre>
 <pre class="text-block">設問1 本文中の下線①に該当する方式はどれか。該当する方式を解答群の中から選び、記号で答えよ。
-解答群ウ CSRイ CMACア CBC-MACオ MD5力 RC4エ HMAC設問2（セキュリティレビューの実施】について、（1）～（6）に答えよ。
+解答群ウ CSRイ CMACア CBC-MACオ MD5力 RC4エ HMAC設問2（セキュリティレビューの実施]について、（1）～（6）に答えよ。
 （1） 本文中の下線②について、対策として認証トークンに追加する必要がある情報を、15字以内で答えよ。
 （2） 本文中の下線③について、その原因となるゲームサーバの仕様を、30字以内で述べよ。
 （3） 本文中の下線④について、その原因となる認証トークンの仕様を、20字以内で述べよ。また、不正に生成した認証トークンで利用できるゲームプログラムの範囲を、35字以内で述べよ。
@@ -93,9 +93,9 @@ Hさん：分かりました。設計を見直します。</pre>
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問3　IoT機器のセキュリティ設計と認証連携</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">エ（ゲーム機のセキュリティリスク）</div></div><div class="expl-explanation">IoT機器の物理的アクセスリスク。ゲーム機は物理的に手元にあるためハードウェアデバッグインターフェース（JTAG・UART）を悪用した解析・改ざんが可能。セキュアブートと耐タンパ性が対策。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">ゲームサーバに認証サーバと同じ共通鍵を保存する</div></div><div class="expl-explanation">共通鍵（対称鍵）を使ったトークン検証の仕組み。認証サーバが発行したJWT（HMAC署名）をゲームサーバが同じ鍵で検証する。鍵を共有するため鍵漏えいの影響範囲が広い。非対称鍵（JWT RS256）の方がセキュリティ上望ましい。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(5)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">耐タンパ性（Tamper Resistance）</div></div><div class="expl-explanation">ハードウェアセキュリティの重要概念。SSDを取り出して解析されても内部のデータ（秘密鍵・DRMキー等）を保護するための物理的・論理的な防護技術。TPM・HSM・Secure Enclaveが実装例。</div></div>
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">エ（ゲーム機のセキュリティリスク）</div></div></div><div class="expl-explanation">IoT機器の物理的アクセスリスク。ゲーム機は物理的に手元にあるためハードウェアデバッグインターフェース（JTAG・UART）を悪用した解析・改ざんが可能。セキュアブートと耐タンパ性が対策。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">ゲームサーバに認証サーバと同じ共通鍵を保存する</div></div></div><div class="expl-explanation">共通鍵（対称鍵）を使ったトークン検証の仕組み。認証サーバが発行したJWT（HMAC署名）をゲームサーバが同じ鍵で検証する。鍵を共有するため鍵漏えいの影響範囲が広い。非対称鍵（JWT RS256）の方がセキュリティ上望ましい。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(5)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">耐タンパ性（Tamper Resistance）</div></div></div><div class="expl-explanation">ハードウェアセキュリティの重要概念。SSDを取り出して解析されても内部のデータ（秘密鍵・DRMキー等）を保護するための物理的・論理的な防護技術。TPM・HSM・Secure Enclaveが実装例。</div></div>
 </div></section>
   </div>
 </main>

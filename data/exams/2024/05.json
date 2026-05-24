@@ -206,18 +206,48 @@
       "items": [
         {
           "label": "設問1(1)",
-          "answer": "（マルウェア感染の痕跡を示すログエントリの特定）",
-          "explanation": "EDR・Sysmonログの分析。プロセス生成（CreateProcess）・ネットワーク接続・ファイル操作のログからIOC（侵害指標）を検出する。PowerShell の難読化コマンド実行、lsass.exeへのアクセス等が典型的な痕跡。"
+          "answer": "PC-C",
+          "explanation": ""
+        },
+        {
+          "label": "設問1(2)",
+          "answer": "filesv",
+          "explanation": ""
+        },
+        {
+          "label": "設問1(3)",
+          "answer": "ad01¥user019",
+          "explanation": ""
+        },
+        {
+          "label": "設問1(4)",
+          "answer": "無効化",
+          "explanation": ""
+        },
+        {
+          "label": "設問1(5)",
+          "answer": "すべてのドメインユーザーに対して、https://△△△.com/、https://□□□.com/及びhttps://〇〇〇.com/を管理者拒否リストに登録する。",
+          "explanation": ""
+        },
+        {
+          "label": "設問1(6)",
+          "answer": "https://〇〇〇.com/、https://△△△.com/又はhttps://□□□.com/に通信したL社ホストがないか調査する。",
+          "explanation": ""
+        },
+        {
+          "label": "設問1(7)",
+          "answer": "タスク名がinstallであるタスクが登録されているL社内ホストがないか調査する。",
+          "explanation": ""
+        },
+        {
+          "label": "設問1(8)",
+          "answer": "マルウェア対策サービスのログから、マルウェア対策ソフトが停止したL社内ホストを検出する。\nドメインサーバのログから、RDP接続を繰り返しているL社内ホストを検出する",
+          "explanation": ""
         },
         {
           "label": "設問2",
-          "answer": "（ラテラルムーブメントに使われたツール・手法の特定）",
-          "explanation": "Pass-the-Hash・Pass-the-Ticketによる横展開の検出。Windowsイベントログ（Event ID 4624：ログオン成功、4625：失敗）、SMBアクセスログ、WMI利用履歴などから攻撃の経路を追跡する。"
-        },
-        {
-          "label": "設問3",
-          "answer": "（権限昇格・永続化に使われた手法の特定と対策）",
-          "explanation": "Scheduled Task/Service登録・レジストリRun キー・DLL側面読み込みなどによる永続化の痕跡をログから特定する。MITRE ATT&CKフレームワークのPersistenceカテゴリが参考になる。"
+          "answer": "a＝仮想PCへのRDP接続に対して、IPアドレスによる接続元制限を行う\nf＝L社内にDLPを導入し、ファイルの持出しを制限する",
+          "explanation": ""
         }
       ]
     }

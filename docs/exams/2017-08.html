@@ -90,11 +90,11 @@ H氏による調査の結果を図2に、暗号スイートの名前の構成を
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問3　SSL/TLSと証明書管理</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝カ・オ（TLSのメカニズム）
-b,c,d＝イ（証明書検証）</div></div><div class="expl-explanation">TLS1.2/1.3のハンドシェイクと証明書検証の仕組み。CAによる署名検証→有効期限確認→CRL/OCSP失効確認→サブジェクト/SANのホスト名照合のすべてが必要。</div></div>
-<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">正規のECサイトのURLでアクセスしたときに係のECサイトに誘導する（SSLスワッピング）</div></div><div class="expl-explanation">DNSキャッシュポイズニングとフィッシングの組み合わせ。正規URLを詐称サイトのIPに解決させることで、ユーザが正規URLにアクセスしても攻撃者のサイトに誘導できる。証明書のコモンネーム確認で識別可能。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">ア＝利用　イ＝失効</div></div><div class="expl-explanation">証明書の危殆化対応。秘密鍵が漏えいした場合、その証明書を即座に失効させ（CRLへの掲載・OCSPレスポンス更新）、新しい鍵ペアで証明書を再発行する。Heartbleedのような脆弱性後の対応として実施された。</div></div>
-<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">SSL3.0を利用しない（POODLE攻撃対策）</div></div><div class="expl-explanation">POODLE（Padding Oracle On Downgraded Legacy Encryption）攻撃への対策。SSL3.0のCBCモード暗号化の脆弱性を悪用した攻撃。TLS_FALLBACK_SCSVの使用またはSSL3.0の完全無効化が対策。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">a＝カ・オ（TLSのメカニズム）
+b,c,d＝イ（証明書検証）</div></div></div><div class="expl-explanation">TLS1.2/1.3のハンドシェイクと証明書検証の仕組み。CAによる署名検証→有効期限確認→CRL/OCSP失効確認→サブジェクト/SANのホスト名照合のすべてが必要。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">正規のECサイトのURLでアクセスしたときに係のECサイトに誘導する（SSLスワッピング）</div></div></div><div class="expl-explanation">DNSキャッシュポイズニングとフィッシングの組み合わせ。正規URLを詐称サイトのIPに解決させることで、ユーザが正規URLにアクセスしても攻撃者のサイトに誘導できる。証明書のコモンネーム確認で識別可能。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">ア＝利用　イ＝失効</div></div></div><div class="expl-explanation">証明書の危殆化対応。秘密鍵が漏えいした場合、その証明書を即座に失効させ（CRLへの掲載・OCSPレスポンス更新）、新しい鍵ペアで証明書を再発行する。Heartbleedのような脆弱性後の対応として実施された。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">SSL3.0を利用しない（POODLE攻撃対策）</div></div></div><div class="expl-explanation">POODLE（Padding Oracle On Downgraded Legacy Encryption）攻撃への対策。SSL3.0のCBCモード暗号化の脆弱性を悪用した攻撃。TLS_FALLBACK_SCSVの使用またはSSL3.0の完全無効化が対策。</div></div>
 </div></section>
   </div>
 </main>

@@ -53,11 +53,7 @@
         },
         {
           "type": "text",
-          "content": "表1 各画面のURLURL画面番号https://test. AAA.jp/0201，https://test. AAA.jp/mypage03https://test. AAA.jp/apikey04https://test. AAA.jp/key list05,06https://test. AAA.jp/keynew07,0809, 10,11https://test. AAA.jp/propertyhttps://test. A A A.Jp/pwcnange12,13https://test. AAA.jp/pwreset14, 15https://test. AAA.jp/pwreset/x\"16,17xは、PW再設定を行う都度生成されるランダムな英数字 32字の文字列である。\n注'）"
-        },
-        {
-          "type": "text",
-          "content": "= 33 ="
+          "content": "表1 各画面のURLURL画面番号https://test.△△△.jp/0201，https://test. AAA.jp/mypage03https://test. AAA.jp/apikey04https://test. AAA.jp/key list05,06https://test. AAA.jp/keynew07,0809, 10,11https://test. AAA.jp/propertyhttps://test. A A A.Jp/pwcnange12,13https://test. AAA.jp/pwreset14, 15https://test. AAA.jp/pwreset/x\"16,17xは、PW再設定を行う都度生成されるランダムな英数字 32字の文字列である。\n注'）"
         },
         {
           "type": "text",
@@ -130,33 +126,63 @@
       "items": [
         {
           "label": "設問1(1)",
-          "answer": "（イ）　https://test.AAA.jp/",
+          "answer": "（イ）",
           "explanation": "脆弱性診断のスコープ外サイトへの意図しないリクエスト送信の問題。診断ツールのクロールが本番環境のリンクから診断対象外サイトに誘導される場合がある。診断前の対象範囲の明確化と診断ツールの設定確認が重要。"
         },
         {
           "label": "設問1(2)",
-          "answer": "b＝メール受信者によるログイン",
+          "answer": "https://test.△△△.jp/",
           "explanation": "メールアドレス確認フロー（メール認証）の分析。メールに含まれるURLをクリックすることでアカウント有効化・ログインが完了するフローは、メール傍受者による不正ログインリスクがある。有効期限の設定と使い捨てトークンが重要。"
         },
         {
           "label": "設問1(3)",
-          "answer": "使用済みのsessionIDを無効にした上で、新しいsessionIDを発行する",
+          "answer": "メール受信者によるログイン",
           "explanation": "セッションフィクセーション攻撃への対策。認証成功後に必ずセッションIDを再発行することで、認証前から攻撃者が埋め込んだセッションIDの悪用を防ぐ。PHPではsession_regenerate_id(true)等で実装。"
         },
         {
           "label": "設問1(4)",
-          "answer": "（HTTPSの強制設定、HSTSの利用）",
+          "answer": "使用済みのsessionIDを無効にした上で、新しいsessionIDを発行",
           "explanation": "HSTSによりHTTPS接続を強制することで、SSLストリッピング攻撃を防ぐ。Strict-Transport-Security: max-age=31536000; includeSubDomainsをレスポンスヘッダに設定。HSTSプリロードリストへの登録も有効。"
         },
         {
           "label": "設問1(5)",
-          "answer": "d＝MサイトへのHTTPS接続を強制できる\ne＝X-Content-Type-OptionsでMIMEタイプを強制適用できる",
-          "explanation": "セキュリティレスポンスヘッダの効果。HSTSはHTTPS強制、X-Content-Type-Options: nosniffはコンテンツスニッフィング攻撃防止、X-Frame-Options: DENYはクリックジャッキング防止。これらを組み合わせて多層防御を構成する。"
+          "answer": "e＝Mサイトへの接続をHTTPSに強制することができる。\nf＝Mサイトのコンテンツに対して、Content-Typeヘッダーで指定したMINEタイプを強制的に適用することができる。",
+          "explanation": ""
         },
         {
           "label": "設問2",
-          "answer": "画面09で会社名フィールドに攻撃者のメールアドレスを含む文字列を入力し、メール送信機能を悪用して任意のアドレスにメールを送信させる",
-          "explanation": "メールヘッダインジェクション攻撃。フォームの入力値がメールのCC/BCCヘッダに直接使用される場合、改行コード（%0d%0a）を含む入力でヘッダを追加できる。入力値の改行コードのサニタイズが対策。"
+          "answer": "g＝画面09で、会社名に、図Cのabc@examle.comを攻撃者のメールアドレスに変更した文字列を入力して変更ボタンをクリックする。\nh＝画面04からの一連の操作において、画面05又は画面07で再設定後のパスワードを入力して、WebAPIキーを確認又は発行する。",
+          "explanation": ""
+        },
+        {
+          "label": "設問3①",
+          "answer": "i＝求職者IDが推測困難なものになるように、求職者IDの生成方法を変更する\nj＝APIkeyが窃取された場合、当該求人企業への問い合わせ又は応募した求職者の情報漏洩だけに被害を軽減することができるから",
+          "explanation": ""
+        },
+        {
+          "label": "設問3②",
+          "answer": "i＝WebAPIのアクセス元IPアドレスを限定して接続を許可するように変更する\nj＝WebAPIへの第三者による不正アクセスを防ぐとことができるから",
+          "explanation": ""
+        },
+        {
+          "label": "設問3③",
+          "answer": "i＝WebAPIで取得できる求職者属性情報をは、個人を特定できないものだけに限定するように変更する\nj＝不正に、WebAPIが利用されても、個人を特定できない情報の漏洩だけに被害を軽減することができるから",
+          "explanation": ""
+        },
+        {
+          "label": "設問3④",
+          "answer": "k＝ログインの認証を、多要素認証に変更する\nl＝アカウントの乗っ取りを防ぐことができるから",
+          "explanation": ""
+        },
+        {
+          "label": "設問3⑤",
+          "answer": "k＝利用者ごとにアクセス元IPアドレスを限定して接続を許可するように変更する。\nl＝第三者による不正なアクセスを防ぐことができるから",
+          "explanation": ""
+        },
+        {
+          "label": "設問3⑥",
+          "answer": "k＝求人企業プロパティ変更において、メールアドレス以外を変更した場合でも、メールを送信するように変更する\nl＝不正に求人企業プロパティが変更された場合に気付くことができるから",
+          "explanation": ""
         }
       ]
     }

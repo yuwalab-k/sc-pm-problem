@@ -82,10 +82,10 @@ gに入れる仕様を25字以内で具体的に述べよ。
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問2　CSRFとWebアプリのセキュリティ評価</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">L氏が今日ログインしたと言っている回数
-L氏の利用者IDを用いた今日のログイン記録</div></div><div class="expl-explanation">CSRFの調査方法。ログイン記録と利用者の申告を照合することで、利用者が意図しない時刻のアクセスや操作を特定できる。CSRFはユーザの認証済みセッションを悪用するため、ログに正規ユーザのIDで記録される。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">クロスサイトリクエストフォージェリ（CSRF）</div></div><div class="expl-explanation">CSRF（Cross-Site Request Forgery）。攻撃者が被害者のブラウザから意図しないリクエストを送信させる攻撃。被害者が認証済みのサービスに対して有害な操作（送金・設定変更等）を行わせる。CSRFトークンで防御する。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">c＝現在のパスワード（攻撃者が）知り得ない</div></div><div class="expl-explanation">パスワード変更フォームへのCSRF対策。変更フォームに「現在のパスワード」の入力を必須にすることで、攻撃者が現在のパスワードを知らない限りCSRF経由のパスワード変更ができなくなる。</div></div>
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">L氏が今日ログインしたと言っている回数
+L氏の利用者IDを用いた今日のログイン記録</div></div></div><div class="expl-explanation">CSRFの調査方法。ログイン記録と利用者の申告を照合することで、利用者が意図しない時刻のアクセスや操作を特定できる。CSRFはユーザの認証済みセッションを悪用するため、ログに正規ユーザのIDで記録される。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">クロスサイトリクエストフォージェリ（CSRF）</div></div></div><div class="expl-explanation">CSRF（Cross-Site Request Forgery）。攻撃者が被害者のブラウザから意図しないリクエストを送信させる攻撃。被害者が認証済みのサービスに対して有害な操作（送金・設定変更等）を行わせる。CSRFトークンで防御する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">c＝現在のパスワード（攻撃者が）知り得ない</div></div></div><div class="expl-explanation">パスワード変更フォームへのCSRF対策。変更フォームに「現在のパスワード」の入力を必須にすることで、攻撃者が現在のパスワードを知らない限りCSRF経由のパスワード変更ができなくなる。</div></div>
 </div></section>
   </div>
 </main>

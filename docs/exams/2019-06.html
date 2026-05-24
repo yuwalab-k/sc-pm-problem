@@ -86,13 +86,13 @@ knmれる適切な字句を答えよ。
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問1　送信ドメイン認証（SPF・DKIM・DMARC）</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝MAIL FROM（エンベロープFrom）</div></div><div class="expl-explanation">SPFが検証する送信者アドレスはSMTPの「MAIL FROM」（エンベロープFrom）。メール表示上のFromヘッダとは別物。なりすましメール対策にはSPF・DKIM・DMARCの3つを組み合わせることが重要。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（X,Xの組み合わせ）SPF/DKIM通過・失敗の組み合わせ</div></div><div class="expl-explanation">SPFとDKIMの検証結果の組み合わせ分析。SPFはエンベロープFromのドメインのIPと送信元IPを照合。DKIMはメール本文とヘッダのハッシュを署名で検証。両方通過で正当なメールの可能性が高い。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">送信側のDNSサーバに設定されたIPアドレスとSMTP接続元のIPアドレスが一致しないから</div></div><div class="expl-explanation">SPFの検証メカニズム。メール受信サーバが送信元ドメインのSPFレコード（TXTレコード）をDNSから取得し、そこに記載されたIPアドレスと実際のSMTP接続元IPを照合する。不一致はSPF失敗。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">メール本文及びメールヘッダの改ざんの有無</div></div><div class="expl-explanation">DKIMが検証するもの。秘密鍵で署名したヘッダと本文のハッシュを公開鍵で検証することで、転送中の改ざんを検知できる。DKIMは送信者なりすましよりも転送完全性の検証に強い。</div></div>
-<div class="expl-item"><div class="expl-label">設問3</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">k＝mail.x-sha.co.jp
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">a＝MAIL FROM（エンベロープFrom）</div></div></div><div class="expl-explanation">SPFが検証する送信者アドレスはSMTPの「MAIL FROM」（エンベロープFrom）。メール表示上のFromヘッダとは別物。なりすましメール対策にはSPF・DKIM・DMARCの3つを組み合わせることが重要。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">（X,Xの組み合わせ）SPF/DKIM通過・失敗の組み合わせ</div></div></div><div class="expl-explanation">SPFとDKIMの検証結果の組み合わせ分析。SPFはエンベロープFromのドメインのIPと送信元IPを照合。DKIMはメール本文とヘッダのハッシュを署名で検証。両方通過で正当なメールの可能性が高い。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">送信側のDNSサーバに設定されたIPアドレスとSMTP接続元のIPアドレスが一致しないから</div></div></div><div class="expl-explanation">SPFの検証メカニズム。メール受信サーバが送信元ドメインのSPFレコード（TXTレコード）をDNSから取得し、そこに記載されたIPアドレスと実際のSMTP接続元IPを照合する。不一致はSPF失敗。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">メール本文及びメールヘッダの改ざんの有無</div></div></div><div class="expl-explanation">DKIMが検証するもの。秘密鍵で署名したヘッダと本文のハッシュを公開鍵で検証することで、転送中の改ざんを検知できる。DKIMは送信者なりすましよりも転送完全性の検証に強い。</div></div>
+<div class="expl-item"><div class="expl-label">設問3</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">k＝mail.x-sha.co.jp
 m＝quarantine（DMARCポリシー）
-n＝（DMARCレポート送信先）</div></div><div class="expl-explanation">DMARCの設定。quarantineポリシーは検証失敗メールをスパムフォルダに振り分ける。rejectは完全拒否。noneはモニタリングのみ。_dmarc.ドメインのTXTレコードでポリシーを設定する。</div></div>
+n＝（DMARCレポート送信先）</div></div></div><div class="expl-explanation">DMARCの設定。quarantineポリシーは検証失敗メールをスパムフォルダに振り分ける。rejectは完全拒否。noneはモニタリングのみ。_dmarc.ドメインのTXTレコードでポリシーを設定する。</div></div>
 </div></section>
   </div>
 </main>

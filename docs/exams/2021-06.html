@@ -82,7 +82,7 @@ Fさん：承知しました。</pre>
 （2） 図2中の下線①の設定にした目的を、“操作ログ”という字句を用いて25字以内で述べよ。
 1。
 ■に入れる適切な字句を、図1中の字句を（3） 表1中の用いて答えよ。
-設問2[セキュリティインシデントの発生と対応】について、（1），（2）に答えよ。
+設問2[セキュリティインシデントの発生と対応]について、（1），（2）に答えよ。
 （1） 本文中の下線②の通は、表1のどのルールによってFWログに記録されるか。表1中の項番で答えよ。
 （2） 今回のセキュリティインシデントにおいて，第三者が保守用中継サーバにSSH 接続可能だった期間は何月何日の何時何分から何月何日の何時何分までか。期間を答えよ。
 設問3[セキュリティインシデントの再発防止]について、（1）～（4）に答えよ。
@@ -96,12 +96,12 @@ e（4） 本文中のに入れる適切な字句を20字以内で答えよ。</p
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問1　SSHリモート保守のセキュリティとログ管理</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝接続先が保守用中継サーバではない</div></div><div class="expl-explanation">SSH接続のホスト検証。known_hostsファイルに登録されていないホストに接続すると警告が表示される。known_hostsを適切に管理し、中間者攻撃（Man-in-the-Middle）を検知する仕組みが重要。</div></div>
-<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">操作ログの改ざんや削除を防止するため</div></div><div class="expl-explanation">ログの完全性保護。操作ログを中継サーバでなく別の専用ログサーバに転送・保存することで、攻撃者が侵入した端末や中継サーバのログを削除・改ざんしても証跡を保全できる。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">6月14日7時0分から6月14日9時30分まで</div></div><div class="expl-explanation">不正アクセスの時間範囲特定。SSHセッションの開始・終了ログから不正操作が行われた時間帯を特定する。タイムゾーンの確認も必要（サーバのtimezoneとログのタイムゾーンが一致しているか）。</div></div>
-<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">・保守員以外が不正に秘密鍵を利用できないようにするため
-・秘密鍵が盗まれても悪用できないようにするため</div></div><div class="expl-explanation">SSH秘密鍵のパスフレーズ設定の目的。秘密鍵ファイルを盗まれた場合でも、パスフレーズを知らなければ利用できない。パスフレーズなしの秘密鍵はそのままSSHに使用できるため危険。</div></div>
-<div class="expl-item"><div class="expl-label">設問3(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">f＝送信元IPアドレスを固定にする</div></div><div class="expl-explanation">SSHアクセスの送信元IP制限。sshd_configのAllowUsersやTCPwrappers（/etc/hosts.allow）、iptablesで接続元IPを許可リストに限定する。VPN経由の固定IPが現実的な実装。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">a＝接続先が保守用中継サーバではない</div></div></div><div class="expl-explanation">SSH接続のホスト検証。known_hostsファイルに登録されていないホストに接続すると警告が表示される。known_hostsを適切に管理し、中間者攻撃（Man-in-the-Middle）を検知する仕組みが重要。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">操作ログの改ざんや削除を防止するため</div></div></div><div class="expl-explanation">ログの完全性保護。操作ログを中継サーバでなく別の専用ログサーバに転送・保存することで、攻撃者が侵入した端末や中継サーバのログを削除・改ざんしても証跡を保全できる。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">6月14日7時0分から6月14日9時30分まで</div></div></div><div class="expl-explanation">不正アクセスの時間範囲特定。SSHセッションの開始・終了ログから不正操作が行われた時間帯を特定する。タイムゾーンの確認も必要（サーバのtimezoneとログのタイムゾーンが一致しているか）。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">・保守員以外が不正に秘密鍵を利用できないようにするため
+・秘密鍵が盗まれても悪用できないようにするため</div></div></div><div class="expl-explanation">SSH秘密鍵のパスフレーズ設定の目的。秘密鍵ファイルを盗まれた場合でも、パスフレーズを知らなければ利用できない。パスフレーズなしの秘密鍵はそのままSSHに使用できるため危険。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">f＝送信元IPアドレスを固定にする</div></div></div><div class="expl-explanation">SSHアクセスの送信元IP制限。sshd_configのAllowUsersやTCPwrappers（/etc/hosts.allow）、iptablesで接続元IPを許可リストに限定する。VPN経由の固定IPが現実的な実装。</div></div>
 </div></section>
   </div>
 </main>

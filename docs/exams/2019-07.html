@@ -70,7 +70,7 @@ A）～F）の調査によって、攻撃は受けたが、情報持ち出しは
 大量の情報を持ち出す場合、次の特徴が現れる。
 ・長いホスト名をもつ DNS クエリの発生e</pre>
 <pre class="text-block">対策案は社内で承認され、対策が導入された。</pre>
-<pre class="text-block">[ISAC からの情報提供と対応】について、（1）～（4）に答えよ。
+<pre class="text-block">[ISAC からの情報提供と対応]について、（1）～（4）に答えよ。
 設問1（1） 図3中の下線①について、通信が遮断された理由を20字以内で述べよ。ここで、図1で示した2社内の機器及び攻撃グループメのC&amp;Cサーバは正常に稼働していたものとする。
 （2） 図 3 中のに入れる適切な機器を表2中の（a）～（g）から一つ選び、a記号で答えよ。
 （3） 図3 中の下線②について、情報持ち出しが成功した可能性が高いと2社が判断可能な痕跡は何か。該当する痕跡を二つ挙げ、それぞれ 30字以内で述べよ。
@@ -89,14 +89,14 @@ A）～F）の調査によって、攻撃は受けたが、情報持ち出しは
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問2　脅威インテリジェンスを活用したインシデント対応</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">プロキシ認証に失敗したから</div></div><div class="expl-explanation">マルウェアのC2通信がプロキシを迂回できなかった理由。正規ユーザのプロキシ認証情報を持たないマルウェアは、認証プロキシを経由したC2通信に失敗する。これがマルウェア検知の一つの指標になる。</div></div>
-<div class="expl-item"><div class="expl-label">設問1(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">・グローバルIPアドレスMへのHTTP通信成功のログ
-・パブリックDNSサービスLへのDNS通信成功のログ</div></div><div class="expl-explanation">マルウェアのDNSトンネリング・直接C2通信の痕跡。マルウェアがプロキシをバイパスして直接C2サーバに接続する場合、ファイアウォールやDNSサーバのログに不審な通信記録が残る。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">項番3：送信元DMZ・宛先インターネット・サービスDNS・動作許可
-権威DNSサーバ</div></div><div class="expl-explanation">DNSの適切な通信制御設計。権威DNSサーバはインターネットからのクエリに応答するため、インバウンドDNS(UDP/TCP 53)を許可する。再帰的クエリは内部キャッシュDNSのみ受け付け、権威DNSでは無効化する。</div></div>
-<div class="expl-item"><div class="expl-label">設問2(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">b＝外部DNSサーバ
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">プロキシ認証に失敗したから</div></div></div><div class="expl-explanation">マルウェアのC2通信がプロキシを迂回できなかった理由。正規ユーザのプロキシ認証情報を持たないマルウェアは、認証プロキシを経由したC2通信に失敗する。これがマルウェア検知の一つの指標になる。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">・グローバルIPアドレスMへのHTTP通信成功のログ
+・パブリックDNSサービスLへのDNS通信成功のログ</div></div></div><div class="expl-explanation">マルウェアのDNSトンネリング・直接C2通信の痕跡。マルウェアがプロキシをバイパスして直接C2サーバに接続する場合、ファイアウォールやDNSサーバのログに不審な通信記録が残る。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">項番3：送信元DMZ・宛先インターネット・サービスDNS・動作許可
+権威DNSサーバ</div></div></div><div class="expl-explanation">DNSの適切な通信制御設計。権威DNSサーバはインターネットからのクエリに応答するため、インバウンドDNS(UDP/TCP 53)を許可する。再帰的クエリは内部キャッシュDNSのみ受け付け、権威DNSでは無効化する。</div></div>
+<div class="expl-item"><div class="expl-label">設問2(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">b＝外部DNSサーバ
 c＝再帰的クエリ
-d＝特定のドメインに対する多数のDNSクエリの発生</div></div><div class="expl-explanation">DNSトンネリング検知。C2通信にDNS TXTレコードを使うマルウェアは、特定ドメインへのDNSクエリが異常に多くなる。クエリ頻度・サブドメインの長さ・ランダム性でDNSトンネリングを検知できる。</div></div>
+d＝特定のドメインに対する多数のDNSクエリの発生</div></div></div><div class="expl-explanation">DNSトンネリング検知。C2通信にDNS TXTレコードを使うマルウェアは、特定ドメインへのDNSクエリが異常に多くなる。クエリ頻度・サブドメインの長さ・ランダム性でDNSトンネリングを検知できる。</div></div>
 </div></section>
   </div>
 </main>

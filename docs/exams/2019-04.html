@@ -101,14 +101,14 @@ FW1には、FW1の製造によって安3（省略）k全性が確認された CA
 設問3 [無線LAN の脆弱性]について、（1），（2）に答えよ。
 （1） 本文中の下線②について、知ることができる理由を、30字以内で述べよ。
 （2） 本文中の下線③について、具体的な方法を、55字以内で述べよ。
-設問4[暗号モード】について，（1），（2）に答えよ。
+設問4[暗号モード]について，（1），（2）に答えよ。
 （1） 本文中の下線④について、TCPIP パケットの特徴を、40字以内で述べよ。
 ■に入れる適切な字句を、それぞれ15字（2） 本文中のC以内で答えよ。
 設問 5[未知マルウェア対策の改良]について、（1）～（3）に答えよ。
 に入れる適切な字句を、10字以内で答えよ。
 （1） 本文中の■ に入れる適切な字句を、解答群の中かh（2） 本文中のgら選び記号で答えよ。
 解答群イサブジェクトウ シーケンスアインデックスカ ホストオパスエネットワーク（3） 本文中の下線⑤について、マルウェアが窃取した情報を社外に送する方法が複数考えられる。そのうち二つを挙げ，それぞれ 35字以内で具体的に述べよ。
-[対策1と対策2の検討】について、（1）～（3）に答えよ。
+[対策1と対策2の検討]について、（1）～（3）に答えよ。
 設問6に入れる適切な字句を、20字以内で答えよ。
 （1） 図5中のに入れる適切な字句を、40字以内で述べよ。
 （2） 表5中のに入れる適切な字句を、65字以内で述べよ。
@@ -119,14 +119,14 @@ FW1には、FW1の製造によって安3（省略）k全性が確認された CA
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問1　無線LAN脆弱性と攻撃手法</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">a＝FW1
-b＝プロキシサーバ</div></div><div class="expl-explanation">ネットワーク構成の理解と攻撃経路の特定。ファイアウォールとプロキシサーバの配置を正確に把握することで、マルウェアのC2通信経路や侵入経路を特定できる。</div></div>
-<div class="expl-item"><div class="expl-label">設問2</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">削除されたファイルの内容
-手段：空きセクタの情報からファイルを復元する</div></div><div class="expl-explanation">デジタルフォレンジックによる削除ファイル復元。OSがファイルを削除してもディスクのセクタのデータは即座には消えない。ファイルシステムのメタデータ削除後も実データは残存し、フォレンジックツールで復元できる。</div></div>
-<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">MACアドレスが平文の状態で送信されるから</div></div><div class="expl-explanation">MACアドレスフィルタリングの限界。無線LANの802.11フレームのMACアドレスは暗号化されず平文で送信されるため、正規デバイスのMACアドレスを傍受・偽装（MACスプーフィング）が容易にできる。</div></div>
-<div class="expl-item"><div class="expl-label">設問3(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">端末の無線LANポートのMACアドレスを、総務部のW-APに登録済みのMACアドレスに変更する</div></div><div class="expl-explanation">MACスプーフィング攻撃。ifconfig/ip linkコマンドでMACアドレスを変更できる。正規デバイスのMACをコピーしてMACフィルタを回避する。このためMACフィルタは信頼できる認証手段ではない。</div></div>
-<div class="expl-item"><div class="expl-label">設問4(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">IPヘッダ部およびTCPヘッダ部は同一のバイト列であることが多い</div></div><div class="expl-explanation">WEPの既知平文攻撃の脆弱性。暗号化前の平文（IPヘッダ等）がある程度予測できると、XOR演算でキーストリームを復元できる。WEPのRC4は短い鍵長と弱いIV（初期化ベクトル）管理で解読可能。</div></div>
-<div class="expl-item"><div class="expl-label">設問4(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">同一の暗号ブロック（IV再利用による脆弱性）</div></div><div class="expl-explanation">ストリーム暗号のIV再利用問題。同じIVと鍵で暗号化した2つの暗号文をXORすると平文のXORが得られる。WEPはIVが24ビットと短く、大量パケットで同一IVが再利用される。WPA3まで段階的に強化された。</div></div>
+<div class="expl-item"><div class="expl-label">設問1</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">a＝FW1
+b＝プロキシサーバ</div></div></div><div class="expl-explanation">ネットワーク構成の理解と攻撃経路の特定。ファイアウォールとプロキシサーバの配置を正確に把握することで、マルウェアのC2通信経路や侵入経路を特定できる。</div></div>
+<div class="expl-item"><div class="expl-label">設問2</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">削除されたファイルの内容
+手段：空きセクタの情報からファイルを復元する</div></div></div><div class="expl-explanation">デジタルフォレンジックによる削除ファイル復元。OSがファイルを削除してもディスクのセクタのデータは即座には消えない。ファイルシステムのメタデータ削除後も実データは残存し、フォレンジックツールで復元できる。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">MACアドレスが平文の状態で送信されるから</div></div></div><div class="expl-explanation">MACアドレスフィルタリングの限界。無線LANの802.11フレームのMACアドレスは暗号化されず平文で送信されるため、正規デバイスのMACアドレスを傍受・偽装（MACスプーフィング）が容易にできる。</div></div>
+<div class="expl-item"><div class="expl-label">設問3(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">端末の無線LANポートのMACアドレスを、総務部のW-APに登録済みのMACアドレスに変更する</div></div></div><div class="expl-explanation">MACスプーフィング攻撃。ifconfig/ip linkコマンドでMACアドレスを変更できる。正規デバイスのMACをコピーしてMACフィルタを回避する。このためMACフィルタは信頼できる認証手段ではない。</div></div>
+<div class="expl-item"><div class="expl-label">設問4(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">IPヘッダ部およびTCPヘッダ部は同一のバイト列であることが多い</div></div></div><div class="expl-explanation">WEPの既知平文攻撃の脆弱性。暗号化前の平文（IPヘッダ等）がある程度予測できると、XOR演算でキーストリームを復元できる。WEPのRC4は短い鍵長と弱いIV（初期化ベクトル）管理で解読可能。</div></div>
+<div class="expl-item"><div class="expl-label">設問4(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">同一の暗号ブロック（IV再利用による脆弱性）</div></div></div><div class="expl-explanation">ストリーム暗号のIV再利用問題。同じIVと鍵で暗号化した2つの暗号文をXORすると平文のXORが得られる。WEPはIVが24ビットと短く、大量パケットで同一IVが再利用される。WPA3まで段階的に強化された。</div></div>
 </div></section>
   </div>
 </main>

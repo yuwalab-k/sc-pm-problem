@@ -52,7 +52,7 @@ M 主任は、DNS サーバの構成について、二つの案を考えた。
 <pre class="text-block">二つ目の案は、外部DNSサーバを廃止した上で、DNS-HK, DNS-S, DNS-HF というDNSサーバをX社のホスティングサービス上に新設し，プライマリの権威DNSサーバの機能を DNS-HKに，セカンダリの権威DNS サーバの機能をDNS-Sに、フルサービスリゾルバの機能を DNS-HF に移行するものである。DNS-Kと DNS-FDMZへの設置は実施しない。この案の場合、FWのフィルタリングルールを表5のように変更する必要がある。</pre>
 <pre class="text-block">表5二つ目の案の場合のFWのフィルタリングルールサービス項番送言元動作宛先DNS許可5onDNS6許可P注記項番5,6以外は、表2と同一である。</pre>
 <pre class="text-block">その後、A社では、更に検討を進め、外部DNS サーバをX社のホスティングサービスに移行することにした。</pre>
-<pre class="text-block">設問1（リスクと対策の検討】について、（1）～（7）に答えよ。
+<pre class="text-block">設問1（リスクと対策の検討]について、（1）～（7）に答えよ。
 （1） 本文中の下線①について、A社の公開 Web サーバへの影響を、30字以内で述べよ。
 （2） 本文中の下線②の攻撃の名称を 20字以内で答えよ。
 】に入れる適切な字句を解答群の中から選■b（3）表3中のaび、記号で答えよ。
@@ -73,10 +73,10 @@ e■に入れる適切な字句を解答群の中から選（7） 本文中のfg
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問2　DNSセキュリティとDNSSEC</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">A社公開WebサーバのIPアドレスの名前解決ができなくなる</div></div><div class="expl-explanation">DNS権威サーバへのDDoS攻撃の影響。権威DNSが応答不能になるとドメインの名前解決ができず、Web・メール等のサービスにアクセス不能になる。Anycast分散や複数の権威DNSで可用性を確保する。</div></div>
-<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">DNSリフレクション攻撃</div></div><div class="expl-explanation">DNSアンプリフィケーション攻撃。UDPの送信元を偽装（スプーフィング）してDNSサーバに大量のクエリを送ることで、応答を攻撃対象に集中させる。ANY/TXTレコードクエリは応答サイズが大きくなり増幅効果が高い。</div></div>
-<div class="expl-item"><div class="expl-label">設問1(5)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">d＝ランダム化（ソースポートランダム化）</div></div><div class="expl-explanation">DNSキャッシュポイズニング対策。クエリのソースポートをランダム化することで、偽応答の正解率を下げる。Transaction IDのランダム化と組み合わせることで攻撃成功の確率を大幅に低下させる。</div></div>
-<div class="expl-item"><div class="expl-label">設問1(6)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">e＝DNSSEC</div></div><div class="expl-explanation">DNSの応答を電子署名で保護する拡張仕様。RRSIG・DNSKEY・DS・NSECレコードを使って応答の完全性を検証できる。キャッシュポイズニングを根本的に防止できるが、鍵管理コストがかかる。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">A社公開WebサーバのIPアドレスの名前解決ができなくなる</div></div></div><div class="expl-explanation">DNS権威サーバへのDDoS攻撃の影響。権威DNSが応答不能になるとドメインの名前解決ができず、Web・メール等のサービスにアクセス不能になる。Anycast分散や複数の権威DNSで可用性を確保する。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">DNSリフレクション攻撃</div></div></div><div class="expl-explanation">DNSアンプリフィケーション攻撃。UDPの送信元を偽装（スプーフィング）してDNSサーバに大量のクエリを送ることで、応答を攻撃対象に集中させる。ANY/TXTレコードクエリは応答サイズが大きくなり増幅効果が高い。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(5)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">d＝ランダム化（ソースポートランダム化）</div></div></div><div class="expl-explanation">DNSキャッシュポイズニング対策。クエリのソースポートをランダム化することで、偽応答の正解率を下げる。Transaction IDのランダム化と組み合わせることで攻撃成功の確率を大幅に低下させる。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(6)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">e＝DNSSEC</div></div></div><div class="expl-explanation">DNSの応答を電子署名で保護する拡張仕様。RRSIG・DNSKEY・DS・NSECレコードを使って応答の完全性を検証できる。キャッシュポイズニングを根本的に防止できるが、鍵管理コストがかかる。</div></div>
 </div></section>
   </div>
 </main>

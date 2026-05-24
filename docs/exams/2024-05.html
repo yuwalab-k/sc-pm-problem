@@ -160,9 +160,17 @@ fe」に入れる適切な字句を答えよ。
   </div>
   <div class="answer-content" hidden>
 <section class="expl-problem"><h2 class="expl-problem-title">問1　エンドポイントセキュリティとログ分析・インシデント対応</h2><div class="expl-items">
-<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（マルウェア感染の痕跡を示すログエントリの特定）</div></div><div class="expl-explanation">EDR・Sysmonログの分析。プロセス生成（CreateProcess）・ネットワーク接続・ファイル操作のログからIOC（侵害指標）を検出する。PowerShell の難読化コマンド実行、lsass.exeへのアクセス等が典型的な痕跡。</div></div>
-<div class="expl-item"><div class="expl-label">設問2</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（ラテラルムーブメントに使われたツール・手法の特定）</div></div><div class="expl-explanation">Pass-the-Hash・Pass-the-Ticketによる横展開の検出。Windowsイベントログ（Event ID 4624：ログオン成功、4625：失敗）、SMBアクセスログ、WMI利用履歴などから攻撃の経路を追跡する。</div></div>
-<div class="expl-item"><div class="expl-label">設問3</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-text">（権限昇格・永続化に使われた手法の特定と対策）</div></div><div class="expl-explanation">Scheduled Task/Service登録・レジストリRun キー・DLL側面読み込みなどによる永続化の痕跡をログから特定する。MITRE ATT&amp;CKフレームワークのPersistenceカテゴリが参考になる。</div></div>
+<div class="expl-item"><div class="expl-label">設問1(1)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">PC-C</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問1(2)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">filesv</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問1(3)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">ad01¥user019</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問1(4)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">無効化</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問1(5)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">すべてのドメインユーザーに対して、https://△△△.com/、https://□□□.com/及びhttps://〇〇〇.com/を管理者拒否リストに登録する。</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問1(6)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">https://〇〇〇.com/、https://△△△.com/又はhttps://□□□.com/に通信したL社ホストがないか調査する。</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問1(7)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">タスク名がinstallであるタスクが登録されているL社内ホストがないか調査する。</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問1(8)</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">マルウェア対策サービスのログから、マルウェア対策ソフトが停止したL社内ホストを検出する。
+ドメインサーバのログから、RDP接続を繰り返しているL社内ホストを検出する</div></div></div><div class="expl-explanation"></div></div>
+<div class="expl-item"><div class="expl-label">設問2</div><div class="expl-answer-box"><span class="expl-answer-tag">解答例</span><div class="expl-answer-content"><div class="expl-answer-text">a＝仮想PCへのRDP接続に対して、IPアドレスによる接続元制限を行う
+f＝L社内にDLPを導入し、ファイルの持出しを制限する</div></div></div><div class="expl-explanation"></div></div>
 </div></section>
   </div>
 </main>
